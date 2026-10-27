@@ -1,4 +1,5 @@
 {
+  "version": "4",
   "schemaVersion": 3,
   "name": "VIPER 도시별 16개 프로필 · 자동수락 설정 일치 V4.1",
   "targetPackage": "*",
