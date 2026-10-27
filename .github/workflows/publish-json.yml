@@ -1,0 +1,104 @@
+name: Publish JSON catalog to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Generate catalog and publishable files
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          from urllib.parse import quote
+
+          root = Path.cwd()
+          output = root / '_site'
+          output.mkdir(exist_ok=True)
+          owner, repo = os.environ['GITHUB_REPOSITORY'].split('/', 1)
+          base_url = f'https://{owner.lower()}.github.io/{repo}/'
+          items = []
+
+          for file in sorted(root.rglob('*.json')):
+              rel = file.relative_to(root)
+              if any(part.startswith('.') or part == '_site' for part in rel.parts):
+                  continue
+              if file.name.lower() == 'catalog.json' or file.is_symlink():
+                  continue
+
+              data_bytes = file.read_bytes()
+              try:
+                  obj = json.loads(data_bytes.decode('utf-8-sig'))
+              except (UnicodeDecodeError, json.JSONDecodeError) as error:
+                  print(f'Skipping invalid JSON: {rel} ({error})')
+                  continue
+
+              def get_text(*keys, default=''):
+                  if isinstance(obj, dict):
+                      for key in keys:
+                          value = obj.get(key)
+                          if isinstance(value, (str, int, float)) and str(value).strip():
+                              return str(value).strip()
+                  return default
+
+              dest = output / rel
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              dest.write_bytes(data_bytes)
+              items.append({
+                  'id': rel.as_posix(),
+                  'name': get_text('name', 'macroName', 'profileName', 'title', default=file.stem),
+                  'description': get_text('description', 'summary'),
+                  'version': get_text('version', 'schemaVersion', default='1'),
+                  'category': rel.parent.as_posix() if rel.parent != Path('.') else '전체',
+                  'url': base_url + quote(rel.as_posix(), safe='/'),
+                  'sha256': hashlib.sha256(data_bytes).hexdigest()
+              })
+
+          catalog = {'catalogVersion': 1, 'repository': f'{owner}/{repo}', 'items': items}
+          (output / 'catalog.json').write_text(
+              json.dumps(catalog, ensure_ascii=False, indent=2), encoding='utf-8'
+          )
+          (output / 'index.html').write_text(
+              '<!doctype html><html lang="ko"><meta charset="utf-8">'
+              '<title>JSON Macro Library</title>'
+              '<body><h1>JSON Macro Library</h1>'
+              '<p>Published JSON files: ' + str(len(items)) + '</p>'
+              '<p><a href="catalog.json">Open catalog.json</a></p></body></html>',
+              encoding='utf-8'
+          )
+          print(f'Published {len(items)} valid JSON file(s).')
+          PY
+
+      - name: Upload GitHub Pages files
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
