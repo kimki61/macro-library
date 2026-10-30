@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "VIPER R34 범용 엔진 · 외부 업무 프리셋 (16개 프로필)",
+  "name": "대리운전용 매크로(도시별 16개 프로필 포함)",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
