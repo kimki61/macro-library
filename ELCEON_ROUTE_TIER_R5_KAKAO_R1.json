@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "대리 매크로 (프로필 16개 포함)",
+  "name": "대리 매크로 (카카오·콜마너1~3·로지D1~3 / 16개 프로필 포함 · 설명 및 간결 설정)",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
@@ -27,21 +27,25 @@
     "components": [
       {
         "type": "group",
-        "label": "기존 VIPER 프로필 관리 (매크로별 독립)"
+        "label": "기존 VIPER 프로필 관리 (매크로별 독립)",
+        "help": "각 매크로는 자체 프로필 목록을 사용합니다. 프로필을 바꾸면 해당 매크로가 연결된 슬롯의 조건이 함께 적용됩니다."
       },
       {
         "type": "profileManager",
-        "label": "프로필 관리"
+        "label": "프로필 관리",
+        "help": "기존 프로필을 전환·추가·삭제합니다. 프로필별 키워드·제한값·실행 방식은 독립적으로 저장됩니다. 다른 프로필을 선택하기 전에 현재 수정값을 저장합니다."
       },
       {
         "type": "group",
-        "label": "도착지 키워드 그룹 · 색상 표시 · 기준값 · 실행 모드"
+        "label": "도착지 키워드 그룹 · 색상 표시 · 기준값 · 실행 모드",
+        "help": "인식 키워드와 금액·효율·최대 거리 기준을 한 그룹씩 설정합니다. OFF 그룹은 자동 실행 대상이 아닙니다."
       },
       {
         "type": "switch",
         "id": "show_matching_rows",
         "label": "조건에 맞는 항목 카드를 그룹 색상으로 강조",
-        "default": true
+        "default": true,
+        "help": "선택한 그룹과 일치하는 화면 항목을 해당 그룹 색으로 구분합니다. 색상 강조는 자동 실행 여부와 별개입니다."
       },
       {
         "type": "colorGroupManager",
@@ -49,52 +53,106 @@
         "label": "그룹별 조건 · 색상 · 범위 · 실행 모드",
         "default": [],
         "fieldLabels": {
-          "keywords": "도착지 지역 이름 (예: 옥정, 덕계)",
-          "minimum_value": "최소 콜 금액 (원)",
-          "increment_per_unit": "거리 1km당 추가 금액 (원)",
-          "minimum_rate": "최소 시간당 수익 (원)",
-          "maximum_measure": "출발지까지 최대 거리 (km)"
+          "keywords": "인식할 지역명",
+          "minimum_value": "최소 금액",
+          "increment_per_unit": "거리 1km당 추가 금액",
+          "minimum_rate": "최소 시간당 수익",
+          "maximum_measure": "출발지까지 최대거리",
+          "mode": "실행 방식",
+          "excluded_keywords": "금지어 (쉼표 또는 줄바꿈)"
+        },
+        "help": "색상 그룹별 인식어·금액·거리·시간 기준을 관리합니다. 그룹별 실행 방식이 ‘끄기’면 해당 그룹은 자동 선택되지 않습니다.",
+        "fieldRows": [
+          [
+            "minimum_value",
+            "increment_per_unit"
+          ],
+          [
+            "minimum_rate",
+            "maximum_measure"
+          ]
+        ],
+        "fieldHelp": {
+          "keywords": "쉼표 또는 줄바꿈으로 여러 지역명을 입력합니다. 실제 화면에서 해당 이름과 일치하는 항목에 이 그룹의 조건을 적용합니다.",
+          "minimum_value": "이 그룹에서 허용할 기본 최소 금액입니다. 거리 증가에 따른 추가 금액이 설정되어 있다면 계산된 기준과 함께 판단합니다.",
+          "increment_per_unit": "거리 1km마다 기본 금액에 더할 금액입니다. 예: 최소 금액 12,000원, 1km당 2,000원이라면 3km 기준은 18,000원입니다. 실제 적용은 연결된 JSON 평가 규칙에 따릅니다.",
+          "minimum_rate": "이 그룹에서 요구하는 시간당 최소 수익입니다. 금액과 소요시간으로 계산된 효율이 기준 미만이면 제외합니다. 0은 해당 제한을 적용하지 않는 설정입니다.",
+          "maximum_measure": "출발지까지 허용할 최대 거리(km)입니다. 거리가 이 값을 초과하는 후보는 제외합니다. 분할 선택 시 입력하는 임시 최대 거리와 함께 제한될 수 있습니다.",
+          "mode": "끄기: 자동 선택하지 않습니다. 반자동: 상세 확인 등 일부 동작에서 수동 확인이 필요합니다. 자동: 모든 안전 조건을 만족하면 자동 실행합니다.",
+          "name": "사용자가 구분하기 쉬운 그룹 이름입니다. 매크로 인식 조건에는 그룹의 키워드와 실행 방식이 사용됩니다.",
+          "color": "일치한 항목에 강조 표시할 색상을 정합니다. 색상 자체가 우선순위나 자동 실행 여부를 바꾸지는 않습니다."
         }
       },
       {
         "type": "group",
-        "label": "슬롯 동작 설정"
+        "label": "슬롯 동작 설정",
+        "help": "프로필의 부가 동작과 화면 표시를 조절합니다. 목록 선택과 최종 실행은 ELCEON 전체 ON 상태에서 별도 설정 없이 활성화됩니다."
       },
       {
         "type": "switch",
-        "id": "split_auto_row_select",
-        "label": "목록 항목 자동 선택",
-        "default": true
+        "id": "slot_mode_override_enabled",
+        "label": "분할 화면별 실행 모드 사용 (기본 OFF)",
+        "default": false,
+        "help": "분할 슬롯마다 실행 방식을 별도 지정합니다. 그룹이 ‘끄기’인 경우 슬롯을 자동으로 설정해도 해당 그룹을 실행하지 않습니다."
       },
       {
         "type": "switch",
-        "id": "split_auto_accept",
-        "label": "최종 동작 자동 실행",
-        "default": true
+        "id": "split_show_hourly",
+        "label": "분할 화면 시간당 효율 표시 (기본 ON)",
+        "default": true,
+        "help": "분할 화면에 후보의 시간당 효율 지표를 표시합니다. 끄더라도 기존 판정 기준과 금액 조건은 유지됩니다."
       },
       {
         "type": "switch",
         "id": "split_restore_on_close",
         "label": "상세 화면 닫기 후 기존 분할로 복귀",
-        "default": true
+        "default": true,
+        "help": "상세 화면에서 돌아왔을 때 원래 분할 화면으로 복귀하도록 요청합니다. 앱 자체의 화면 제한에 따라 복귀가 불가능할 수 있습니다."
       },
       {
         "type": "group",
-        "label": "이동시간 및 우선순위"
+        "label": "이동시간 및 우선순위",
+        "help": "시간 계산에 사용할 값과 우선 지역을 설정합니다."
       },
       {
         "type": "number",
         "id": "travel_minutes_per_km",
         "label": "1km당 이동시간(분)",
-        "default": 0
+        "default": 0,
+        "help": "이동 경로 계산에 사용하는 1km당 평균 소요시간(분)입니다. 입력한 값이 필요한 정책에만 반영됩니다."
       },
       {
         "type": "text",
         "id": "priority_names",
         "label": "우선순위 지역명",
-        "default": ""
+        "default": "",
+        "help": "상대적으로 우선 확인할 지역명을 쉼표로 구분해 입력합니다. 세부 우선 적용은 매크로의 규칙 JSON에 따릅니다."
       }
-    ]
+    ],
+    "profileUiText": {
+      "priorityTitle": "최우선 지역명",
+      "priorityToggle": "최우선 지역 사용 (기본 OFF)",
+      "priorityHelp": "ON일 때 이 지역을 일반 지역보다 먼저 선택합니다. 금액·시간당 효율은 선택 순위에 반영하지 않고, 입력한 출발지까지 최대 거리만 확인합니다. 금지어·OFF 지역·수락 안전 검증은 그대로 적용합니다.",
+      "priorityKeywordsLabel": "최우선 지역명 (쉼표 또는 줄바꿈)",
+      "priorityDistanceLabel": "최우선 지역 최대 거리 (km)",
+      "priorityRequired": "우선순위 지역 사용 시 지역명을 입력하세요.",
+      "openRuleTitle": "지역명 없이 조건으로 선택",
+      "openRuleToggle": "지역명 없는 콜도 조건으로 선택 (기본 OFF)",
+      "openRuleHelp": "어떤 지역 그룹과도 일치하지 않는 도착지만 대상으로 합니다. 금지어·OFF 그룹은 제외하고 금액·시간당 효율·최대 거리를 모두 검사합니다.",
+      "openRuleMinimumValue": "최소 콜 금액 (원)",
+      "openRuleMinimumRate": "최소 시간당 효율 (원)",
+      "openRuleMaximumDistance": "출발지까지 최대 거리 (km)",
+      "excludeLabel": "금지어 (쉼표 또는 줄바꿈)",
+      "excludeHelp": "금지어가 포함된 도착지는 선택하지 않습니다. 신곡아파트와 신곡 아파트를 같은 표현으로 판정합니다. OFF 그룹의 금지어는 적용하지 않습니다."
+    },
+    "help": "프로필별 조건과 화면 표시를 편집합니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
+    "staticHelp": {
+      "auto_selection_speed": "목록을 선택한 뒤 상세 동작으로 넘어가는 대기시간을 조절합니다. 너무 짧으면 화면 전환 중 중복 입력 위험이 있으므로 안정성을 확인하며 조절하세요.",
+      "show_enabled": "화면에서 자동 강조 표시 기능을 보이게 할지 결정합니다. 전체 자동 실행 ON/OFF와 별개입니다.",
+      "show_issue_log": "분할 화면에서 오류 기록 버튼을 표시합니다. 기록 파일에는 설정된 진단 정보가 포함될 수 있습니다.",
+      "show_capture": "분할 화면에서 화면 수집 버튼을 표시합니다. 앱 화면 수집 시 민감한 화면 정보를 주의하세요.",
+      "show_fps": "분할 화면에 갱신 속도(FPS) 진단 수치를 표시합니다. 필요하지 않으면 끄는 것을 권장합니다."
+    }
   },
   "windowAdapters": [
     {
@@ -135,7 +193,67 @@
     },
     {
       "enabled": true,
+      "packageName": "com.logisoft.Logi5",
+      "displayMetric": {
+        "enabled": true,
+        "maximumValue": 1000000,
+        "maximumMeasure": 100,
+        "maximumDuration": 1440,
+        "periodMultiplier": 60,
+        "suffix": "단위/시간"
+      }
+    },
+    {
+      "enabled": true,
+      "packageName": "com.logisoft.Logi6",
+      "displayMetric": {
+        "enabled": true,
+        "maximumValue": 1000000,
+        "maximumMeasure": 100,
+        "maximumDuration": 1440,
+        "periodMultiplier": 60,
+        "suffix": "단위/시간"
+      }
+    },
+    {
+      "enabled": true,
       "packageName": "com.callmanerdriver2sharp1",
+      "displayMetric": {
+        "enabled": true,
+        "maximumValue": 1000000,
+        "maximumMeasure": 100,
+        "maximumDuration": 1440,
+        "periodMultiplier": 60,
+        "suffix": "단위/시간"
+      }
+    },
+    {
+      "enabled": true,
+      "packageName": "com.callmanerdriver2sharp2",
+      "displayMetric": {
+        "enabled": true,
+        "maximumValue": 1000000,
+        "maximumMeasure": 100,
+        "maximumDuration": 1440,
+        "periodMultiplier": 60,
+        "suffix": "단위/시간"
+      }
+    },
+    {
+      "enabled": true,
+      "packageName": "com.callmanerdriver2sharp3",
+      "displayMetric": {
+        "enabled": true,
+        "maximumValue": 1000000,
+        "maximumMeasure": 100,
+        "maximumDuration": 1440,
+        "periodMultiplier": 60,
+        "suffix": "단위/시간"
+      }
+    },
+    {
+      "enabled": true,
+      "packageName": "com.callmanerdriver2sharp4",
       "displayMetric": {
         "enabled": true,
         "maximumValue": 1000000,
@@ -230,7 +348,12 @@
       "dev.viperlab.ninjamock.tmap": "콜 수락하기",
       "dev.viperlab.ninjamock.logi": "배차받기",
       "dev.viperlab.ninjamock.callmaner": "수락",
-      "dev.viperlab.ninjamock.idriver": "배   차"
+      "dev.viperlab.ninjamock.idriver": "배   차",
+      "com.callmanerdriver2sharp2": "수락",
+      "com.callmanerdriver2sharp3": "수락",
+      "com.logisoft.Logi5": "배차받기",
+      "com.logisoft.Logi6": "배차받기",
+      "com.callmanerdriver2sharp4": "수락"
     },
     "afterSuccess": {
       "enabled": true,
@@ -693,25 +816,26 @@
         },
         "com.logisoft.Logi4": {
           "enabled": true,
-          "minMatches": 2,
+          "minMatches": 3,
           "markers": [
-            "정산",
             "자동배차중",
-            "오더 배차 완료",
-            "즉시출발",
-            "우선배차",
-            "선착순",
-            "예약배차"
+            "오더",
+            "배차",
+            "완료",
+            "출발지",
+            "도착지",
+            "거리"
           ],
           "layoutId": "C",
           "listReturnAnyOf": [
             [
-              "정산",
-              "오더배차완료"
+              "오더",
+              "자동배차중"
             ],
             [
-              "정산",
-              "자동배차중"
+              "오더",
+              "출발지",
+              "도착지"
             ]
           ],
           "acceptButtonAliases": [
@@ -727,39 +851,43 @@
             "mode": "prefixed",
             "anchor": {
               "format": "decimal",
-              "maxXPx": 100,
-              "minTop": 380,
+              "maxXPx": 140,
+              "minTop": 220,
               "maxTop": 1900
             },
-            "maxHeight": 156,
+            "maxHeight": 123,
             "endFallback": 2102,
+            "startShift": 0,
+            "nextShift": -2,
+            "footerText": "근처 기사님수",
             "classification": {
               "mode": "notes",
               "reservedContains": [
                 "예약배차",
-                "예약"
+                "예약",
+                "시간 후"
               ]
             },
             "fields": {
               "source": {
-                "minDY": -200,
-                "maxDY": 500,
-                "minXPx": 90,
-                "maxXPx": 634
+                "minDY": 0,
+                "maxDY": 122,
+                "minXPx": 140,
+                "maxXPx": 680
               },
               "destination": {
-                "minDY": -200,
-                "maxDY": 500,
-                "minXPx": 634
+                "minDY": 0,
+                "maxDY": 122,
+                "minXPx": 680
               }
             },
             "amount": {
-              "prefixRegex": "^\\s*(\\d{1,3})\\s*[ⓚⓀKkＫ]\\s*(.*)$",
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
               "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
               "multiplier": 1000,
               "rawSuffix": "ⓚ"
             },
-            "statusRegex": "^(?:즉시출발|예약|우선배차|자동배차|선착순|예약배차|대기|빠른배차|배차)(?:\\s|\\b|\\s*[/|])|^\\s*/.*(?:현금|카드)",
+            "statusRegex": "^(?:즉시출발|즉후|예약배차|예약|우선배차|자동배차|선착순|대기|빠른배차|배차)(?:\\s|\\b|\\s*[/|])|^\\s*/.*(?:현금|카드)",
             "paymentLabels": [
               "현금",
               "카드",
@@ -987,28 +1115,31 @@
               ],
               "tieBreaker": "shortestRoadDistance"
             }
+          },
+          "structuralListDetection": {
+            "enabled": true,
+            "minCompleteRows": 1,
+            "rejectAcceptControls": true
           }
         },
         "com.callmanerdriver2sharp1": {
           "enabled": true,
           "minMatches": 2,
           "markers": [
-            "일반설정",
-            "예상시간",
-            "대리",
-            "후불",
-            "선불",
-            "이체"
+            "위치",
+            "요금",
+            "일반 설정",
+            "km"
           ],
           "layoutId": "D",
           "listReturnAnyOf": [
             [
-              "일반설정",
-              "대리"
+              "요금",
+              "일반설정"
             ],
             [
-              "일반설정",
-              "예상시간"
+              "위치",
+              "요금"
             ]
           ],
           "acceptButtonAliases": [
@@ -1019,41 +1150,52 @@
           "hasEta": true,
           "rowExtraction": {
             "version": 1,
-            "mode": "delimited",
+            "mode": "columns",
             "anchor": {
               "format": "decimal",
-              "maxXPx": 100,
-              "minTop": 480,
+              "maxXRatio": 0.13,
+              "minTop": 275,
               "maxTop": 1900
             },
-            "maxHeight": 177,
+            "maxHeight": 159,
             "endFallback": 2102,
+            "startShift": -8,
+            "nextShift": -6,
             "classification": {
               "mode": "normal"
             },
             "fields": {
-              "amount": {
-                "minDY": -200,
-                "maxDY": 84,
-                "minXPx": 88,
-                "maxXPx": 356,
-                "textRegex": "^([가-힣]{1,6})\\s*(\\d{1,3})\\s*[KkⓚⓀ]$"
+              "pickup": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
               },
-              "address": {
-                "minDY": -200,
-                "maxDY": 500,
-                "minXPx": 320
+              "destination": {
+                "minDY": 56,
+                "maxDY": 115,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
+              },
+              "amount": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.075,
+                "maxXRatio": 0.26,
+                "textRegex": "^[^\\r\\n]{1,26}[KkⓚⓀ]$"
               },
               "eta": {
-                "minDY": 85,
-                "maxDY": 164,
-                "maxXPx": 110,
+                "minDY": 56,
+                "maxDY": 115,
+                "maxXRatio": 0.13,
                 "textRegex": "^\\s*\\d{1,3}\\s*분\\s*$",
                 "capturePattern": "(\\d{1,3})\\s*분"
               }
             },
             "amount": {
-              "pattern": "^([가-힣]{1,6})\\s*(\\d{1,3})\\s*[KkⓚⓀ]$",
+              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
               "allowedLabels": [
                 "현금",
                 "후불",
@@ -1063,9 +1205,6 @@
               ],
               "multiplier": 1000
             },
-            "delimiter": ">",
-            "datedPrefixRegex": "^\\s*(.{1,30}?/\\s*\\d{1,2}[./]\\d{1,2}[^/]{0,25}?\\d{1,2}:\\d{2})\\s*/\\s*(.+)$",
-            "dateIndicatorRegex": "\\d{1,2}[./]\\d{1,2}[^/]{0,25}?\\d{1,2}:\\d{2}",
             "requiredFields": [
               "pickup",
               "destination",
@@ -1168,6 +1307,11 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "structuralListDetection": {
+            "enabled": true,
+            "minCompleteRows": 1,
+            "rejectAcceptControls": true
           }
         },
         "dev.viperlab.ninjamock.securetmap": {
@@ -2363,20 +2507,1217 @@
             "conditions": [],
             "excludeScoreMetrics": []
           }
+        },
+        "com.callmanerdriver2sharp2": {
+          "enabled": true,
+          "minMatches": 2,
+          "markers": [
+            "위치",
+            "요금",
+            "일반 설정",
+            "km"
+          ],
+          "layoutId": "D",
+          "listReturnAnyOf": [
+            [
+              "요금",
+              "일반설정"
+            ],
+            [
+              "위치",
+              "요금"
+            ]
+          ],
+          "acceptButtonAliases": [
+            "수락",
+            "콜수락",
+            "콜수락하기"
+          ],
+          "hasEta": true,
+          "rowExtraction": {
+            "version": 1,
+            "mode": "columns",
+            "anchor": {
+              "format": "decimal",
+              "maxXRatio": 0.13,
+              "minTop": 275,
+              "maxTop": 1900
+            },
+            "maxHeight": 159,
+            "endFallback": 2102,
+            "startShift": -8,
+            "nextShift": -6,
+            "classification": {
+              "mode": "normal"
+            },
+            "fields": {
+              "pickup": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
+              },
+              "destination": {
+                "minDY": 56,
+                "maxDY": 115,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
+              },
+              "amount": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.075,
+                "maxXRatio": 0.26,
+                "textRegex": "^[^\\r\\n]{1,26}[KkⓚⓀ]$"
+              },
+              "eta": {
+                "minDY": 56,
+                "maxDY": 115,
+                "maxXRatio": 0.13,
+                "textRegex": "^\\s*\\d{1,3}\\s*분\\s*$",
+                "capturePattern": "(\\d{1,3})\\s*분"
+              }
+            },
+            "amount": {
+              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
+              "allowedLabels": [
+                "현금",
+                "후불",
+                "카드",
+                "선불",
+                "이체"
+              ],
+              "multiplier": 1000
+            },
+            "requiredFields": [
+              "pickup",
+              "destination",
+              "amount",
+              "distance"
+            ]
+          },
+          "selectionRules": {
+            "version": 1,
+            "enabled": true,
+            "allowedPhases": [
+              "ROW",
+              "ACCEPT"
+            ],
+            "acceptText": "수락",
+            "conditions": [
+              {
+                "field": "kind",
+                "op": "eq",
+                "value": "normal"
+              },
+              {
+                "field": "value",
+                "op": "gte",
+                "value": 1000
+              },
+              {
+                "field": "measure",
+                "op": "gte",
+                "value": 0
+              }
+            ],
+            "excludeScoreMetrics": []
+          },
+          "readOnlyValidation": {
+            "version": 1,
+            "requireNormal": true,
+            "requireComplete": true,
+            "requireNoIssues": true,
+            "requiredTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "distinctTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "requiredNumericFields": [
+              "value",
+              "measure"
+            ],
+            "confidence": {
+              "field": "amountConfidence",
+              "allowed": [
+                "COMMA_DIGITS",
+                "PREFIX_SYMBOL_CONFIRMED",
+                "PAYMENT_LABEL_AND_K_CONFIRMED"
+              ]
+            },
+            "unresolvedCandidateField": "amountCandidateWon",
+            "numericRanges": [
+              {
+                "field": "value",
+                "min": 1000
+              },
+              {
+                "field": "measure",
+                "min": 0,
+                "max": 999
+              }
+            ],
+            "requireBounds": true
+          },
+          "v15ReadOnlyInput": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "durationField": "duration",
+            "minimumValue": 1000,
+            "minimumMeasure": 0,
+            "requireValue": true,
+            "requireMeasure": true,
+            "requireBothTexts": true,
+            "requireDistinctTexts": true,
+            "maximumDuration": 1440
+          },
+          "v16Eligibility": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "textField": "secondText",
+            "minimumValue": 1000,
+            "minimumMeasure": 0
+          },
+          "v16RowIdentity": {
+            "version": 1,
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "valueField": "value",
+            "measureField": "measure"
+          },
+          "structuralListDetection": {
+            "enabled": true,
+            "minCompleteRows": 1,
+            "rejectAcceptControls": true
+          }
+        },
+        "com.callmanerdriver2sharp3": {
+          "enabled": true,
+          "minMatches": 2,
+          "markers": [
+            "위치",
+            "요금",
+            "일반 설정",
+            "km"
+          ],
+          "layoutId": "D",
+          "listReturnAnyOf": [
+            [
+              "요금",
+              "일반설정"
+            ],
+            [
+              "위치",
+              "요금"
+            ]
+          ],
+          "acceptButtonAliases": [
+            "수락",
+            "콜수락",
+            "콜수락하기"
+          ],
+          "hasEta": true,
+          "rowExtraction": {
+            "version": 1,
+            "mode": "columns",
+            "anchor": {
+              "format": "decimal",
+              "maxXRatio": 0.13,
+              "minTop": 275,
+              "maxTop": 1900
+            },
+            "maxHeight": 159,
+            "endFallback": 2102,
+            "startShift": -8,
+            "nextShift": -6,
+            "classification": {
+              "mode": "normal"
+            },
+            "fields": {
+              "pickup": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
+              },
+              "destination": {
+                "minDY": 56,
+                "maxDY": 115,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
+              },
+              "amount": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.075,
+                "maxXRatio": 0.26,
+                "textRegex": "^[^\\r\\n]{1,26}[KkⓚⓀ]$"
+              },
+              "eta": {
+                "minDY": 56,
+                "maxDY": 115,
+                "maxXRatio": 0.13,
+                "textRegex": "^\\s*\\d{1,3}\\s*분\\s*$",
+                "capturePattern": "(\\d{1,3})\\s*분"
+              }
+            },
+            "amount": {
+              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
+              "allowedLabels": [
+                "현금",
+                "후불",
+                "카드",
+                "선불",
+                "이체"
+              ],
+              "multiplier": 1000
+            },
+            "requiredFields": [
+              "pickup",
+              "destination",
+              "amount",
+              "distance"
+            ]
+          },
+          "selectionRules": {
+            "version": 1,
+            "enabled": true,
+            "allowedPhases": [
+              "ROW",
+              "ACCEPT"
+            ],
+            "acceptText": "수락",
+            "conditions": [
+              {
+                "field": "kind",
+                "op": "eq",
+                "value": "normal"
+              },
+              {
+                "field": "value",
+                "op": "gte",
+                "value": 1000
+              },
+              {
+                "field": "measure",
+                "op": "gte",
+                "value": 0
+              }
+            ],
+            "excludeScoreMetrics": []
+          },
+          "readOnlyValidation": {
+            "version": 1,
+            "requireNormal": true,
+            "requireComplete": true,
+            "requireNoIssues": true,
+            "requiredTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "distinctTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "requiredNumericFields": [
+              "value",
+              "measure"
+            ],
+            "confidence": {
+              "field": "amountConfidence",
+              "allowed": [
+                "COMMA_DIGITS",
+                "PREFIX_SYMBOL_CONFIRMED",
+                "PAYMENT_LABEL_AND_K_CONFIRMED"
+              ]
+            },
+            "unresolvedCandidateField": "amountCandidateWon",
+            "numericRanges": [
+              {
+                "field": "value",
+                "min": 1000
+              },
+              {
+                "field": "measure",
+                "min": 0,
+                "max": 999
+              }
+            ],
+            "requireBounds": true
+          },
+          "v15ReadOnlyInput": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "durationField": "duration",
+            "minimumValue": 1000,
+            "minimumMeasure": 0,
+            "requireValue": true,
+            "requireMeasure": true,
+            "requireBothTexts": true,
+            "requireDistinctTexts": true,
+            "maximumDuration": 1440
+          },
+          "v16Eligibility": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "textField": "secondText",
+            "minimumValue": 1000,
+            "minimumMeasure": 0
+          },
+          "v16RowIdentity": {
+            "version": 1,
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "valueField": "value",
+            "measureField": "measure"
+          },
+          "structuralListDetection": {
+            "enabled": true,
+            "minCompleteRows": 1,
+            "rejectAcceptControls": true
+          }
+        },
+        "com.logisoft.Logi5": {
+          "enabled": true,
+          "minMatches": 3,
+          "markers": [
+            "자동배차중",
+            "오더",
+            "배차",
+            "완료",
+            "출발지",
+            "도착지",
+            "거리"
+          ],
+          "layoutId": "C",
+          "listReturnAnyOf": [
+            [
+              "오더",
+              "자동배차중"
+            ],
+            [
+              "오더",
+              "출발지",
+              "도착지"
+            ]
+          ],
+          "acceptButtonAliases": [
+            "배차받기",
+            "콜수락",
+            "수락"
+          ],
+          "hasEta": false,
+          "statusPattern": "^(?:즉시출발|예약|우선배차|자동배차|선착순|예약배차|대기|빠른배차|배차)(?:\\s|\\b|\\s*[/|])",
+          "reservationStatusMarker": "예약배차",
+          "rowExtraction": {
+            "version": 1,
+            "mode": "prefixed",
+            "anchor": {
+              "format": "decimal",
+              "maxXPx": 140,
+              "minTop": 220,
+              "maxTop": 1900
+            },
+            "maxHeight": 123,
+            "endFallback": 2102,
+            "startShift": 0,
+            "nextShift": -2,
+            "footerText": "근처 기사님수",
+            "classification": {
+              "mode": "notes",
+              "reservedContains": [
+                "예약배차",
+                "예약",
+                "시간 후"
+              ]
+            },
+            "fields": {
+              "source": {
+                "minDY": 0,
+                "maxDY": 122,
+                "minXPx": 140,
+                "maxXPx": 680
+              },
+              "destination": {
+                "minDY": 0,
+                "maxDY": 122,
+                "minXPx": 680
+              }
+            },
+            "amount": {
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
+              "multiplier": 1000,
+              "rawSuffix": "ⓚ"
+            },
+            "statusRegex": "^(?:즉시출발|즉후|예약배차|예약|우선배차|자동배차|선착순|대기|빠른배차|배차)(?:\\s|\\b|\\s*[/|])|^\\s*/.*(?:현금|카드)",
+            "paymentLabels": [
+              "현금",
+              "카드",
+              "후불"
+            ],
+            "requiredFields": [
+              "pickup",
+              "destination",
+              "amount",
+              "distance"
+            ]
+          },
+          "selectionRules": {
+            "version": 1,
+            "enabled": true,
+            "allowedPhases": [
+              "ROW",
+              "ACCEPT"
+            ],
+            "acceptText": "배차받기",
+            "conditions": [
+              {
+                "field": "kind",
+                "op": "eq",
+                "value": "normal"
+              },
+              {
+                "field": "value",
+                "op": "gte",
+                "value": 1000
+              },
+              {
+                "field": "measure",
+                "op": "gte",
+                "value": 0
+              }
+            ],
+            "excludeScoreMetrics": []
+          },
+          "readOnlyValidation": {
+            "version": 1,
+            "requireNormal": true,
+            "requireComplete": true,
+            "requireNoIssues": true,
+            "requiredTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "distinctTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "requiredNumericFields": [
+              "value",
+              "measure"
+            ],
+            "confidence": {
+              "field": "amountConfidence",
+              "allowed": [
+                "COMMA_DIGITS",
+                "PREFIX_SYMBOL_CONFIRMED",
+                "PAYMENT_LABEL_AND_K_CONFIRMED"
+              ]
+            },
+            "unresolvedCandidateField": "amountCandidateWon",
+            "numericRanges": [
+              {
+                "field": "value",
+                "min": 1000
+              },
+              {
+                "field": "measure",
+                "min": 0,
+                "max": 999
+              }
+            ],
+            "requireBounds": true
+          },
+          "v15ReadOnlyInput": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "durationField": "duration",
+            "minimumValue": 1000,
+            "minimumMeasure": 0,
+            "requireValue": true,
+            "requireMeasure": true,
+            "requireBothTexts": true,
+            "requireDistinctTexts": true,
+            "maximumDuration": 1440
+          },
+          "v16Eligibility": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "textField": "secondText",
+            "minimumValue": 1000,
+            "minimumMeasure": 0
+          },
+          "v16RowIdentity": {
+            "version": 1,
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "valueField": "value",
+            "measureField": "measure"
+          },
+          "routeMatrix": {
+            "version": 1,
+            "enabled": true,
+            "enabledPackages": [
+              "com.logisoft.Logi4",
+              "dev.viperlab.ninjamock.logi"
+            ],
+            "useAsDurationFallback": true,
+            "splitOriginField": "firstText",
+            "splitDestinationField": "secondText",
+            "aliases": [
+              {
+                "contains": "양재동 시민의숲",
+                "regionCode": "11220670"
+              },
+              {
+                "contains": "반포동 센트럴시티",
+                "regionCode": "11220600"
+              },
+              {
+                "contains": "압구정동 현대백화점",
+                "regionCode": "11230770"
+              },
+              {
+                "contains": "성수동 서울숲역",
+                "regionCode": "11040650"
+              },
+              {
+                "contains": "반포동 서래마을",
+                "regionCode": "11220600"
+              },
+              {
+                "contains": "서울 용산구 한남동",
+                "regionCode": "11030740"
+              },
+              {
+                "contains": "용산동 삼각지역",
+                "regionCode": "11030730"
+              },
+              {
+                "contains": "서울 마포구 공덕동",
+                "regionCode": "11140770"
+              },
+              {
+                "contains": "여의도동 IFC몰",
+                "regionCode": "11190540"
+              },
+              {
+                "contains": "서울 영등포구 문래동",
+                "regionCode": "11190760"
+              },
+              {
+                "contains": "상암동 디지털미디어시티",
+                "regionCode": "11140740"
+              },
+              {
+                "contains": "불광동 연신내역",
+                "regionCode": "11120720"
+              },
+              {
+                "contains": "서울 강남구 삼성동 코엑스 동문",
+                "regionCode": "11230580"
+              },
+              {
+                "contains": "신사동 가로수길",
+                "regionCode": "11230510"
+              },
+              {
+                "contains": "서울 강남구 역삼동 강남역 11번 출구",
+                "regionCode": "11230640"
+              },
+              {
+                "contains": "구의동 강변역",
+                "regionCode": "11050620"
+              },
+              {
+                "contains": "서울 중구 을지로동 동대문디자인플라자",
+                "regionCode": "11020600"
+              },
+              {
+                "contains": "성수동 서울숲",
+                "regionCode": "11040650"
+              },
+              {
+                "contains": "서울 중구 명동 명동성당 정문",
+                "regionCode": "11020550"
+              },
+              {
+                "contains": "서울 광진구 광장동 워커힐호텔 정문",
+                "regionCode": "11050630"
+              }
+            ],
+            "showDurationIndependently": true,
+            "durationDisplayPrefix": "예상 ",
+            "durationDisplaySuffix": "분",
+            "estimateFromRegionNames": true,
+            "minimumEstimatedMinutes": 10,
+            "ambiguousRateSelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 80000
+                }
+              ],
+              "tieBreaker": "shortestRoadDistance"
+            }
+          },
+          "structuralListDetection": {
+            "enabled": true,
+            "minCompleteRows": 1,
+            "rejectAcceptControls": true
+          }
+        },
+        "com.logisoft.Logi6": {
+          "enabled": true,
+          "minMatches": 3,
+          "markers": [
+            "자동배차중",
+            "오더",
+            "배차",
+            "완료",
+            "출발지",
+            "도착지",
+            "거리"
+          ],
+          "layoutId": "C",
+          "listReturnAnyOf": [
+            [
+              "오더",
+              "자동배차중"
+            ],
+            [
+              "오더",
+              "출발지",
+              "도착지"
+            ]
+          ],
+          "acceptButtonAliases": [
+            "배차받기",
+            "콜수락",
+            "수락"
+          ],
+          "hasEta": false,
+          "statusPattern": "^(?:즉시출발|예약|우선배차|자동배차|선착순|예약배차|대기|빠른배차|배차)(?:\\s|\\b|\\s*[/|])",
+          "reservationStatusMarker": "예약배차",
+          "rowExtraction": {
+            "version": 1,
+            "mode": "prefixed",
+            "anchor": {
+              "format": "decimal",
+              "maxXPx": 140,
+              "minTop": 220,
+              "maxTop": 1900
+            },
+            "maxHeight": 123,
+            "endFallback": 2102,
+            "startShift": 0,
+            "nextShift": -2,
+            "footerText": "근처 기사님수",
+            "classification": {
+              "mode": "notes",
+              "reservedContains": [
+                "예약배차",
+                "예약",
+                "시간 후"
+              ]
+            },
+            "fields": {
+              "source": {
+                "minDY": 0,
+                "maxDY": 122,
+                "minXPx": 140,
+                "maxXPx": 680
+              },
+              "destination": {
+                "minDY": 0,
+                "maxDY": 122,
+                "minXPx": 680
+              }
+            },
+            "amount": {
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
+              "multiplier": 1000,
+              "rawSuffix": "ⓚ"
+            },
+            "statusRegex": "^(?:즉시출발|즉후|예약배차|예약|우선배차|자동배차|선착순|대기|빠른배차|배차)(?:\\s|\\b|\\s*[/|])|^\\s*/.*(?:현금|카드)",
+            "paymentLabels": [
+              "현금",
+              "카드",
+              "후불"
+            ],
+            "requiredFields": [
+              "pickup",
+              "destination",
+              "amount",
+              "distance"
+            ]
+          },
+          "selectionRules": {
+            "version": 1,
+            "enabled": true,
+            "allowedPhases": [
+              "ROW",
+              "ACCEPT"
+            ],
+            "acceptText": "배차받기",
+            "conditions": [
+              {
+                "field": "kind",
+                "op": "eq",
+                "value": "normal"
+              },
+              {
+                "field": "value",
+                "op": "gte",
+                "value": 1000
+              },
+              {
+                "field": "measure",
+                "op": "gte",
+                "value": 0
+              }
+            ],
+            "excludeScoreMetrics": []
+          },
+          "readOnlyValidation": {
+            "version": 1,
+            "requireNormal": true,
+            "requireComplete": true,
+            "requireNoIssues": true,
+            "requiredTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "distinctTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "requiredNumericFields": [
+              "value",
+              "measure"
+            ],
+            "confidence": {
+              "field": "amountConfidence",
+              "allowed": [
+                "COMMA_DIGITS",
+                "PREFIX_SYMBOL_CONFIRMED",
+                "PAYMENT_LABEL_AND_K_CONFIRMED"
+              ]
+            },
+            "unresolvedCandidateField": "amountCandidateWon",
+            "numericRanges": [
+              {
+                "field": "value",
+                "min": 1000
+              },
+              {
+                "field": "measure",
+                "min": 0,
+                "max": 999
+              }
+            ],
+            "requireBounds": true
+          },
+          "v15ReadOnlyInput": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "durationField": "duration",
+            "minimumValue": 1000,
+            "minimumMeasure": 0,
+            "requireValue": true,
+            "requireMeasure": true,
+            "requireBothTexts": true,
+            "requireDistinctTexts": true,
+            "maximumDuration": 1440
+          },
+          "v16Eligibility": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "textField": "secondText",
+            "minimumValue": 1000,
+            "minimumMeasure": 0
+          },
+          "v16RowIdentity": {
+            "version": 1,
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "valueField": "value",
+            "measureField": "measure"
+          },
+          "routeMatrix": {
+            "version": 1,
+            "enabled": true,
+            "enabledPackages": [
+              "com.logisoft.Logi4",
+              "dev.viperlab.ninjamock.logi"
+            ],
+            "useAsDurationFallback": true,
+            "splitOriginField": "firstText",
+            "splitDestinationField": "secondText",
+            "aliases": [
+              {
+                "contains": "양재동 시민의숲",
+                "regionCode": "11220670"
+              },
+              {
+                "contains": "반포동 센트럴시티",
+                "regionCode": "11220600"
+              },
+              {
+                "contains": "압구정동 현대백화점",
+                "regionCode": "11230770"
+              },
+              {
+                "contains": "성수동 서울숲역",
+                "regionCode": "11040650"
+              },
+              {
+                "contains": "반포동 서래마을",
+                "regionCode": "11220600"
+              },
+              {
+                "contains": "서울 용산구 한남동",
+                "regionCode": "11030740"
+              },
+              {
+                "contains": "용산동 삼각지역",
+                "regionCode": "11030730"
+              },
+              {
+                "contains": "서울 마포구 공덕동",
+                "regionCode": "11140770"
+              },
+              {
+                "contains": "여의도동 IFC몰",
+                "regionCode": "11190540"
+              },
+              {
+                "contains": "서울 영등포구 문래동",
+                "regionCode": "11190760"
+              },
+              {
+                "contains": "상암동 디지털미디어시티",
+                "regionCode": "11140740"
+              },
+              {
+                "contains": "불광동 연신내역",
+                "regionCode": "11120720"
+              },
+              {
+                "contains": "서울 강남구 삼성동 코엑스 동문",
+                "regionCode": "11230580"
+              },
+              {
+                "contains": "신사동 가로수길",
+                "regionCode": "11230510"
+              },
+              {
+                "contains": "서울 강남구 역삼동 강남역 11번 출구",
+                "regionCode": "11230640"
+              },
+              {
+                "contains": "구의동 강변역",
+                "regionCode": "11050620"
+              },
+              {
+                "contains": "서울 중구 을지로동 동대문디자인플라자",
+                "regionCode": "11020600"
+              },
+              {
+                "contains": "성수동 서울숲",
+                "regionCode": "11040650"
+              },
+              {
+                "contains": "서울 중구 명동 명동성당 정문",
+                "regionCode": "11020550"
+              },
+              {
+                "contains": "서울 광진구 광장동 워커힐호텔 정문",
+                "regionCode": "11050630"
+              }
+            ],
+            "showDurationIndependently": true,
+            "durationDisplayPrefix": "예상 ",
+            "durationDisplaySuffix": "분",
+            "estimateFromRegionNames": true,
+            "minimumEstimatedMinutes": 10,
+            "ambiguousRateSelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 80000
+                }
+              ],
+              "tieBreaker": "shortestRoadDistance"
+            }
+          },
+          "structuralListDetection": {
+            "enabled": true,
+            "minCompleteRows": 1,
+            "rejectAcceptControls": true
+          }
+        },
+        "com.callmanerdriver2sharp4": {
+          "enabled": true,
+          "minMatches": 2,
+          "markers": [
+            "위치",
+            "요금",
+            "일반 설정",
+            "km"
+          ],
+          "layoutId": "D",
+          "listReturnAnyOf": [
+            [
+              "요금",
+              "일반설정"
+            ],
+            [
+              "위치",
+              "요금"
+            ]
+          ],
+          "acceptButtonAliases": [
+            "수락",
+            "콜수락",
+            "콜수락하기"
+          ],
+          "hasEta": true,
+          "rowExtraction": {
+            "version": 1,
+            "mode": "columns",
+            "anchor": {
+              "format": "decimal",
+              "maxXRatio": 0.13,
+              "minTop": 275,
+              "maxTop": 1900
+            },
+            "maxHeight": 159,
+            "endFallback": 2102,
+            "startShift": -8,
+            "nextShift": -6,
+            "classification": {
+              "mode": "normal"
+            },
+            "fields": {
+              "pickup": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
+              },
+              "destination": {
+                "minDY": 56,
+                "maxDY": 115,
+                "minXRatio": 0.245,
+                "maxXRatio": 0.99,
+                "excludeAmount": true
+              },
+              "amount": {
+                "minDY": -10,
+                "maxDY": 48,
+                "minXRatio": 0.075,
+                "maxXRatio": 0.26,
+                "textRegex": "^[^\\r\\n]{1,26}[KkⓚⓀ]$"
+              },
+              "eta": {
+                "minDY": 56,
+                "maxDY": 115,
+                "maxXRatio": 0.13,
+                "textRegex": "^\\s*\\d{1,3}\\s*분\\s*$",
+                "capturePattern": "(\\d{1,3})\\s*분"
+              }
+            },
+            "amount": {
+              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
+              "allowedLabels": [
+                "현금",
+                "후불",
+                "카드",
+                "선불",
+                "이체"
+              ],
+              "multiplier": 1000
+            },
+            "requiredFields": [
+              "pickup",
+              "destination",
+              "amount",
+              "distance"
+            ]
+          },
+          "selectionRules": {
+            "version": 1,
+            "enabled": true,
+            "allowedPhases": [
+              "ROW",
+              "ACCEPT"
+            ],
+            "acceptText": "수락",
+            "conditions": [
+              {
+                "field": "kind",
+                "op": "eq",
+                "value": "normal"
+              },
+              {
+                "field": "value",
+                "op": "gte",
+                "value": 1000
+              },
+              {
+                "field": "measure",
+                "op": "gte",
+                "value": 0
+              }
+            ],
+            "excludeScoreMetrics": []
+          },
+          "readOnlyValidation": {
+            "version": 1,
+            "requireNormal": true,
+            "requireComplete": true,
+            "requireNoIssues": true,
+            "requiredTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "distinctTextFields": [
+              "firstText",
+              "secondText"
+            ],
+            "requiredNumericFields": [
+              "value",
+              "measure"
+            ],
+            "confidence": {
+              "field": "amountConfidence",
+              "allowed": [
+                "COMMA_DIGITS",
+                "PREFIX_SYMBOL_CONFIRMED",
+                "PAYMENT_LABEL_AND_K_CONFIRMED"
+              ]
+            },
+            "unresolvedCandidateField": "amountCandidateWon",
+            "numericRanges": [
+              {
+                "field": "value",
+                "min": 1000
+              },
+              {
+                "field": "measure",
+                "min": 0,
+                "max": 999
+              }
+            ],
+            "requireBounds": true
+          },
+          "v15ReadOnlyInput": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "durationField": "duration",
+            "minimumValue": 1000,
+            "minimumMeasure": 0,
+            "requireValue": true,
+            "requireMeasure": true,
+            "requireBothTexts": true,
+            "requireDistinctTexts": true,
+            "maximumDuration": 1440
+          },
+          "v16Eligibility": {
+            "version": 1,
+            "valueField": "value",
+            "measureField": "measure",
+            "textField": "secondText",
+            "minimumValue": 1000,
+            "minimumMeasure": 0
+          },
+          "v16RowIdentity": {
+            "version": 1,
+            "firstTextField": "firstText",
+            "secondTextField": "secondText",
+            "valueField": "value",
+            "measureField": "measure"
+          },
+          "structuralListDetection": {
+            "enabled": true,
+            "minCompleteRows": 1,
+            "rejectAcceptControls": true
+          }
         }
       }
     },
     "packageLabels": {
       "com.kakao.wheel.driver": "카카오",
       "com.tmapmobility.drive.driver": "티맵",
-      "com.logisoft.Logi4": "로지",
-      "com.callmanerdriver2sharp1": "콜마너",
+      "com.logisoft.Logi4": "로지D1",
+      "com.callmanerdriver2sharp1": "콜마너1",
       "dev.viperlab.ninjamock.securetmap": "티맵 테스트",
       "dev.viperlab.ninjamock.kakao": "카카오 TEST",
       "dev.viperlab.ninjamock.tmap": "티맵 TEST",
       "dev.viperlab.ninjamock.logi": "로지 TEST",
       "dev.viperlab.ninjamock.callmaner": "콜마너 TEST",
-      "dev.viperlab.ninjamock.idriver": "아이드라이버 TEST"
+      "dev.viperlab.ninjamock.idriver": "아이드라이버 TEST",
+      "com.callmanerdriver2sharp2": "콜마너2",
+      "com.callmanerdriver2sharp3": "콜마너3",
+      "com.logisoft.Logi5": "로지D2",
+      "com.logisoft.Logi6": "로지D3",
+      "com.callmanerdriver2sharp4": "콜마너4"
     },
     "displayLabels": {
       "ratePrefix": "시간당 ",
