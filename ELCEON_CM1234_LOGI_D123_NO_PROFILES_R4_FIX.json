@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "대리 매크로 (카카오·콜마너1~3·로지D1~3 / 16개 프로필 포함 · 설명 및 간결 설정)",
+  "name": "매크로2",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
