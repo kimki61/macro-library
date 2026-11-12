@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "대리 매크로 (카카오·콜마너1~3·로지D1~3 / 16개 프로필 포함 · 설명 및 간결 설정)",
+  "name": "test",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
@@ -143,7 +143,13 @@
       "openRuleMinimumRate": "최소 시간당 효율 (원)",
       "openRuleMaximumDistance": "출발지까지 최대 거리 (km)",
       "excludeLabel": "금지어 (쉼표 또는 줄바꿈)",
-      "excludeHelp": "금지어가 포함된 도착지는 선택하지 않습니다. 신곡아파트와 신곡 아파트를 같은 표현으로 판정합니다. OFF 그룹의 금지어는 적용하지 않습니다."
+      "excludeHelp": "금지어가 포함된 도착지는 선택하지 않습니다. 신곡아파트와 신곡 아파트를 같은 표현으로 판정합니다. OFF 그룹의 금지어는 적용하지 않습니다.",
+      "fareOnlyToggleLabel": "로지·아이드라이버 시간당 효율 없이 금액 기준 선택",
+      "fareOnlyToggleHelp": "기본 OFF. ON: 지원 앱에서 시간당 효율 계산·최소 효율 조건을 사용하지 않고 금액이 높은 순으로 선택합니다. 지역 금지어·그룹 모드·최소 금액·최대 거리는 그대로 적용됩니다. 해당 매크로의 현재 프로필에만 저장됩니다.",
+      "hideRouteTimeToggleLabel": "예상 도착시간 표시 (기본 ON)",
+      "hideRouteTimeToggleHelp": "OFF: 화면에 표시되는 예상 이동시간 문구를 숨깁니다. 시간 효율을 사용하는 경우 내부 계산과 안전 검증은 그대로 유지됩니다.",
+      "expandOfferToggleLabel": "콜 자동 확대 (기본 ON)",
+      "expandOfferToggleHelp": "자동·반자동 모두 해당 콜을 선택해 상세 화면이 확인되면 자동 확대합니다. OFF로 하면 자동 확대만 중단하고 수동 확대는 사용할 수 있습니다."
     },
     "help": "프로필별 조건과 화면 표시를 편집합니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
     "staticHelp": {
@@ -1120,7 +1126,8 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
-          }
+          },
+          "fareOnlySupported": true
         },
         "com.callmanerdriver2sharp1": {
           "enabled": true,
@@ -2247,7 +2254,8 @@
               ],
               "tieBreaker": "shortestRoadDistance"
             }
-          }
+          },
+          "fareOnlySupported": true
         },
         "dev.viperlab.ninjamock.callmaner": {
           "enabled": true,
@@ -2506,7 +2514,8 @@
             "acceptText": "배   차",
             "conditions": [],
             "excludeScoreMetrics": []
-          }
+          },
+          "fareOnlySupported": true
         },
         "com.callmanerdriver2sharp2": {
           "enabled": true,
@@ -3198,7 +3207,8 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
-          }
+          },
+          "fareOnlySupported": true
         },
         "com.logisoft.Logi6": {
           "enabled": true,
@@ -3506,7 +3516,8 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
-          }
+          },
+          "fareOnlySupported": true
         },
         "com.callmanerdriver2sharp4": {
           "enabled": true,
