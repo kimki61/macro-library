@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "매크로2",
+  "name": "대리 매크로2",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
