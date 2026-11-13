@@ -476,7 +476,12 @@
               "maxXRatio": 0.27,
               "minTop": 550,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 201,
             "endFallback": 2102,
@@ -703,7 +708,12 @@
               "maxXRatio": 0.25,
               "minTop": 310,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 222,
             "endFallback": 2102,
@@ -1687,7 +1697,12 @@
               "maxXRatio": 0.27,
               "minTop": 210,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 201,
             "endFallback": 2102,
@@ -1909,7 +1924,12 @@
               "maxXRatio": 0.25,
               "minTop": 100,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 222,
             "endFallback": 2102,
