@@ -1323,7 +1323,8 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount"
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2461,7 +2462,8 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount"
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2750,7 +2752,8 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount"
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2981,7 +2984,8 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount"
           },
           "readOnlyValidation": {
             "version": 1,
@@ -3830,7 +3834,8 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount"
           },
           "readOnlyValidation": {
             "version": 1,
