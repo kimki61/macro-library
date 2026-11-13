@@ -1409,7 +1409,12 @@
             "fixedEnabledDefault": true,
             "fixedKey": "cm_insurance_won",
             "fixedDefault": 1000
-          }
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ]
         },
         "dev.viperlab.ninjamock.securetmap": {
           "enabled": true,
@@ -2831,7 +2836,12 @@
             "fixedEnabledDefault": true,
             "fixedKey": "cm_insurance_won",
             "fixedDefault": 1000
-          }
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ]
         },
         "com.callmanerdriver2sharp3": {
           "enabled": true,
@@ -3057,7 +3067,12 @@
             "fixedEnabledDefault": true,
             "fixedKey": "cm_insurance_won",
             "fixedDefault": 1000
-          }
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ]
         },
         "com.logisoft.Logi5": {
           "enabled": true,
@@ -3901,7 +3916,12 @@
             "fixedEnabledDefault": true,
             "fixedKey": "cm_insurance_won",
             "fixedDefault": 1000
-          }
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ]
         }
       }
     },
