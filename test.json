@@ -1308,11 +1308,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -1324,11 +1319,44 @@
               }
             ],
             "excludeScoreMetrics": [],
-            "rowTapField": "amount"
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -2737,11 +2765,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -2753,11 +2776,44 @@
               }
             ],
             "excludeScoreMetrics": [],
-            "rowTapField": "amount"
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -2969,11 +3025,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -2985,11 +3036,44 @@
               }
             ],
             "excludeScoreMetrics": [],
-            "rowTapField": "amount"
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -3819,11 +3903,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -3835,11 +3914,44 @@
               }
             ],
             "excludeScoreMetrics": [],
-            "rowTapField": "amount"
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
