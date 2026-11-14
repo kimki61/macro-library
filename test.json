@@ -615,15 +615,121 @@
       "stopGlobalAutomation": true,
       "bringViperToFront": true,
       "successTexts": {
-        "com.kakao.wheel.driver": "테스트 배차 수락 완료",
         "com.tmapmobility.drive.driver": "테스트 배차 수락 완료",
         "com.logisoft.Logi4": "테스트 배차 수락 완료",
-        "com.callmanerdriver2sharp1": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.kakao": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.tmap": "보안 화면 테스트",
         "dev.viperlab.ninjamock.logi": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.callmaner": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.idriver": "테스트 배차 수락 완료"
+      },
+      "successProofGroups": {},
+      "successProofMinimumMatches": {
+        "com.kakao.wheel.driver": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "배정 완료"
+            ],
+            [
+              "고객과 통화"
+            ],
+            [
+              "고객과 메세지",
+              "고객과 메시지"
+            ],
+            [
+              "밀어서 고객에게 도착알림"
+            ],
+            [
+              "배정 취소"
+            ],
+            [
+              "고객에게 위치가 공유됩니다.",
+              "고객에게 위치가 공유됩니다"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp1": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp2": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp3": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp4": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        }
       }
     },
     "screenRecognition": {
