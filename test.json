@@ -283,6 +283,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -295,6 +300,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -307,6 +317,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -319,6 +334,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -331,6 +351,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -343,6 +368,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -355,6 +385,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -367,6 +402,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -379,6 +419,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -391,6 +436,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -403,6 +453,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -415,6 +470,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -427,6 +487,11 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
@@ -439,11 +504,21 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
       }
     },
     {
       "enabled": true,
-      "packageName": "dev.viperlab.ninjamock.idriver"
+      "packageName": "dev.viperlab.ninjamock.idriver",
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative"
+      }
     }
   ],
   "selection": {
@@ -708,6 +783,11 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
           }
         },
         "com.tmapmobility.drive.driver": {
@@ -940,6 +1020,11 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
           }
         },
         "com.logisoft.Logi4": {
@@ -1309,7 +1394,12 @@
             "normal",
             "reservation",
             "towing"
-          ]
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         },
         "com.callmanerdriver2sharp1": {
           "enabled": true,
@@ -1569,7 +1659,12 @@
             "normal",
             "reservation",
             "scheduled"
-          ]
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         },
         "dev.viperlab.ninjamock.securetmap": {
           "enabled": true,
@@ -1771,6 +1866,11 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
           }
         },
         "dev.viperlab.ninjamock.kakao": {
@@ -1984,6 +2084,11 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
           }
         },
         "dev.viperlab.ninjamock.tmap": {
@@ -2216,6 +2321,11 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
           }
         },
         "dev.viperlab.ninjamock.logi": {
@@ -2515,7 +2625,12 @@
               "tieBreaker": "shortestRoadDistance"
             }
           },
-          "fareOnlySupported": true
+          "fareOnlySupported": true,
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         },
         "dev.viperlab.ninjamock.callmaner": {
           "enabled": true,
@@ -2697,6 +2812,11 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
           }
         },
         "dev.viperlab.ninjamock.idriver": {
@@ -2776,7 +2896,28 @@
             "conditions": [],
             "excludeScoreMetrics": []
           },
-          "fareOnlySupported": true
+          "fareOnlySupported": true,
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          },
+          "routeMatrix": {
+            "version": 1,
+            "enabled": true,
+            "enabledPackages": [
+              "dev.viperlab.ninjamock.idriver"
+            ],
+            "useAsDurationFallback": true,
+            "splitOriginField": "firstText",
+            "splitDestinationField": "secondText",
+            "estimateFromRegionNames": true,
+            "showDurationIndependently": true,
+            "minimumEstimatedMinutes": 10,
+            "ambiguousRateSelection": {
+              "enabled": false
+            }
+          }
         },
         "com.callmanerdriver2sharp2": {
           "enabled": true,
@@ -3036,7 +3177,12 @@
             "normal",
             "reservation",
             "scheduled"
-          ]
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         },
         "com.callmanerdriver2sharp3": {
           "enabled": true,
@@ -3296,7 +3442,12 @@
             "normal",
             "reservation",
             "scheduled"
-          ]
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         },
         "com.logisoft.Logi5": {
           "enabled": true,
@@ -3665,7 +3816,12 @@
             "normal",
             "reservation",
             "towing"
-          ]
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         },
         "com.logisoft.Logi6": {
           "enabled": true,
@@ -4034,7 +4190,12 @@
             "normal",
             "reservation",
             "towing"
-          ]
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         },
         "com.callmanerdriver2sharp4": {
           "enabled": true,
@@ -4294,7 +4455,12 @@
             "normal",
             "reservation",
             "scheduled"
-          ]
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative"
+          }
         }
       }
     },
