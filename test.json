@@ -261,7 +261,9 @@
       "hideRouteTimeToggleLabel": "예상 도착시간 표시 (기본 ON)",
       "hideRouteTimeToggleHelp": "OFF: 화면에 표시되는 예상 이동시간 문구를 숨깁니다. 시간 효율을 사용하는 경우 내부 계산과 안전 검증은 그대로 유지됩니다.",
       "expandOfferToggleLabel": "콜 자동 확대 (기본 ON)",
-      "expandOfferToggleHelp": "자동·반자동 모두 해당 콜을 선택해 상세 화면이 확인되면 자동 확대합니다. OFF로 하면 자동 확대만 중단하고 수동 확대는 사용할 수 있습니다."
+      "expandOfferToggleHelp": "자동·반자동 모두 해당 콜을 선택해 상세 화면이 확인되면 자동 확대합니다. OFF로 하면 자동 확대만 중단하고 수동 확대는 사용할 수 있습니다.",
+      "roadDongDisplayToggleLabel": "도로명 주소의 변환 동 표시 (기본 OFF)",
+      "roadDongDisplayToggleHelp": "ON: 도로명주소가 중복 없이 동으로 변환되면 목록 상단에 해당 동을 표시합니다. OFF: 표시는 숨기되 지역 필터와 시간 계산은 그대로 유지합니다. 중복·미확정 주소는 임의로 선택하지 않습니다."
     },
     "help": "프로필별 조건과 화면 표시를 편집합니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
     "staticHelp": {
@@ -286,8 +288,12 @@
       },
       "roadToDong": {
         "version": 1,
-        "enabled": true,
-        "mode": "representative"
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -303,8 +309,12 @@
       },
       "roadToDong": {
         "version": 1,
-        "enabled": true,
-        "mode": "representative"
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -321,7 +331,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -338,7 +352,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -355,7 +373,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -372,7 +394,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -389,7 +415,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -406,7 +436,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -423,7 +457,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -439,8 +477,12 @@
       },
       "roadToDong": {
         "version": 1,
-        "enabled": true,
-        "mode": "representative"
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -456,8 +498,12 @@
       },
       "roadToDong": {
         "version": 1,
-        "enabled": true,
-        "mode": "representative"
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -473,8 +519,12 @@
       },
       "roadToDong": {
         "version": 1,
-        "enabled": true,
-        "mode": "representative"
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -491,7 +541,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -508,7 +562,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -517,7 +575,11 @@
       "roadToDong": {
         "version": 1,
         "enabled": true,
-        "mode": "representative"
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     }
   ],
@@ -786,8 +848,12 @@
           },
           "roadToDong": {
             "version": 1,
-            "enabled": true,
-            "mode": "representative"
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.tmapmobility.drive.driver": {
@@ -1023,8 +1089,12 @@
           },
           "roadToDong": {
             "version": 1,
-            "enabled": true,
-            "mode": "representative"
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.logisoft.Logi4": {
@@ -1255,10 +1325,7 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi",
-              "com.logisoft.Logi5",
-              "com.logisoft.Logi6"
+              "com.logisoft.Logi4"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -1398,7 +1465,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.callmanerdriver2sharp1": {
@@ -1663,7 +1734,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.securetmap": {
@@ -1869,8 +1944,12 @@
           },
           "roadToDong": {
             "version": 1,
-            "enabled": true,
-            "mode": "representative"
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.kakao": {
@@ -2087,8 +2166,12 @@
           },
           "roadToDong": {
             "version": 1,
-            "enabled": true,
-            "mode": "representative"
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.tmap": {
@@ -2324,8 +2407,12 @@
           },
           "roadToDong": {
             "version": 1,
-            "enabled": true,
-            "mode": "representative"
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.logi": {
@@ -2509,7 +2596,6 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
               "dev.viperlab.ninjamock.logi"
             ],
             "useAsDurationFallback": true,
@@ -2629,7 +2715,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.callmaner": {
@@ -2816,7 +2906,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.idriver": {
@@ -2900,7 +2994,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           },
           "routeMatrix": {
             "version": 1,
@@ -3181,7 +3279,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.callmanerdriver2sharp3": {
@@ -3446,7 +3548,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.logisoft.Logi5": {
@@ -3677,10 +3783,7 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi",
-              "com.logisoft.Logi5",
-              "com.logisoft.Logi6"
+              "com.logisoft.Logi5"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -3820,7 +3923,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.logisoft.Logi6": {
@@ -4051,9 +4158,6 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi",
-              "com.logisoft.Logi5",
               "com.logisoft.Logi6"
             ],
             "useAsDurationFallback": true,
@@ -4194,7 +4298,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.callmanerdriver2sharp4": {
@@ -4459,7 +4567,11 @@
           "roadToDong": {
             "version": 1,
             "enabled": true,
-            "mode": "representative"
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         }
       }
