@@ -770,7 +770,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -1011,7 +1016,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "structuralListDetection": {
             "enabled": true,
@@ -1866,7 +1876,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "structuralListDetection": {
             "enabled": true,
@@ -2093,7 +2108,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2329,7 +2349,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "structuralListDetection": {
             "enabled": true,
@@ -2521,7 +2546,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2832,7 +2862,12 @@
               }
             ],
             "excludeScoreMetrics": [],
-            "rowTapField": "amount"
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2988,7 +3023,12 @@
             ],
             "acceptText": "배   차",
             "conditions": [],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "fareOnlySupported": true,
           "roadToDong": {
