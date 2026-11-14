@@ -50,10 +50,10 @@
       {
         "type": "colorGroupManager",
         "id": "color_groups",
-        "label": "그룹별 조건 · 색상 · 범위 · 실행 모드",
+        "label": "지역 그룹 (5~8개 추천 · 최대 12개)",
         "default": [],
         "fieldLabels": {
-          "keywords": "인식할 지역명",
+          "keywords": "인식할 지역명 (그룹당 50개 이하 추천)",
           "minimum_value": "최소 금액",
           "increment_per_unit": "거리 1km당 추가 금액",
           "minimum_rate": "최소 시간당 수익",
@@ -124,7 +124,7 @@
       {
         "type": "text",
         "id": "priority_names",
-        "label": "우선순위 지역명",
+        "label": "최우선 지역명 (단어 40개 이하 추천)",
         "default": "",
         "help": "상대적으로 우선 확인할 지역명을 쉼표로 구분해 입력합니다. 세부 우선 적용은 매크로의 규칙 JSON에 따릅니다."
       },
@@ -183,13 +183,69 @@
         "label": "보험료 (원)",
         "default": 1000,
         "visibleWhen": "cm_insurance_enabled"
+      },
+      {
+        "type": "group",
+        "label": "로지",
+        "help": "로지 프로필 전용 설정입니다. 일반·예약·탁송의 선택 허용과 실수익 계산을 개별 프로필에서 관리합니다."
+      },
+      {
+        "type": "switch",
+        "id": "lg_reservation_allow",
+        "label": "예약콜 허용",
+        "default": false
+      },
+      {
+        "type": "switch",
+        "id": "lg_towing_allow",
+        "label": "탁송콜 허용",
+        "default": false,
+        "help": "예약과 탁송이 함께 표시되면 탁송으로 분류합니다."
+      },
+      {
+        "type": "switch",
+        "id": "lg_via_allow",
+        "label": "경유콜 허용",
+        "default": false
+      },
+      {
+        "type": "switch",
+        "id": "lg_kickboard_exclude",
+        "label": "킥보드 표시 콜 제외",
+        "default": true
+      },
+      {
+        "type": "switch",
+        "id": "lg_commission_enabled",
+        "label": "수수료 차감",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "lg_commission_percent",
+        "label": "수수료 비율 (%)",
+        "default": 20,
+        "visibleWhen": "lg_commission_enabled"
+      },
+      {
+        "type": "switch",
+        "id": "lg_insurance_enabled",
+        "label": "단건보험료 차감",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "lg_insurance_won",
+        "label": "보험료 (원)",
+        "default": 1000,
+        "visibleWhen": "lg_insurance_enabled"
       }
     ],
     "profileUiText": {
       "priorityTitle": "최우선 지역명",
       "priorityToggle": "최우선 지역 사용 (기본 OFF)",
       "priorityHelp": "ON일 때 이 지역을 일반 지역보다 먼저 선택합니다. 금액·시간당 효율은 선택 순위에 반영하지 않고, 입력한 출발지까지 최대 거리만 확인합니다. 금지어·OFF 지역·수락 안전 검증은 그대로 적용합니다.",
-      "priorityKeywordsLabel": "최우선 지역명 (쉼표 또는 줄바꿈)",
+      "priorityKeywordsLabel": "최우선 지역명 (단어 40개 이하 추천 · 쉼표/줄바꿈 구분)",
       "priorityDistanceLabel": "최우선 지역 최대 거리 (km)",
       "priorityRequired": "우선순위 지역 사용 시 지역명을 입력하세요.",
       "openRuleTitle": "지역명 없이 조건으로 선택",
@@ -924,37 +980,42 @@
             "anchor": {
               "format": "decimal",
               "maxXPx": 140,
-              "minTop": 220,
-              "maxTop": 1900
+              "minTop": 420,
+              "maxTop": 2050
             },
-            "maxHeight": 123,
+            "maxHeight": 350,
             "endFallback": 2102,
             "startShift": 0,
-            "nextShift": -2,
-            "footerText": "근처 기사님수",
+            "nextShift": 0,
             "classification": {
-              "mode": "notes",
-              "reservedContains": [
-                "예약배차",
-                "예약",
-                "시간 후"
+              "mode": "priorityTokens",
+              "priorityRules": [
+                {
+                  "kind": "towing",
+                  "contains": [
+                    "탁송"
+                  ]
+                },
+                {
+                  "kind": "reservation",
+                  "contains": [
+                    "예약"
+                  ]
+                }
               ]
             },
             "fields": {
               "source": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 140,
-                "maxXPx": 680
+                "maxDY": 350
               },
               "destination": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 680
+                "maxDY": 350
               }
             },
             "amount": {
-              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ]\\s*(.*)$",
               "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
               "multiplier": 1000,
               "rawSuffix": "ⓚ"
@@ -970,7 +1031,17 @@
               "destination",
               "amount",
               "distance"
-            ]
+            ],
+            "stripInvisibleCharacters": true,
+            "limitToObservedNodes": true,
+            "observedEndPadding": 0,
+            "headerColumns": {
+              "enabled": true,
+              "distanceHeaderId": "header1",
+              "sourceHeaderId": "header2",
+              "destinationHeaderId": "header3",
+              "minVisibleHeight": 45
+            }
           },
           "selectionRules": {
             "version": 1,
@@ -982,11 +1053,6 @@
             "acceptText": "배차받기",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -997,11 +1063,43 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "pickup",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "lg_reservation_allow",
+                "default": false
+              },
+              {
+                "kind": "towing",
+                "settingKey": "lg_towing_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "lg_via_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -1073,7 +1171,9 @@
             "enabled": true,
             "enabledPackages": [
               "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi"
+              "dev.viperlab.ninjamock.logi",
+              "com.logisoft.Logi5",
+              "com.logisoft.Logi6"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -1193,7 +1293,23 @@
             "minCompleteRows": 1,
             "rejectAcceptControls": true
           },
-          "fareOnlySupported": true
+          "fareOnlySupported": true,
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "towing"
+          ]
         },
         "com.callmanerdriver2sharp1": {
           "enabled": true,
@@ -3220,37 +3336,42 @@
             "anchor": {
               "format": "decimal",
               "maxXPx": 140,
-              "minTop": 220,
-              "maxTop": 1900
+              "minTop": 420,
+              "maxTop": 2050
             },
-            "maxHeight": 123,
+            "maxHeight": 350,
             "endFallback": 2102,
             "startShift": 0,
-            "nextShift": -2,
-            "footerText": "근처 기사님수",
+            "nextShift": 0,
             "classification": {
-              "mode": "notes",
-              "reservedContains": [
-                "예약배차",
-                "예약",
-                "시간 후"
+              "mode": "priorityTokens",
+              "priorityRules": [
+                {
+                  "kind": "towing",
+                  "contains": [
+                    "탁송"
+                  ]
+                },
+                {
+                  "kind": "reservation",
+                  "contains": [
+                    "예약"
+                  ]
+                }
               ]
             },
             "fields": {
               "source": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 140,
-                "maxXPx": 680
+                "maxDY": 350
               },
               "destination": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 680
+                "maxDY": 350
               }
             },
             "amount": {
-              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ]\\s*(.*)$",
               "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
               "multiplier": 1000,
               "rawSuffix": "ⓚ"
@@ -3266,7 +3387,17 @@
               "destination",
               "amount",
               "distance"
-            ]
+            ],
+            "stripInvisibleCharacters": true,
+            "limitToObservedNodes": true,
+            "observedEndPadding": 0,
+            "headerColumns": {
+              "enabled": true,
+              "distanceHeaderId": "header1",
+              "sourceHeaderId": "header2",
+              "destinationHeaderId": "header3",
+              "minVisibleHeight": 45
+            }
           },
           "selectionRules": {
             "version": 1,
@@ -3278,11 +3409,6 @@
             "acceptText": "배차받기",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -3293,11 +3419,43 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "pickup",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "lg_reservation_allow",
+                "default": false
+              },
+              {
+                "kind": "towing",
+                "settingKey": "lg_towing_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "lg_via_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -3369,7 +3527,9 @@
             "enabled": true,
             "enabledPackages": [
               "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi"
+              "dev.viperlab.ninjamock.logi",
+              "com.logisoft.Logi5",
+              "com.logisoft.Logi6"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -3489,7 +3649,23 @@
             "minCompleteRows": 1,
             "rejectAcceptControls": true
           },
-          "fareOnlySupported": true
+          "fareOnlySupported": true,
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "towing"
+          ]
         },
         "com.logisoft.Logi6": {
           "enabled": true,
@@ -3529,37 +3705,42 @@
             "anchor": {
               "format": "decimal",
               "maxXPx": 140,
-              "minTop": 220,
-              "maxTop": 1900
+              "minTop": 420,
+              "maxTop": 2050
             },
-            "maxHeight": 123,
+            "maxHeight": 350,
             "endFallback": 2102,
             "startShift": 0,
-            "nextShift": -2,
-            "footerText": "근처 기사님수",
+            "nextShift": 0,
             "classification": {
-              "mode": "notes",
-              "reservedContains": [
-                "예약배차",
-                "예약",
-                "시간 후"
+              "mode": "priorityTokens",
+              "priorityRules": [
+                {
+                  "kind": "towing",
+                  "contains": [
+                    "탁송"
+                  ]
+                },
+                {
+                  "kind": "reservation",
+                  "contains": [
+                    "예약"
+                  ]
+                }
               ]
             },
             "fields": {
               "source": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 140,
-                "maxXPx": 680
+                "maxDY": 350
               },
               "destination": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 680
+                "maxDY": 350
               }
             },
             "amount": {
-              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ]\\s*(.*)$",
               "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
               "multiplier": 1000,
               "rawSuffix": "ⓚ"
@@ -3575,7 +3756,17 @@
               "destination",
               "amount",
               "distance"
-            ]
+            ],
+            "stripInvisibleCharacters": true,
+            "limitToObservedNodes": true,
+            "observedEndPadding": 0,
+            "headerColumns": {
+              "enabled": true,
+              "distanceHeaderId": "header1",
+              "sourceHeaderId": "header2",
+              "destinationHeaderId": "header3",
+              "minVisibleHeight": 45
+            }
           },
           "selectionRules": {
             "version": 1,
@@ -3587,11 +3778,6 @@
             "acceptText": "배차받기",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -3602,11 +3788,43 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "pickup",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "lg_reservation_allow",
+                "default": false
+              },
+              {
+                "kind": "towing",
+                "settingKey": "lg_towing_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "lg_via_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -3678,7 +3896,9 @@
             "enabled": true,
             "enabledPackages": [
               "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi"
+              "dev.viperlab.ninjamock.logi",
+              "com.logisoft.Logi5",
+              "com.logisoft.Logi6"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -3798,7 +4018,23 @@
             "minCompleteRows": 1,
             "rejectAcceptControls": true
           },
-          "fareOnlySupported": true
+          "fareOnlySupported": true,
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "towing"
+          ]
         },
         "com.callmanerdriver2sharp4": {
           "enabled": true,
