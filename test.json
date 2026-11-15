@@ -623,7 +623,22 @@
         "dev.viperlab.ninjamock.callmaner": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.idriver": "테스트 배차 수락 완료"
       },
-      "successProofGroups": {},
+      "successProofGroups": {
+        "com.kakao.wheel.driver": [
+          [
+            "배정 완료",
+            "밀어서 고객에게 도착알림"
+          ],
+          [
+            "배정 완료",
+            "고객과 통화"
+          ],
+          [
+            "배정 완료",
+            "고객과 메시지"
+          ]
+        ]
+      },
       "successProofMinimumMatches": {
         "com.kakao.wheel.driver": {
           "minimumMatches": 2,
