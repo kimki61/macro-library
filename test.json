@@ -818,7 +818,7 @@
                 "maxDY": 140,
                 "maxXRatio": 0.27,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -20,
@@ -977,7 +977,66 @@
             "originLabelPrefix": "출 ",
             "destinationLabelPrefix": "도 ",
             "displaySeparator": " · "
-          }
+          },
+          "popupOffers": [
+            {
+              "version": 1,
+              "id": "direct_single",
+              "enabled": true,
+              "actionType": "direct",
+              "markerContains": "프로 단독배정",
+              "mustBeExact": "프로 단독배정",
+              "actionText": "프로 단독배정",
+              "scopeBottomPx": 670,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
+                "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
+              }
+            },
+            {
+              "version": 1,
+              "id": "recommended_card",
+              "enabled": true,
+              "actionType": "review",
+              "markerContains": "실제 수익",
+              "forbidExact": "프로 단독배정",
+              "scopeBottomPx": 670,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
+                "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
+              }
+            },
+            {
+              "version": 1,
+              "id": "direct_detail",
+              "enabled": true,
+              "actionType": "direct",
+              "markerContains": "단독배정 수락",
+              "mustBeExact": "단독배정 수락",
+              "actionText": "단독배정 수락",
+              "scopeBottomPx": 2400,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "도보\\s*(\\d+(?:\\.\\d+)?)\\s*(km|m)",
+                "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
+                "distanceAnywhere": true,
+                "maxAboveActionPx": 1000
+              },
+              "fieldsNearAction": true,
+              "requireActionToMarkVisible": true
+            }
+          ]
         },
         "com.tmapmobility.drive.driver": {
           "enabled": true,
@@ -1064,7 +1123,7 @@
                 "maxDY": 150,
                 "maxXRatio": 0.25,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -24,
@@ -1223,7 +1282,33 @@
             "originLabelPrefix": "출 ",
             "destinationLabelPrefix": "도 ",
             "displaySeparator": " · "
-          }
+          },
+          "popupOffers": [
+            {
+              "version": 1,
+              "id": "overlay_direct",
+              "enabled": true,
+              "actionType": "direct",
+              "markerContains": "이동",
+              "actionText": "콜 수락하기",
+              "actionMatch": "regex",
+              "actionPattern": "^(?:[①-⑳]\\s*)?콜\\s*수락하기$",
+              "scopeBottomPx": 1250,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
+                "sourceDistanceSuffixPattern": "",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
+                "distanceAnywhere": true
+              },
+              "mustBeExact": "이동",
+              "requireActionToMarkVisible": true,
+              "restrictToActionFooter": true,
+              "footerMarginPx": 12
+            }
+          ]
         },
         "com.logisoft.Logi4": {
           "enabled": true,
@@ -2156,7 +2241,7 @@
                 "maxDY": 140,
                 "maxXRatio": 0.27,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -20,
@@ -2397,7 +2482,7 @@
                 "maxDY": 150,
                 "maxXRatio": 0.25,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -24,
