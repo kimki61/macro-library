@@ -1051,6 +1051,12 @@
               "fieldsNearAction": true,
               "requireActionToMarkVisible": true
             }
+          ],
+          "popupVisualEnabled": true,
+          "popupVisualKinds": [
+            "recommended_card",
+            "direct_single",
+            "direct_detail"
           ]
         },
         "com.tmapmobility.drive.driver": {
@@ -1323,6 +1329,10 @@
               "restrictToActionFooter": true,
               "footerMarginPx": 12
             }
+          ],
+          "popupVisualEnabled": true,
+          "popupVisualKinds": [
+            "overlay_direct"
           ]
         },
         "com.logisoft.Logi4": {
