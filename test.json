@@ -112,7 +112,7 @@
       {
         "type": "group",
         "label": "이동시간 및 우선순위",
-        "help": "시간 계산에 사용할 값과 우선 지역을 설정합니다."
+        "help": "시간 계산에 사용할 값과 우선 지역을 설정합니다. 주소 V3는 앱의 이동시간 DB 관리 화면에서 내려받고 별도로 ON으로 켜야 합니다. 기존 JSON에서 주소 변환이 OFF인 대상은 자동으로 활성화하지 않습니다."
       },
       {
         "type": "number",
@@ -263,9 +263,9 @@
       "expandOfferToggleLabel": "콜 자동 확대 (기본 ON)",
       "expandOfferToggleHelp": "자동·반자동 모두 해당 콜을 선택해 상세 화면이 확인되면 자동 확대합니다. OFF로 하면 자동 확대만 중단하고 수동 확대는 사용할 수 있습니다.",
       "roadDongDisplayToggleLabel": "도로명 주소의 변환 동 표시 (기본 OFF)",
-      "roadDongDisplayToggleHelp": "ON: 도로명주소가 중복 없이 동으로 변환되면 목록 상단에 해당 동을 표시합니다. OFF: 표시는 숨기되 지역 필터와 시간 계산은 그대로 유지합니다. 중복·미확정 주소는 임의로 선택하지 않습니다."
+      "roadDongDisplayToggleHelp": "ON: 주소 변환이 허용된 대상에서 도로명주소를 유일한 지역으로 변환할 수 있으면 해당 동을 표시합니다. 주소 V3 DB가 설치되어 있고 앱의 V3 주소 인식이 ON이면 기존 도로명 DB에서 변환하지 못한 주소도 V3에서 재검색합니다. OFF: 변환 동 표기만 숨기며 내부 지역 필터 및 시간 계산은 유지합니다. 중복·미확정 지역을 임의로 결정하지 않습니다."
     },
-    "help": "프로필별 조건과 화면 표시를 편집합니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
+    "help": "프로필별 조건과 화면 표시를 편집합니다. 주소 V3 DB는 ELCEON 앱의 이동시간 DB 관리 화면에서 별도로 다운로드하고 활성화합니다. 외부 JSON의 기존 주소 변환 허용 여부와 자동·반자동 조건은 그대로 유지됩니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
     "staticHelp": {
       "auto_selection_speed": "목록을 선택한 뒤 상세 동작으로 넘어가는 대기시간을 조절합니다. 너무 짧으면 화면 전환 중 중복 입력 위험이 있으므로 안정성을 확인하며 조절하세요.",
       "show_enabled": "화면에서 자동 강조 표시 기능을 보이게 할지 결정합니다. 전체 자동 실행 ON/OFF와 별개입니다.",
@@ -1008,7 +1008,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
                 "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
               }
             },
@@ -1025,7 +1025,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
                 "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
               }
             },
@@ -1043,7 +1043,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "도보\\s*(\\d+(?:\\.\\d+)?)\\s*(km|m)",
                 "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
                 "distanceAnywhere": true,
                 "maxAboveActionPx": 1000
@@ -1320,7 +1320,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
                 "sourceDistanceSuffixPattern": "",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
                 "distanceAnywhere": true
               },
