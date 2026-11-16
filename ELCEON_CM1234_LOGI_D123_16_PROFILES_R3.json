@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "대리 매크로1",
+  "name": "대리 매크로 (프로필 O)",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
@@ -23,7 +23,7 @@
     }
   ],
   "screen": {
-    "title": "업무 규칙 · 16개 프로필 · 외부 규칙 설정",
+    "title": "업무 규칙 · 외부 규칙 설정",
     "components": [
       {
         "type": "group",
@@ -50,10 +50,10 @@
       {
         "type": "colorGroupManager",
         "id": "color_groups",
-        "label": "그룹별 조건 · 색상 · 범위 · 실행 모드",
+        "label": "지역 그룹 (5~8개 추천 · 최대 12개)",
         "default": [],
         "fieldLabels": {
-          "keywords": "인식할 지역명",
+          "keywords": "인식할 지역명 (그룹당 50개 이하 추천)",
           "minimum_value": "최소 금액",
           "increment_per_unit": "거리 1km당 추가 금액",
           "minimum_rate": "최소 시간당 수익",
@@ -112,7 +112,7 @@
       {
         "type": "group",
         "label": "이동시간 및 우선순위",
-        "help": "시간 계산에 사용할 값과 우선 지역을 설정합니다."
+        "help": "시간 계산에 사용할 값과 우선 지역을 설정합니다. 주소 V3는 앱의 이동시간 DB 관리 화면에서 내려받고 별도로 ON으로 켜야 합니다. 기존 JSON에서 주소 변환이 OFF인 대상은 자동으로 활성화하지 않습니다."
       },
       {
         "type": "number",
@@ -124,16 +124,128 @@
       {
         "type": "text",
         "id": "priority_names",
-        "label": "우선순위 지역명",
+        "label": "최우선 지역명 (단어 40개 이하 추천)",
         "default": "",
         "help": "상대적으로 우선 확인할 지역명을 쉼표로 구분해 입력합니다. 세부 우선 적용은 매크로의 규칙 JSON에 따릅니다."
+      },
+      {
+        "type": "group",
+        "label": "콜마너",
+        "help": "이 섹션은 콜마너 프로필에만 적용됩니다. 다른 앱의 계산에는 영향을 주지 않습니다."
+      },
+      {
+        "type": "switch",
+        "id": "cm_reservation_allow",
+        "label": "예약콜 허용",
+        "default": false
+      },
+      {
+        "type": "switch",
+        "id": "cm_towing_allow",
+        "label": "탁송콜 허용",
+        "default": false,
+        "help": "예약콜 허용이 OFF면 이 항목을 켜도 예약 영역의 콜은 선택하지 않습니다."
+      },
+      {
+        "type": "switch",
+        "id": "cm_via_allow",
+        "label": "경유콜 허용",
+        "default": false
+      },
+      {
+        "type": "switch",
+        "id": "cm_kickboard_exclude",
+        "label": "킥보드 표시 콜 제외",
+        "default": true
+      },
+      {
+        "type": "switch",
+        "id": "cm_commission_enabled",
+        "label": "수수료 차감",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "cm_commission_percent",
+        "label": "수수료 비율 (%)",
+        "default": 20,
+        "visibleWhen": "cm_commission_enabled"
+      },
+      {
+        "type": "switch",
+        "id": "cm_insurance_enabled",
+        "label": "단건보험료 차감",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "cm_insurance_won",
+        "label": "보험료 (원)",
+        "default": 1000,
+        "visibleWhen": "cm_insurance_enabled"
+      },
+      {
+        "type": "group",
+        "label": "로지",
+        "help": "로지 프로필 전용 설정입니다. 일반·예약·탁송의 선택 허용과 실수익 계산을 개별 프로필에서 관리합니다."
+      },
+      {
+        "type": "switch",
+        "id": "lg_reservation_allow",
+        "label": "예약콜 허용",
+        "default": false
+      },
+      {
+        "type": "switch",
+        "id": "lg_towing_allow",
+        "label": "탁송콜 허용",
+        "default": false,
+        "help": "예약과 탁송이 함께 표시되면 탁송으로 분류합니다."
+      },
+      {
+        "type": "switch",
+        "id": "lg_via_allow",
+        "label": "경유콜 허용",
+        "default": false
+      },
+      {
+        "type": "switch",
+        "id": "lg_kickboard_exclude",
+        "label": "킥보드 표시 콜 제외",
+        "default": true
+      },
+      {
+        "type": "switch",
+        "id": "lg_commission_enabled",
+        "label": "수수료 차감",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "lg_commission_percent",
+        "label": "수수료 비율 (%)",
+        "default": 20,
+        "visibleWhen": "lg_commission_enabled"
+      },
+      {
+        "type": "switch",
+        "id": "lg_insurance_enabled",
+        "label": "단건보험료 차감",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "lg_insurance_won",
+        "label": "보험료 (원)",
+        "default": 1000,
+        "visibleWhen": "lg_insurance_enabled"
       }
     ],
     "profileUiText": {
       "priorityTitle": "최우선 지역명",
       "priorityToggle": "최우선 지역 사용 (기본 OFF)",
       "priorityHelp": "ON일 때 이 지역을 일반 지역보다 먼저 선택합니다. 금액·시간당 효율은 선택 순위에 반영하지 않고, 입력한 출발지까지 최대 거리만 확인합니다. 금지어·OFF 지역·수락 안전 검증은 그대로 적용합니다.",
-      "priorityKeywordsLabel": "최우선 지역명 (쉼표 또는 줄바꿈)",
+      "priorityKeywordsLabel": "최우선 지역명 (단어 40개 이하 추천 · 쉼표/줄바꿈 구분)",
       "priorityDistanceLabel": "최우선 지역 최대 거리 (km)",
       "priorityRequired": "우선순위 지역 사용 시 지역명을 입력하세요.",
       "openRuleTitle": "지역명 없이 조건으로 선택",
@@ -143,9 +255,17 @@
       "openRuleMinimumRate": "최소 시간당 효율 (원)",
       "openRuleMaximumDistance": "출발지까지 최대 거리 (km)",
       "excludeLabel": "금지어 (쉼표 또는 줄바꿈)",
-      "excludeHelp": "금지어가 포함된 도착지는 선택하지 않습니다. 신곡아파트와 신곡 아파트를 같은 표현으로 판정합니다. OFF 그룹의 금지어는 적용하지 않습니다."
+      "excludeHelp": "금지어가 포함된 도착지는 선택하지 않습니다. 신곡아파트와 신곡 아파트를 같은 표현으로 판정합니다. OFF 그룹의 금지어는 적용하지 않습니다.",
+      "fareOnlyToggleLabel": "로지·아이드라이버 시간당 효율 없이 금액 기준 선택",
+      "fareOnlyToggleHelp": "기본 OFF. ON: 지원 앱에서 시간당 효율 계산·최소 효율 조건을 사용하지 않고 금액이 높은 순으로 선택합니다. 지역 금지어·그룹 모드·최소 금액·최대 거리는 그대로 적용됩니다. 해당 매크로의 현재 프로필에만 저장됩니다.",
+      "hideRouteTimeToggleLabel": "예상 도착시간 표시 (기본 ON)",
+      "hideRouteTimeToggleHelp": "OFF: 화면에 표시되는 예상 이동시간 문구를 숨깁니다. 시간 효율을 사용하는 경우 내부 계산과 안전 검증은 그대로 유지됩니다.",
+      "expandOfferToggleLabel": "콜 자동 확대 (기본 ON)",
+      "expandOfferToggleHelp": "자동·반자동 모두 해당 콜을 선택해 상세 화면이 확인되면 자동 확대합니다. OFF로 하면 자동 확대만 중단하고 수동 확대는 사용할 수 있습니다.",
+      "roadDongDisplayToggleLabel": "도로명 주소의 변환 동 표시 (기본 OFF)",
+      "roadDongDisplayToggleHelp": "ON: 주소 변환이 허용된 대상에서 도로명주소를 유일한 지역으로 변환할 수 있으면 해당 동을 표시합니다. 주소 V3 DB가 설치되어 있고 앱의 V3 주소 인식이 ON이면 기존 도로명 DB에서 변환하지 못한 주소도 V3에서 재검색합니다. OFF: 변환 동 표기만 숨기며 내부 지역 필터 및 시간 계산은 유지합니다. 중복·미확정 지역을 임의로 결정하지 않습니다."
     },
-    "help": "프로필별 조건과 화면 표시를 편집합니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
+    "help": "프로필별 조건과 화면 표시를 편집합니다. 주소 V3 DB는 ELCEON 앱의 이동시간 DB 관리 화면에서 별도로 다운로드하고 활성화합니다. 외부 JSON의 기존 주소 변환 허용 여부와 자동·반자동 조건은 그대로 유지됩니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
     "staticHelp": {
       "auto_selection_speed": "목록을 선택한 뒤 상세 동작으로 넘어가는 대기시간을 조절합니다. 너무 짧으면 화면 전환 중 중복 입력 위험이 있으므로 안정성을 확인하며 조절하세요.",
       "show_enabled": "화면에서 자동 강조 표시 기능을 보이게 할지 결정합니다. 전체 자동 실행 ON/OFF와 별개입니다.",
@@ -165,6 +285,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -177,6 +306,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -189,6 +327,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -201,6 +348,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -213,6 +369,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -225,6 +390,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -237,6 +411,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -249,6 +432,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -261,6 +453,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -273,6 +474,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -285,6 +495,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -297,6 +516,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": false,
+        "mode": "representative",
+        "allowProfileDisplay": false,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -309,6 +537,15 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
@@ -321,11 +558,29 @@
         "maximumDuration": 1440,
         "periodMultiplier": 60,
         "suffix": "단위/시간"
+      },
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
       }
     },
     {
       "enabled": true,
-      "packageName": "dev.viperlab.ninjamock.idriver"
+      "packageName": "dev.viperlab.ninjamock.idriver",
+      "roadToDong": {
+        "version": 1,
+        "enabled": true,
+        "mode": "representative",
+        "allowProfileDisplay": true,
+        "originLabelPrefix": "출 ",
+        "destinationLabelPrefix": "도 ",
+        "displaySeparator": " · "
+      }
     }
   ],
   "selection": {
@@ -336,7 +591,7 @@
     "duplicateMs": 1000,
     "reentryStableMs": 200
   },
-  "notes": "V6 원본과 비교하여 카카오 TEST의 콜 카드 최대높이 116→201, 마지막 카드 기준 900→2102, 티맵 TEST의 최대높이 117→222, 마지막 카드 기준 900→2102, 티맵 TEST 예상시간 검색 시작 X비율 0.25→0.20만 수정함. 실사용 카카오/티맵/로지/콜마너 및 로지/콜마너 TEST, 다른 앱, 프로필 16개, 색상 키워드/시간당 계산식, 자동·반자동 모드, 화면 인식 문구/수락 버튼/2회 클릭 동작 등은 변경하지 않음. 정확한 앱 접근성 노드 좌표와 실기기 동작은 현장 검증 필요.",
+  "notes": "V6 원본과 비교하여 카카오 TEST의 콜 카드 최대높이 116→201, 마지막 카드 기준 900→2102, 티맵 TEST의 최대높이 117→222, 마지막 카드 기준 900→2102, 티맵 TEST 예상시간 검색 시작 X비율 0.25→0.20만 수정함. 실사용 카카오/티맵/로지/콜마너 및 로지/콜마너 TEST, 다른 앱, 색상 키워드/시간당 계산식, 자동·반자동 모드, 화면 인식 문구/수락 버튼/2회 클릭 동작 등은 변경하지 않음. 정확한 앱 접근성 노드 좌표와 실기기 동작은 현장 검증 필요.",
   "splitAutomation": {
     "acceptButtons": {
       "com.kakao.wheel.driver": "수락",
@@ -360,16 +615,149 @@
       "stopGlobalAutomation": true,
       "bringViperToFront": true,
       "successTexts": {
-        "com.kakao.wheel.driver": "테스트 배차 수락 완료",
         "com.tmapmobility.drive.driver": "테스트 배차 수락 완료",
         "com.logisoft.Logi4": "테스트 배차 수락 완료",
-        "com.callmanerdriver2sharp1": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.kakao": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.tmap": "보안 화면 테스트",
         "dev.viperlab.ninjamock.logi": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.callmaner": "테스트 배차 수락 완료",
         "dev.viperlab.ninjamock.idriver": "테스트 배차 수락 완료"
-      }
+      },
+      "successProofGroups": {
+        "com.kakao.wheel.driver": [
+          [
+            "배정 완료",
+            "밀어서 고객에게 도착알림"
+          ],
+          [
+            "배정 완료",
+            "고객과 통화"
+          ],
+          [
+            "배정 완료",
+            "고객과 메시지"
+          ]
+        ]
+      },
+      "successProofMinimumMatches": {
+        "com.kakao.wheel.driver": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "배정 완료"
+            ],
+            [
+              "고객과 통화"
+            ],
+            [
+              "고객과 메세지",
+              "고객과 메시지"
+            ],
+            [
+              "밀어서 고객에게 도착알림"
+            ],
+            [
+              "배정 취소"
+            ],
+            [
+              "고객에게 위치가 공유됩니다.",
+              "고객에게 위치가 공유됩니다"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp1": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp2": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp3": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        },
+        "com.callmanerdriver2sharp4": {
+          "minimumMatches": 2,
+          "signals": [
+            [
+              "상황실"
+            ],
+            [
+              "고객명"
+            ],
+            [
+              "입금합계"
+            ],
+            [
+              "고객위치"
+            ],
+            [
+              "출도경로"
+            ]
+          ]
+        },
+        "com.tmapmobility.drive.driver": {
+          "minimumMatches": 1,
+          "signals": [
+            [
+              "일반 화면으로 열기"
+            ],
+            [
+              "휴대폰에서 직접 확인"
+            ]
+          ]
+        }
+      },
+      "protectedAcceptTapTurnsAutoOff": true
     },
     "screenRecognition": {
       "enabled": true,
@@ -414,7 +802,12 @@
               "maxXRatio": 0.27,
               "minTop": 550,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 201,
             "endFallback": 2102,
@@ -440,7 +833,7 @@
                 "maxDY": 140,
                 "maxXRatio": 0.27,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -20,
@@ -510,7 +903,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -585,7 +983,81 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
-          }
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
+          },
+          "popupOffers": [
+            {
+              "version": 1,
+              "id": "direct_single",
+              "enabled": true,
+              "actionType": "direct",
+              "markerContains": "프로 단독배정",
+              "mustBeExact": "프로 단독배정",
+              "actionText": "프로 단독배정",
+              "scopeBottomPx": 670,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
+                "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
+              }
+            },
+            {
+              "version": 1,
+              "id": "recommended_card",
+              "enabled": true,
+              "actionType": "review",
+              "markerContains": "실제 수익",
+              "forbidExact": "프로 단독배정",
+              "scopeBottomPx": 670,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
+                "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
+              }
+            },
+            {
+              "version": 1,
+              "id": "direct_detail",
+              "enabled": true,
+              "actionType": "direct",
+              "markerContains": "단독배정 수락",
+              "mustBeExact": "단독배정 수락",
+              "actionText": "단독배정 수락",
+              "scopeBottomPx": 2400,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "도보\\s*(\\d+(?:\\.\\d+)?)\\s*(km|m)",
+                "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
+                "distanceAnywhere": true,
+                "maxAboveActionPx": 1000
+              },
+              "fieldsNearAction": true,
+              "requireActionToMarkVisible": true
+            }
+          ],
+          "popupVisualEnabled": true,
+          "popupVisualKinds": [
+            "recommended_card",
+            "direct_single",
+            "direct_detail"
+          ]
         },
         "com.tmapmobility.drive.driver": {
           "enabled": true,
@@ -641,7 +1113,12 @@
               "maxXRatio": 0.25,
               "minTop": 310,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 222,
             "endFallback": 2102,
@@ -667,7 +1144,7 @@
                 "maxDY": 150,
                 "maxXRatio": 0.25,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -24,
@@ -737,7 +1214,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "structuralListDetection": {
             "enabled": true,
@@ -812,7 +1294,46 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
-          }
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
+          },
+          "popupOffers": [
+            {
+              "version": 1,
+              "id": "overlay_direct",
+              "enabled": true,
+              "actionType": "direct",
+              "markerContains": "이동",
+              "actionText": "콜 수락하기",
+              "actionMatch": "regex",
+              "actionPattern": "^(?:[①-⑳]\\s*)?콜\\s*수락하기$",
+              "scopeBottomPx": 1250,
+              "fields": {
+                "sourceLabel": "출발",
+                "destinationLabel": "도착",
+                "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
+                "sourceDistanceSuffixPattern": "",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
+                "distanceAnywhere": true
+              },
+              "mustBeExact": "이동",
+              "requireActionToMarkVisible": true,
+              "restrictToActionFooter": true,
+              "footerMarginPx": 12
+            }
+          ],
+          "popupVisualEnabled": true,
+          "popupVisualKinds": [
+            "overlay_direct"
+          ]
         },
         "com.logisoft.Logi4": {
           "enabled": true,
@@ -852,37 +1373,42 @@
             "anchor": {
               "format": "decimal",
               "maxXPx": 140,
-              "minTop": 220,
-              "maxTop": 1900
+              "minTop": 420,
+              "maxTop": 2050
             },
-            "maxHeight": 123,
+            "maxHeight": 350,
             "endFallback": 2102,
             "startShift": 0,
-            "nextShift": -2,
-            "footerText": "근처 기사님수",
+            "nextShift": 0,
             "classification": {
-              "mode": "notes",
-              "reservedContains": [
-                "예약배차",
-                "예약",
-                "시간 후"
+              "mode": "priorityTokens",
+              "priorityRules": [
+                {
+                  "kind": "towing",
+                  "contains": [
+                    "탁송"
+                  ]
+                },
+                {
+                  "kind": "reservation",
+                  "contains": [
+                    "예약"
+                  ]
+                }
               ]
             },
             "fields": {
               "source": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 140,
-                "maxXPx": 680
+                "maxDY": 350
               },
               "destination": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 680
+                "maxDY": 350
               }
             },
             "amount": {
-              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ]\\s*(.*)$",
               "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
               "multiplier": 1000,
               "rawSuffix": "ⓚ"
@@ -898,7 +1424,17 @@
               "destination",
               "amount",
               "distance"
-            ]
+            ],
+            "stripInvisibleCharacters": true,
+            "limitToObservedNodes": true,
+            "observedEndPadding": 0,
+            "headerColumns": {
+              "enabled": true,
+              "distanceHeaderId": "header1",
+              "sourceHeaderId": "header2",
+              "destinationHeaderId": "header3",
+              "minVisibleHeight": 45
+            }
           },
           "selectionRules": {
             "version": 1,
@@ -910,11 +1446,6 @@
             "acceptText": "배차받기",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -925,11 +1456,43 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "pickup",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "lg_reservation_allow",
+                "default": false
+              },
+              {
+                "kind": "towing",
+                "settingKey": "lg_towing_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "lg_via_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -1000,8 +1563,7 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi"
+              "com.logisoft.Logi4"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -1120,6 +1682,32 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "fareOnlySupported": true,
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "towing"
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.callmanerdriver2sharp1": {
@@ -1127,9 +1715,10 @@
           "minMatches": 2,
           "markers": [
             "위치",
-            "요금",
-            "일반 설정",
-            "km"
+            "거리",
+            "예약콜",
+            "일반설정",
+            "요금"
           ],
           "layoutId": "D",
           "listReturnAnyOf": [
@@ -1150,15 +1739,15 @@
           "hasEta": true,
           "rowExtraction": {
             "version": 1,
-            "mode": "columns",
+            "mode": "resourceIds",
             "anchor": {
               "format": "decimal",
               "maxXRatio": 0.13,
               "minTop": 275,
               "maxTop": 1900
             },
-            "maxHeight": 159,
-            "endFallback": 2102,
+            "maxHeight": 2000,
+            "endFallback": 4000,
             "startShift": -8,
             "nextShift": -6,
             "classification": {
@@ -1195,13 +1784,14 @@
               }
             },
             "amount": {
-              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
+              "pattern": "^\\s*([가-힣]{1,6})\\s*(\\d{1,3})\\s*[KkⓚⓀ]\\s*$",
               "allowedLabels": [
                 "현금",
                 "후불",
                 "카드",
                 "선불",
-                "이체"
+                "이체",
+                "복합"
               ],
               "multiplier": 1000
             },
@@ -1209,7 +1799,28 @@
               "pickup",
               "destination",
               "amount",
-              "distance"
+              "distance",
+              "eta"
+            ],
+            "sectionText": "예약콜",
+            "reservationTextPattern": "^\\s*\\d{1,2}[./]\\d{1,2}",
+            "minTop": 0,
+            "maxTop": 4000,
+            "resourceLayouts": [
+              {
+                "distanceId": "tvDistanceTwo",
+                "pickupId": "tvStartTwo",
+                "destinationId": "tvEndTwo",
+                "amountId": "tvPriceTwo",
+                "durationId": "tvCarTimeTwo"
+              },
+              {
+                "distanceId": "tvDistanceThree",
+                "pickupId": "tvStartThree",
+                "destinationId": "tvEndThree",
+                "amountId": "tvPriceThree",
+                "durationId": "tvCarTimeThree"
+              }
             ]
           },
           "selectionRules": {
@@ -1222,11 +1833,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -1237,11 +1843,45 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -1312,6 +1952,31 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "cm_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "cm_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "cm_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "cm_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.securetmap": {
@@ -1439,7 +2104,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "structuralListDetection": {
             "enabled": true,
@@ -1514,6 +2184,15 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.kakao": {
@@ -1556,7 +2235,12 @@
               "maxXRatio": 0.27,
               "minTop": 210,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 201,
             "endFallback": 2102,
@@ -1582,7 +2266,7 @@
                 "maxDY": 140,
                 "maxXRatio": 0.27,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -20,
@@ -1652,7 +2336,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -1722,6 +2411,15 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.tmap": {
@@ -1778,7 +2476,12 @@
               "maxXRatio": 0.25,
               "minTop": 100,
               "maxTop": 2102,
-              "pattern": "^(\\d+(?:\\.\\d+)?)\\s*km$"
+              "pattern": "(?i)^(\\d+(?:\\.\\d+)?)\\s*(km|m)$",
+              "unitGroup": 2,
+              "unitScaleToKm": {
+                "km": 1.0,
+                "m": 0.001
+              }
             },
             "maxHeight": 222,
             "endFallback": 2102,
@@ -1804,7 +2507,7 @@
                 "maxDY": 150,
                 "maxXRatio": 0.25,
                 "afterAnchorBottom": true,
-                "excludePattern": "^\\d+(?:\\.\\d+)?\\s*km$"
+                "excludePattern": "(?i)^\\d+(?:\\.\\d+)?\\s*(?:km|m)$"
               },
               "destination": {
                 "minDY": -24,
@@ -1874,7 +2577,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "structuralListDetection": {
             "enabled": true,
@@ -1949,6 +2657,15 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": false,
+            "mode": "representative",
+            "allowProfileDisplay": false,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.logi": {
@@ -2057,7 +2774,12 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2132,7 +2854,6 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
               "dev.viperlab.ninjamock.logi"
             ],
             "useAsDurationFallback": true,
@@ -2247,6 +2968,16 @@
               ],
               "tieBreaker": "shortestRoadDistance"
             }
+          },
+          "fareOnlySupported": true,
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.callmaner": {
@@ -2358,7 +3089,13 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
@@ -2428,6 +3165,15 @@
             "secondTextField": "secondText",
             "valueField": "value",
             "measureField": "measure"
+          },
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "dev.viperlab.ninjamock.idriver": {
@@ -2505,7 +3251,38 @@
             ],
             "acceptText": "배   차",
             "conditions": [],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              }
+            ]
+          },
+          "fareOnlySupported": true,
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
+          },
+          "routeMatrix": {
+            "version": 1,
+            "enabled": true,
+            "enabledPackages": [
+              "dev.viperlab.ninjamock.idriver"
+            ],
+            "useAsDurationFallback": true,
+            "splitOriginField": "firstText",
+            "splitDestinationField": "secondText",
+            "estimateFromRegionNames": true,
+            "showDurationIndependently": true,
+            "minimumEstimatedMinutes": 10,
+            "ambiguousRateSelection": {
+              "enabled": false
+            }
           }
         },
         "com.callmanerdriver2sharp2": {
@@ -2513,9 +3290,10 @@
           "minMatches": 2,
           "markers": [
             "위치",
-            "요금",
-            "일반 설정",
-            "km"
+            "거리",
+            "예약콜",
+            "일반설정",
+            "요금"
           ],
           "layoutId": "D",
           "listReturnAnyOf": [
@@ -2536,15 +3314,15 @@
           "hasEta": true,
           "rowExtraction": {
             "version": 1,
-            "mode": "columns",
+            "mode": "resourceIds",
             "anchor": {
               "format": "decimal",
               "maxXRatio": 0.13,
               "minTop": 275,
               "maxTop": 1900
             },
-            "maxHeight": 159,
-            "endFallback": 2102,
+            "maxHeight": 2000,
+            "endFallback": 4000,
             "startShift": -8,
             "nextShift": -6,
             "classification": {
@@ -2581,13 +3359,14 @@
               }
             },
             "amount": {
-              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
+              "pattern": "^\\s*([가-힣]{1,6})\\s*(\\d{1,3})\\s*[KkⓚⓀ]\\s*$",
               "allowedLabels": [
                 "현금",
                 "후불",
                 "카드",
                 "선불",
-                "이체"
+                "이체",
+                "복합"
               ],
               "multiplier": 1000
             },
@@ -2595,7 +3374,28 @@
               "pickup",
               "destination",
               "amount",
-              "distance"
+              "distance",
+              "eta"
+            ],
+            "sectionText": "예약콜",
+            "reservationTextPattern": "^\\s*\\d{1,2}[./]\\d{1,2}",
+            "minTop": 0,
+            "maxTop": 4000,
+            "resourceLayouts": [
+              {
+                "distanceId": "tvDistanceTwo",
+                "pickupId": "tvStartTwo",
+                "destinationId": "tvEndTwo",
+                "amountId": "tvPriceTwo",
+                "durationId": "tvCarTimeTwo"
+              },
+              {
+                "distanceId": "tvDistanceThree",
+                "pickupId": "tvStartThree",
+                "destinationId": "tvEndThree",
+                "amountId": "tvPriceThree",
+                "durationId": "tvCarTimeThree"
+              }
             ]
           },
           "selectionRules": {
@@ -2608,11 +3408,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -2623,11 +3418,45 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -2698,6 +3527,31 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "cm_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "cm_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "cm_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "cm_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.callmanerdriver2sharp3": {
@@ -2705,9 +3559,10 @@
           "minMatches": 2,
           "markers": [
             "위치",
-            "요금",
-            "일반 설정",
-            "km"
+            "거리",
+            "예약콜",
+            "일반설정",
+            "요금"
           ],
           "layoutId": "D",
           "listReturnAnyOf": [
@@ -2728,15 +3583,15 @@
           "hasEta": true,
           "rowExtraction": {
             "version": 1,
-            "mode": "columns",
+            "mode": "resourceIds",
             "anchor": {
               "format": "decimal",
               "maxXRatio": 0.13,
               "minTop": 275,
               "maxTop": 1900
             },
-            "maxHeight": 159,
-            "endFallback": 2102,
+            "maxHeight": 2000,
+            "endFallback": 4000,
             "startShift": -8,
             "nextShift": -6,
             "classification": {
@@ -2773,13 +3628,14 @@
               }
             },
             "amount": {
-              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
+              "pattern": "^\\s*([가-힣]{1,6})\\s*(\\d{1,3})\\s*[KkⓚⓀ]\\s*$",
               "allowedLabels": [
                 "현금",
                 "후불",
                 "카드",
                 "선불",
-                "이체"
+                "이체",
+                "복합"
               ],
               "multiplier": 1000
             },
@@ -2787,7 +3643,28 @@
               "pickup",
               "destination",
               "amount",
-              "distance"
+              "distance",
+              "eta"
+            ],
+            "sectionText": "예약콜",
+            "reservationTextPattern": "^\\s*\\d{1,2}[./]\\d{1,2}",
+            "minTop": 0,
+            "maxTop": 4000,
+            "resourceLayouts": [
+              {
+                "distanceId": "tvDistanceTwo",
+                "pickupId": "tvStartTwo",
+                "destinationId": "tvEndTwo",
+                "amountId": "tvPriceTwo",
+                "durationId": "tvCarTimeTwo"
+              },
+              {
+                "distanceId": "tvDistanceThree",
+                "pickupId": "tvStartThree",
+                "destinationId": "tvEndThree",
+                "amountId": "tvPriceThree",
+                "durationId": "tvCarTimeThree"
+              }
             ]
           },
           "selectionRules": {
@@ -2800,11 +3677,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -2815,11 +3687,45 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -2890,6 +3796,31 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "cm_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "cm_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "cm_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "cm_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.logisoft.Logi5": {
@@ -2930,37 +3861,42 @@
             "anchor": {
               "format": "decimal",
               "maxXPx": 140,
-              "minTop": 220,
-              "maxTop": 1900
+              "minTop": 420,
+              "maxTop": 2050
             },
-            "maxHeight": 123,
+            "maxHeight": 350,
             "endFallback": 2102,
             "startShift": 0,
-            "nextShift": -2,
-            "footerText": "근처 기사님수",
+            "nextShift": 0,
             "classification": {
-              "mode": "notes",
-              "reservedContains": [
-                "예약배차",
-                "예약",
-                "시간 후"
+              "mode": "priorityTokens",
+              "priorityRules": [
+                {
+                  "kind": "towing",
+                  "contains": [
+                    "탁송"
+                  ]
+                },
+                {
+                  "kind": "reservation",
+                  "contains": [
+                    "예약"
+                  ]
+                }
               ]
             },
             "fields": {
               "source": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 140,
-                "maxXPx": 680
+                "maxDY": 350
               },
               "destination": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 680
+                "maxDY": 350
               }
             },
             "amount": {
-              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ]\\s*(.*)$",
               "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
               "multiplier": 1000,
               "rawSuffix": "ⓚ"
@@ -2976,7 +3912,17 @@
               "destination",
               "amount",
               "distance"
-            ]
+            ],
+            "stripInvisibleCharacters": true,
+            "limitToObservedNodes": true,
+            "observedEndPadding": 0,
+            "headerColumns": {
+              "enabled": true,
+              "distanceHeaderId": "header1",
+              "sourceHeaderId": "header2",
+              "destinationHeaderId": "header3",
+              "minVisibleHeight": 45
+            }
           },
           "selectionRules": {
             "version": 1,
@@ -2988,11 +3934,6 @@
             "acceptText": "배차받기",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -3003,11 +3944,43 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "pickup",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "lg_reservation_allow",
+                "default": false
+              },
+              {
+                "kind": "towing",
+                "settingKey": "lg_towing_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "lg_via_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -3078,8 +4051,7 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi"
+              "com.logisoft.Logi5"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -3198,6 +4170,32 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "fareOnlySupported": true,
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "towing"
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.logisoft.Logi6": {
@@ -3238,37 +4236,42 @@
             "anchor": {
               "format": "decimal",
               "maxXPx": 140,
-              "minTop": 220,
-              "maxTop": 1900
+              "minTop": 420,
+              "maxTop": 2050
             },
-            "maxHeight": 123,
+            "maxHeight": 350,
             "endFallback": 2102,
             "startShift": 0,
-            "nextShift": -2,
-            "footerText": "근처 기사님수",
+            "nextShift": 0,
             "classification": {
-              "mode": "notes",
-              "reservedContains": [
-                "예약배차",
-                "예약",
-                "시간 후"
+              "mode": "priorityTokens",
+              "priorityRules": [
+                {
+                  "kind": "towing",
+                  "contains": [
+                    "탁송"
+                  ]
+                },
+                {
+                  "kind": "reservation",
+                  "contains": [
+                    "예약"
+                  ]
+                }
               ]
             },
             "fields": {
               "source": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 140,
-                "maxXPx": 680
+                "maxDY": 350
               },
               "destination": {
                 "minDY": 0,
-                "maxDY": 122,
-                "minXPx": 680
+                "maxDY": 350
               }
             },
             "amount": {
-              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ][\\u200B\\uFE0F\\uFEFF]*\\s*(.*)$",
+              "prefixRegex": "^\\s*(?:\\(\\s*자동\\s*\\)\\s*)?(\\d{1,3})\\s*[ⓚⓀKkＫ]\\s*(.*)$",
               "uncertainRegex": "^\\s*(\\d{1,3})\\s+(.+)$",
               "multiplier": 1000,
               "rawSuffix": "ⓚ"
@@ -3284,7 +4287,17 @@
               "destination",
               "amount",
               "distance"
-            ]
+            ],
+            "stripInvisibleCharacters": true,
+            "limitToObservedNodes": true,
+            "observedEndPadding": 0,
+            "headerColumns": {
+              "enabled": true,
+              "distanceHeaderId": "header1",
+              "sourceHeaderId": "header2",
+              "destinationHeaderId": "header3",
+              "minVisibleHeight": 45
+            }
           },
           "selectionRules": {
             "version": 1,
@@ -3296,11 +4309,6 @@
             "acceptText": "배차받기",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -3311,11 +4319,43 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "pickup",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "lg_reservation_allow",
+                "default": false
+              },
+              {
+                "kind": "towing",
+                "settingKey": "lg_towing_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "lg_via_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -3386,8 +4426,7 @@
             "version": 1,
             "enabled": true,
             "enabledPackages": [
-              "com.logisoft.Logi4",
-              "dev.viperlab.ninjamock.logi"
+              "com.logisoft.Logi6"
             ],
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
@@ -3506,6 +4545,32 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "fareOnlySupported": true,
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "towing"
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         },
         "com.callmanerdriver2sharp4": {
@@ -3513,9 +4578,10 @@
           "minMatches": 2,
           "markers": [
             "위치",
-            "요금",
-            "일반 설정",
-            "km"
+            "거리",
+            "예약콜",
+            "일반설정",
+            "요금"
           ],
           "layoutId": "D",
           "listReturnAnyOf": [
@@ -3536,15 +4602,15 @@
           "hasEta": true,
           "rowExtraction": {
             "version": 1,
-            "mode": "columns",
+            "mode": "resourceIds",
             "anchor": {
               "format": "decimal",
               "maxXRatio": 0.13,
               "minTop": 275,
               "maxTop": 1900
             },
-            "maxHeight": 159,
-            "endFallback": 2102,
+            "maxHeight": 2000,
+            "endFallback": 4000,
             "startShift": -8,
             "nextShift": -6,
             "classification": {
@@ -3581,13 +4647,14 @@
               }
             },
             "amount": {
-              "pattern": "^\\s*((?:[가-힣][\\u200B\\uFEFF\\s]*){1,6})((?:\\d[\\u200B\\uFEFF\\s]*){1,3})[KkⓚⓀ]\\s*$",
+              "pattern": "^\\s*([가-힣]{1,6})\\s*(\\d{1,3})\\s*[KkⓚⓀ]\\s*$",
               "allowedLabels": [
                 "현금",
                 "후불",
                 "카드",
                 "선불",
-                "이체"
+                "이체",
+                "복합"
               ],
               "multiplier": 1000
             },
@@ -3595,7 +4662,28 @@
               "pickup",
               "destination",
               "amount",
-              "distance"
+              "distance",
+              "eta"
+            ],
+            "sectionText": "예약콜",
+            "reservationTextPattern": "^\\s*\\d{1,2}[./]\\d{1,2}",
+            "minTop": 0,
+            "maxTop": 4000,
+            "resourceLayouts": [
+              {
+                "distanceId": "tvDistanceTwo",
+                "pickupId": "tvStartTwo",
+                "destinationId": "tvEndTwo",
+                "amountId": "tvPriceTwo",
+                "durationId": "tvCarTimeTwo"
+              },
+              {
+                "distanceId": "tvDistanceThree",
+                "pickupId": "tvStartThree",
+                "destinationId": "tvEndThree",
+                "amountId": "tvPriceThree",
+                "durationId": "tvCarTimeThree"
+              }
             ]
           },
           "selectionRules": {
@@ -3608,11 +4696,6 @@
             "acceptText": "수락",
             "conditions": [
               {
-                "field": "kind",
-                "op": "eq",
-                "value": "normal"
-              },
-              {
                 "field": "value",
                 "op": "gte",
                 "value": 1000
@@ -3623,11 +4706,45 @@
                 "value": 0
               }
             ],
-            "excludeScoreMetrics": []
+            "excludeScoreMetrics": [],
+            "rowTapField": "amount",
+            "selectableKinds": [
+              {
+                "kind": "normal"
+              },
+              {
+                "kind": "reservation",
+                "settingKey": "cm_reservation_allow",
+                "default": false
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "firstText",
+                "pattern": "경유",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
+              },
+              {
+                "field": "firstText",
+                "pattern": "톨포|탁송|전기차",
+                "settingKey": "cm_towing_allow",
+                "default": false,
+                "blockWhen": false
+              }
+            ]
           },
           "readOnlyValidation": {
             "version": 1,
-            "requireNormal": true,
+            "requireNormal": false,
             "requireComplete": true,
             "requireNoIssues": true,
             "requiredTextFields": [
@@ -3698,6 +4815,31 @@
             "enabled": true,
             "minCompleteRows": 1,
             "rejectAcceptControls": true
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "cm_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "cm_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "cm_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "cm_insurance_won",
+            "fixedDefault": 1000
+          },
+          "visualKinds": [
+            "normal",
+            "reservation",
+            "scheduled"
+          ],
+          "roadToDong": {
+            "version": 1,
+            "enabled": true,
+            "mode": "representative",
+            "allowProfileDisplay": true,
+            "originLabelPrefix": "출 ",
+            "destinationLabelPrefix": "도 ",
+            "displaySeparator": " · "
           }
         }
       }
@@ -3743,2148 +4885,7 @@
       }
     ]
   },
-  "profilePresets": [
-    {
-      "name": "1. 서울 전역",
-      "description": "서울 25개 자치구 전체, 연계 도시 선택 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 필수 검토 · 업무·도심 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "종로구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 중구, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 용산구, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 마포구, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강남구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 서초구, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원, 영등포구, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 적극 추천 · 추천 이동 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "성동구, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 서대문구, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 송파구, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 광진구, 광장, 구의, 군자, 자양, 중곡, 화양, 동작구, 노량진, 대방, 사당, 상도, 신대방, 흑석",
-            "minimum_value": 13000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 추천 · 생활권 연결",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "동대문구, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경, 성북구, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 양천구, 신월, 신정, 강서구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 관악구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 강동구, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 외곽·연계",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "은평구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 중랑구, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화, 구로구, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 금천구, 가산, 독산, 시흥",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "E 신중 선택 · 북부 외곽·신중",
-            "color": "#FF5555",
-            "mode": "반자동",
-            "keywords": "강북구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉구, 도봉, 방학, 쌍문, 노원구, 공릉, 상계, 월계, 중계본, 중계, 하계",
-            "minimum_value": 19000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 3
-          },
-          {
-            "name": "연계 · 인천",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "인천, 송도, 청라, 부평",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "연계 · 의정부·옥정",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "의정부, 옥정, 민락, 고산",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "연계 · 수원·용인",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "수원, 영통, 용인, 수지",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "연계 · 고양·파주",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "고양, 일산, 파주, 운정",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "연계 · 성남·하남",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "성남, 분당, 판교, 하남",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "종로구, 강남구, 마포구, 서초구, 용산구, 영등포구",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "2. 의정부·옥정·민락·고산",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 민락·옥정·고산 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "옥정, 민락, 고산, 낙양, 송산, 회천, 율정, 덕계, 광사, 고읍",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 의정부·양주 생활권",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "신곡, 금오, 용현, 장암, 호원, 가능, 녹양, 자금, 의정부역, 흥선, 회정, 회암, 만송, 삼숭",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 북부 인접 연결",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "덕정, 덕계, 소흘, 송우, 축석, 별내, 청학, 포천, 양주, 퇴계원",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 북부 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "동두천, 지행, 생연, 연천, 전곡, 진접, 진건, 오남, 광적, 백석, 은현, 장흥",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 포천·동두천",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "포천, 소흘, 송우, 동두천, 지행, 생연",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 남양주·구리",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "남양주, 별내, 진접, 퇴계원, 구리",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 고양·파주",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "고양, 덕양, 파주, 운정, 금촌",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "옥정, 민락, 고산, 낙양, 송산, 회천, 율정, 덕계, 광사, 고읍",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "3. 수원",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 인계·광교·영통 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "인계, 광교, 영통, 매탄, 원천, 우만, 권선, 나혜석, 호매실, 망포",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 팔달·장안·권선 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "팔달구, 영통구, 장안구, 권선구, 정자, 송죽, 율전, 파장, 세류, 곡선, 매교",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 수원 인접 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "권선, 구운, 서둔, 탑동, 영화, 조원, 금곡, 고색, 입북, 평동",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 수원 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "수원, 오목천, 당수, 이목, 하광교, 상광교, 천천, 신풍, 남창, 매향",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 용인·화성",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "용인, 기흥, 동탄, 화성, 봉담",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 안양·군포",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "안양, 평촌, 군포, 산본, 금정",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 성남·과천",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "성남, 판교, 과천, 의왕",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "인계, 광교, 영통, 매탄, 원천, 우만, 권선, 나혜석, 호매실, 망포",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "4. 인천",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 송도·구월·부평 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "송도, 구월, 부평, 부개, 청천, 십정, 삼산, 논현, 청라",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 인천 중심 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "남동구, 연수구, 부평구, 미추홀구, 주안, 도화, 용현, 관교, 선학, 연수, 계산, 작전",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 서부·동부 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "계양구, 검단구, 검단, 가정, 석남, 가좌, 서창, 옥련, 동춘, 숭의, 신포",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 인천 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "인천, 강화, 영종, 운서, 서운, 가남, 계양, 강화군, 옹진군, 백령, 연평",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 부천·김포",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "부천, 원미, 김포, 장기",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 시흥·안산",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "시흥, 정왕, 안산, 고잔",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 고양·파주",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "고양, 일산, 파주, 운정",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "송도, 구월, 부평, 부개, 청천, 십정, 삼산, 논현, 청라",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "5. 청주",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 복대·가경·오송 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "복대, 가경, 봉명, 오송, 오창, 사창, 성화, 개신, 분평",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 시내 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "흥덕구, 서원구, 상당구, 청원구, 용암, 율량, 사천, 우암, 산남, 금천, 사직",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 청주 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "운천, 신봉, 수곡, 모충, 강내, 옥산, 내수, 북이, 오근장",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 청주 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "청주, 문의, 남일, 남이, 현도, 미원, 낭성, 가덕",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 세종·조치원",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "세종, 조치원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 진천·증평",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "진천, 증평",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 대전·천안",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "대전, 천안",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "복대, 가경, 봉명, 오송, 오창, 사창, 성화, 개신, 분평",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "6. 세종",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 정부청사·신도심 중심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "어진, 나성, 도담, 종촌, 새롬, 다정, 한솔, 보람, 소담, 반곡",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 주거·상업 중심",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "아름, 고운, 대평, 가람, 집현, 해밀, 산울, 보람",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 조치원·근교 연결",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "조치원, 연기, 연서, 장군, 금남, 연동, 부강",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 세종 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "세종, 전의, 전동, 소정, 연기면, 금남면, 연서면",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 청주·오송",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "청주, 오송, 오창",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 대전·유성",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "대전, 유성",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 공주·천안",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "공주, 천안",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "어진, 나성, 도담, 종촌, 새롬, 다정, 한솔, 보람, 소담, 반곡",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "7. 대전",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 둔산·유성 중심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "둔산, 유성, 봉명, 궁동, 도안, 관저, 노은, 월평, 탄방, 만년",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 중심 업무·주거 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "유성구, 은행, 대흥, 오류, 용문, 가장, 태평, 선화",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 동부·북부 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "대덕구, 가오, 판암, 용전, 송촌, 법동, 중리, 신탄진",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 대전 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "대전, 낭월, 산내, 기성, 흑석, 구즉, 관평, 전민, 대청",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 세종·공주",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "세종, 공주",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 청주·옥천",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "청주, 옥천",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 계룡·금산",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "계룡, 금산",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "둔산, 유성, 봉명, 궁동, 도안, 관저, 노은, 월평, 탄방, 만년",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "8. 대구",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 동성로·수성 중심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "동성로, 범어, 황금, 만촌, 두산, 상동, 신천",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 중심 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "수성구, 달서구, 달성로, 성서, 월성, 상인, 죽전, 감삼",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 북부·동부 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "침산, 칠성, 산격, 복현, 동천, 지저, 각산, 신서",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 대구 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "대구, 달성군, 군위군, 현풍, 다사, 화원, 옥포, 구지, 안심",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 경산·영천",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "경산, 영천",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 구미·칠곡",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "구미, 칠곡, 왜관",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 포항·경주",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "포항, 경주",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "동성로, 범어, 황금, 만촌, 두산, 상동, 신천",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "9. 부산",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 서면·해운대·센텀 중심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "서면, 전포, 부전, 해운대, 우동, 좌동, 센텀, 재송, 광안, 수영",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 부산 중심 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "부산진구, 해운대구, 수영구, 동래구, 연제구, 남구, 동래, 온천, 사직, 연산, 대연, 문현",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 서부·북부 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "사상구, 사하구, 강서구, 사상, 덕천, 화명, 하단, 명지",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 부산 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "부산, 기장군, 영도구, 금정구, 기장, 정관, 철마, 기장읍, 일광, 영도",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 김해·양산",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "김해, 양산",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 창원·진해",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "창원, 진해",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 울산·기장",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "울산, 기장",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "서면, 전포, 부전, 해운대, 우동, 좌동, 센텀, 재송, 광안, 수영",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "10. 광주",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 상무·첨단·수완 중심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "상무, 치평, 수완, 첨단, 운암, 금호, 풍암",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 광주 업무·주거 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "광산구, 봉선, 월산, 양림, 충장, 충장로",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 북부·서부 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "일곡, 오치, 용봉, 신창, 신가, 송정, 하남, 우산",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 광주 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "광주, 광산, 임곡, 평동, 월곡, 양산, 문흥, 각화",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 나주·담양",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "나주, 담양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 화순·장성",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "화순, 장성",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 목포·순천",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "목포, 순천",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "상무, 치평, 수완, 첨단, 운암, 금호, 풍암",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "11. 울산",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 삼산·달·공업단지 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "삼산, 달동, 신정, 옥동, 무거, 성남",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 울산 중심 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "일산, 방어진, 전하, 태화, 반구",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 울산 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "송정, 호계, 화봉, 천곡, 효문, 화정, 주전",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 울산 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "울산, 울주군, 범서, 언양, 온산, 온양, 청량, 두동",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 양산·김해",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "양산, 김해",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 부산·기장",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "부산, 기장",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 경주·포항",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "경주, 포항",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "삼산, 달동, 신정, 옥동, 무거, 성남",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "12. 성남·분당",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 판교·정자·서현 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "판교, 정자, 서현, 야탑, 수내, 백현, 삼평",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 분당·수정·중원 중심",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "분당구, 수정구, 중원구, 금곡, 구미, 이매, 태평, 신흥, 상대원",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 인접 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "위례, 복정, 고등, 신촌, 단대, 산성, 은행, 도촌",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 성남 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "성남, 운중, 대장, 시흥, 금토, 사송, 갈현",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 용인·수지",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "용인, 수지, 죽전",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 하남·광주경기",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "하남, 미사, 경기광주, 태전",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 수원·과천",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "수원, 과천",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "판교, 정자, 서현, 야탑, 수내, 백현, 삼평",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "13. 고양·파주",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 일산·대화·운정 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "백석, 마두, 장항, 정발산, 주엽, 대화, 킨텍스, 운정, 야당",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 고양 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "일산동구, 일산서구, 덕양구, 화정, 행신, 원당, 삼송, 지축, 탄현",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 파주 주요 거점",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "파주, 금촌, 문산, 교하, 와동, 목동, 동패",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "고양, 조리, 광탄, 법원, 적성, 파평, 통일, 파주읍",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 김포·부천",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "김포, 부천",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 양주·의정부",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "양주, 의정부",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 인천·계양",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "인천, 계양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "백석, 마두, 장항, 정발산, 주엽, 대화, 킨텍스, 운정, 야당",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "14. 천안·아산",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 불당·쌍용·배방 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "불당, 쌍용, 두정, 성정, 배방, 탕정",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 천안·아산 주요 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "서북구, 동남구, 신부, 봉명, 원성, 목천, 청당, 온양, 온천",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 인접 생활권",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "천안, 아산, 신방, 백석, 성환, 직산, 둔포, 음봉",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "입장, 병천, 광덕, 풍세, 영인, 인주, 선장, 도고",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 평택·안성",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "평택, 안성",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 세종·공주",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "세종, 공주",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 청주·오송",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "청주, 오송",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "불당, 쌍용, 두정, 성정, 배방, 탕정",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "15. 창원·마산·진해",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 상남·중앙·용호 핵심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "상남, 중앙, 용호, 가음정, 대방",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 창원 주요 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "성산구, 의창구, 팔용, 봉곡, 명서, 소답",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 마산·진해 연결",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "마산합포구, 마산회원구, 진해구, 합성, 양덕, 석전, 경화, 이동",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "창원, 북면, 동읍, 진전, 진북, 구산, 웅동, 용원",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 김해·부산",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "김해, 부산",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 진주·함안",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "진주, 함안",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 밀양·양산",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "밀양, 양산",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "상남, 중앙, 용호, 가음정, 대방",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    },
-    {
-      "name": "16. 용인",
-      "description": "도시 내 우선 A~D, 서울 전역 5구역 OFF, 인근 도시 3개 OFF",
-      "values": {
-        "show_matching_rows": true,
-        "rule_groups": [
-          {
-            "name": "A 최우선 · 수지·기흥 중심",
-            "color": "#328DFF",
-            "mode": "자동",
-            "keywords": "수지, 죽전, 성복, 상현, 동백, 기흥, 구갈, 보정",
-            "minimum_value": 12000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "B 추천 · 용인 거점",
-            "color": "#31C46A",
-            "mode": "자동",
-            "keywords": "수지구, 기흥구, 처인구, 신갈, 마북, 구성, 역북, 김량장",
-            "minimum_value": 13000,
-            "increment_per_unit": 2000,
-            "minimum_rate": 0,
-            "maximum_measure": 6
-          },
-          {
-            "name": "C 일반 · 생활권 연결",
-            "color": "#F5C542",
-            "mode": "자동",
-            "keywords": "풍덕천, 신봉, 고림, 포곡, 모현",
-            "minimum_value": 14000,
-            "increment_per_unit": 2500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "D 조건부 · 외곽 조건부",
-            "color": "#FF932E",
-            "mode": "반자동",
-            "keywords": "용인, 백암, 원삼, 양지, 이동, 남사",
-            "minimum_value": 16000,
-            "increment_per_unit": 3000,
-            "minimum_rate": 0,
-            "maximum_measure": 4
-          },
-          {
-            "name": "서울 연계 · 서울 북부",
-            "color": "#B36BFF",
-            "mode": "끄기",
-            "keywords": "강북구, 도봉구, 노원구, 성북구, 중랑구, 미아, 삼각산, 삼양, 송중, 송천, 수유, 우이, 인수, 도봉, 방학, 쌍문, 공릉, 상계, 월계, 중계본, 중계, 하계, 길음, 돈암, 동선, 보문, 삼선, 석관, 성북, 안암, 월곡, 장위, 정릉, 종암, 망우본, 망우, 면목본, 면목, 상봉, 신내, 중화",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 서부",
-            "color": "#00A9C7",
-            "mode": "끄기",
-            "keywords": "은평구, 서대문구, 마포구, 갈현, 구산, 녹번, 대조, 불광, 수색, 신사, 역촌, 응암, 증산, 진관, 남가좌, 북가좌, 북아현, 신촌, 연희, 천연, 충현, 홍은, 홍제, 공덕, 대흥, 도화, 망원, 상암, 서강, 서교, 성산, 신수, 아현, 염리, 연남, 용강, 합정, 강서구, 양천구, 영등포구, 구로구, 금천구, 가양, 공항, 등촌, 발산, 방화, 염창, 우장산, 화곡본, 화곡, 신월, 신정, 당산, 대림, 도림, 문래, 신길, 양평, 여의, 영등포본, 영등포, 가리봉, 개봉, 고척, 구로, 수궁, 신도림, 오류, 가산, 독산, 시흥",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 도심",
-            "color": "#F26D9C",
-            "mode": "끄기",
-            "keywords": "종로구, 중구, 용산구, 성동구, 동대문구, 가회, 교남, 무악, 부암, 사직, 삼청, 숭인, 이화, 종로, 창신, 청운효자, 평창, 혜화, 광희, 다산, 동화, 소공, 신당, 약수, 을지로, 장충, 중림, 청구, 황학, 회현, 남영, 보광, 서빙고, 용문, 원효로, 이촌, 이태원, 청파, 한강로, 한남, 효창, 후암, 금호, 마장, 사근, 성수, 송정, 옥수, 왕십리도선, 왕십리, 용답, 응봉, 행당, 답십리, 용신, 이문, 장안, 전농, 제기, 청량리, 회기, 휘경",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 남부",
-            "color": "#8891E8",
-            "mode": "끄기",
-            "keywords": "관악구, 동작구, 서초구, 낙성대, 난곡, 난향, 남현, 대학, 미성, 보라매, 서림, 서원, 성현, 신림, 신원, 은천, 인헌, 조원, 중앙, 청룡, 청림, 행운, 노량진, 대방, 사당, 상도, 신대방, 흑석, 내곡, 반포본, 반포, 방배본, 방배, 서초, 양재, 잠원",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "서울 연계 · 서울 동부",
-            "color": "#55AE7D",
-            "mode": "끄기",
-            "keywords": "강남구, 송파구, 강동구, 광진구, 개포, 논현, 대치, 도곡, 삼성, 세곡, 수서, 압구정, 역삼, 일원본, 일원, 청담, 가락본, 가락, 거여, 마천, 문정, 방이, 삼전, 석촌, 송파, 오금, 오륜, 위례, 잠실본, 잠실, 장지, 풍납, 강일, 고덕, 둔촌, 명일, 상일, 성내, 암사, 천호, 광장, 구의, 군자, 자양, 중곡, 화양",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 성남·판교",
-            "color": "#A67D4B",
-            "mode": "끄기",
-            "keywords": "성남, 판교",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 수원·화성",
-            "color": "#D26B48",
-            "mode": "끄기",
-            "keywords": "수원, 화성, 동탄",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          },
-          {
-            "name": "주변 연계 · 광주·하남",
-            "color": "#8BA548",
-            "mode": "끄기",
-            "keywords": "경기광주, 하남",
-            "minimum_value": 18000,
-            "increment_per_unit": 3500,
-            "minimum_rate": 0,
-            "maximum_measure": 5
-          }
-        ],
-        "split_restore_on_close": true,
-        "minutes_per_measure": 5,
-        "priority_keywords": "수지, 죽전, 성복, 상현, 동백, 기흥, 구갈, 보정",
-        "v17_weight_enabled": false,
-        "split_auto_row_select": true,
-        "split_auto_accept": true
-      }
-    }
-  ],
+  "profilePresets": [],
   "blankNewProfile": true,
   "candidateEvaluation": {
     "version": 1,
