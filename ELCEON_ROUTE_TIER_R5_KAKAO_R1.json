@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "사용안함 (프로필 O)",
+  "name": "사용안함 (프로필 X)",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
