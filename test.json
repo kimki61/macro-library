@@ -4864,6 +4864,13 @@
     "displayLabels": {
       "ratePrefix": "시간당 ",
       "rateUnavailable": "시간 미확인"
+    },
+    "pinchCompatibility": {
+      "version": 1,
+      "enabled": true,
+      "autoEnabledPackages": [
+        "com.kakao.wheel.driver"
+      ]
     }
   },
   "splitPriority": {
