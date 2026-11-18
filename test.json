@@ -1742,7 +1742,12 @@
                   "minimumRate": 50000,
                   "maximumRate": 100000
                 }
-              ]
+              ],
+              "outOfRangeBand": {
+                "enabled": true,
+                "priority": 9,
+                "sort": "hourly_ascending"
+              }
             },
             "useInferredDurationForRateCheck": true,
             "addressCandidateResolution": {
@@ -3088,7 +3093,12 @@
                   "minimumRate": 50000,
                   "maximumRate": 100000
                 }
-              ]
+              ],
+              "outOfRangeBand": {
+                "enabled": true,
+                "priority": 9,
+                "sort": "hourly_ascending"
+              }
             },
             "useInferredDurationForRateCheck": true,
             "addressCandidateResolution": {
@@ -3469,7 +3479,12 @@
                   "minimumRate": 50000,
                   "maximumRate": 100000
                 }
-              ]
+              ],
+              "outOfRangeBand": {
+                "enabled": true,
+                "priority": 9,
+                "sort": "hourly_ascending"
+              }
             },
             "useInferredDurationForRateCheck": true,
             "addressCandidateResolution": {
@@ -4397,7 +4412,12 @@
                   "minimumRate": 50000,
                   "maximumRate": 100000
                 }
-              ]
+              ],
+              "outOfRangeBand": {
+                "enabled": true,
+                "priority": 9,
+                "sort": "hourly_ascending"
+              }
             },
             "useInferredDurationForRateCheck": true,
             "addressCandidateResolution": {
@@ -4804,7 +4824,12 @@
                   "minimumRate": 50000,
                   "maximumRate": 100000
                 }
-              ]
+              ],
+              "outOfRangeBand": {
+                "enabled": true,
+                "priority": 9,
+                "sort": "hourly_ascending"
+              }
             },
             "useInferredDurationForRateCheck": true,
             "addressCandidateResolution": {
