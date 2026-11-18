@@ -169,7 +169,7 @@
         "id": "cm_kickboard_exclude",
         "label": "킥보드 표시 콜 제외",
         "default": true,
-        "help": "출발지에 특정 이동수단 문구가 있는 항목을 제외합니다. 기본 ON. 예: 출발지에 ‘킥보드’가 포함되면 제외합니다."
+        "help": "기본 ON. 출발지 또는 별도 표시에 ‘킥보드’나 ‘노킥’이 있는 항목은 모두 제외합니다. OFF면 이 두 문구 때문에 제외하지 않습니다. 예: ‘노킥/즉후’가 포함된 항목도 ON일 때 제외됩니다."
       },
       {
         "type": "switch",
@@ -240,7 +240,7 @@
         "id": "lg_kickboard_exclude",
         "label": "킥보드 표시 콜 제외",
         "default": true,
-        "help": "출발지에 특정 이동수단 표시가 있으면 제외합니다. 기본 ON. 예: ‘킥보드’가 포함된 항목을 선택하지 않습니다."
+        "help": "기본 ON. 출발지 또는 별도 표시에 ‘킥보드’나 ‘노킥’이 있는 항목은 모두 제외합니다. OFF면 이 두 문구 때문에 제외하지 않습니다. 예: ‘노킥/즉후’가 포함된 항목도 ON일 때 제외됩니다."
       },
       {
         "type": "switch",
@@ -1478,7 +1478,8 @@
               "sourceHeaderId": "header2",
               "destinationHeaderId": "header3",
               "minVisibleHeight": 45
-            }
+            },
+            "footerText": "근처기사님수"
           },
           "selectionRules": {
             "version": 1,
@@ -1520,7 +1521,14 @@
             "conditionalExclusions": [
               {
                 "field": "firstText",
-                "pattern": "킥보드",
+                "pattern": "킥보드|노킥",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
                 "settingKey": "lg_kickboard_exclude",
                 "default": true,
                 "blockWhen": true
@@ -1926,7 +1934,14 @@
             "conditionalExclusions": [
               {
                 "field": "firstText",
-                "pattern": "킥보드",
+                "pattern": "킥보드|노킥",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
                 "settingKey": "cm_kickboard_exclude",
                 "default": true,
                 "blockWhen": true
@@ -2815,7 +2830,8 @@
               "destination",
               "amount",
               "distance"
-            ]
+            ],
+            "footerText": "근처기사님수"
           },
           "selectionRules": {
             "version": 1,
@@ -2849,6 +2865,20 @@
               }
             ],
             "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드|노킥",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
               {
                 "field": "firstText",
                 "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
@@ -3198,6 +3228,20 @@
               }
             ],
             "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "킥보드|노킥",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
               {
                 "field": "firstText",
                 "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
@@ -3586,7 +3630,14 @@
             "conditionalExclusions": [
               {
                 "field": "firstText",
-                "pattern": "킥보드",
+                "pattern": "킥보드|노킥",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
                 "settingKey": "cm_kickboard_exclude",
                 "default": true,
                 "blockWhen": true
@@ -3855,7 +3906,14 @@
             "conditionalExclusions": [
               {
                 "field": "firstText",
-                "pattern": "킥보드",
+                "pattern": "킥보드|노킥",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
                 "settingKey": "cm_kickboard_exclude",
                 "default": true,
                 "blockWhen": true
@@ -4075,7 +4133,8 @@
               "sourceHeaderId": "header2",
               "destinationHeaderId": "header3",
               "minVisibleHeight": 45
-            }
+            },
+            "footerText": "근처기사님수"
           },
           "selectionRules": {
             "version": 1,
@@ -4117,7 +4176,14 @@
             "conditionalExclusions": [
               {
                 "field": "firstText",
-                "pattern": "킥보드",
+                "pattern": "킥보드|노킥",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
                 "settingKey": "lg_kickboard_exclude",
                 "default": true,
                 "blockWhen": true
@@ -4474,7 +4540,8 @@
               "sourceHeaderId": "header2",
               "destinationHeaderId": "header3",
               "minVisibleHeight": 45
-            }
+            },
+            "footerText": "근처기사님수"
           },
           "selectionRules": {
             "version": 1,
@@ -4516,7 +4583,14 @@
             "conditionalExclusions": [
               {
                 "field": "firstText",
-                "pattern": "킥보드",
+                "pattern": "킥보드|노킥",
+                "settingKey": "lg_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
                 "settingKey": "lg_kickboard_exclude",
                 "default": true,
                 "blockWhen": true
@@ -4922,7 +4996,14 @@
             "conditionalExclusions": [
               {
                 "field": "firstText",
-                "pattern": "킥보드",
+                "pattern": "킥보드|노킥",
+                "settingKey": "cm_kickboard_exclude",
+                "default": true,
+                "blockWhen": true
+              },
+              {
+                "field": "notes",
+                "pattern": "킥보드|노킥",
                 "settingKey": "cm_kickboard_exclude",
                 "default": true,
                 "blockWhen": true
