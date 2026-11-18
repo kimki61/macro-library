@@ -1715,7 +1715,8 @@
                   "maximumRate": 100000
                 }
               ]
-            }
+            },
+            "useInferredDurationForRateCheck": true
           },
           "structuralListDetection": {
             "enabled": true,
@@ -3043,7 +3044,8 @@
                   "maximumRate": 100000
                 }
               ]
-            }
+            },
+            "useInferredDurationForRateCheck": true
           },
           "fareOnlySupported": true,
           "roadToDong": {
@@ -3395,7 +3397,8 @@
                   "maximumRate": 100000
                 }
               ]
-            }
+            },
+            "useInferredDurationForRateCheck": true
           }
         },
         "com.callmanerdriver2sharp2": {
@@ -4314,7 +4317,8 @@
                   "maximumRate": 100000
                 }
               ]
-            }
+            },
+            "useInferredDurationForRateCheck": true
           },
           "structuralListDetection": {
             "enabled": true,
@@ -4726,7 +4730,8 @@
                   "maximumRate": 100000
                 }
               ]
-            }
+            },
+            "useInferredDurationForRateCheck": true
           },
           "structuralListDetection": {
             "enabled": true,
