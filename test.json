@@ -1678,6 +1678,43 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
             }
           },
           "structuralListDetection": {
@@ -2969,6 +3006,43 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
             }
           },
           "fareOnlySupported": true,
@@ -3284,6 +3358,43 @@
             "minimumEstimatedMinutes": 10,
             "ambiguousRateSelection": {
               "enabled": false
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
             }
           }
         },
@@ -4166,6 +4277,43 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
             }
           },
           "structuralListDetection": {
@@ -4541,6 +4689,43 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
             }
           },
           "structuralListDetection": {
