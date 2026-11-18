@@ -28,7 +28,7 @@
       {
         "type": "group",
         "label": "기존 VIPER 프로필 관리 (매크로별 독립)",
-        "help": "각 매크로는 자체 프로필 목록을 사용합니다. 프로필을 바꾸면 해당 매크로가 연결된 슬롯의 조건이 함께 적용됩니다."
+        "help": "각 매크로는 독립된 프로필을 사용합니다. 예: ‘출근용’과 ‘퇴근용’은 별도 지역·금액·거리 설정을 저장합니다. 프로필 전환 전 현재 값을 저장하세요."
       },
       {
         "type": "profileManager",
@@ -38,14 +38,14 @@
       {
         "type": "group",
         "label": "도착지 키워드 그룹 · 색상 표시 · 기준값 · 실행 모드",
-        "help": "인식 키워드와 금액·효율·최대 거리 기준을 한 그룹씩 설정합니다. OFF 그룹은 자동 실행 대상이 아닙니다."
+        "help": "도착지 그룹을 추가하고 그룹별 조건을 관리합니다. 예: 파랑=가까운 지역 자동, 초록=일반 지역 반자동, 빨강=끄기. 그룹을 접어도 실행 방식을 바꾸는 기능은 앱 UI 보완이 필요합니다."
       },
       {
         "type": "switch",
         "id": "show_matching_rows",
         "label": "조건에 맞는 항목 카드를 그룹 색상으로 강조",
         "default": true,
-        "help": "선택한 그룹과 일치하는 화면 항목을 해당 그룹 색으로 구분합니다. 색상 강조는 자동 실행 여부와 별개입니다."
+        "help": "ON: 선택 프로필에서 일치한 지역 그룹의 색상으로 항목을 표시합니다. OFF: 색상만 숨깁니다. 예: ‘청주’ 그룹이 파랑이면 청주 관련 항목에 파란 강조가 나타납니다. 자동·반자동 설정과 별개입니다."
       },
       {
         "type": "colorGroupManager",
@@ -61,7 +61,7 @@
           "mode": "실행 방식",
           "excluded_keywords": "금지어 (쉼표 또는 줄바꿈)"
         },
-        "help": "색상 그룹별 인식어·금액·거리·시간 기준을 관리합니다. 그룹별 실행 방식이 ‘끄기’면 해당 그룹은 자동 선택되지 않습니다.",
+        "help": "그룹마다 도착지 키워드·최소 금액·시간당 수익·거리·모드를 설정합니다. 예: 파랑은 3km 이내 자동, 초록은 8km 이내 반자동, 빨강은 끄기. 접힘 상태 유지·접은 채 모드 선택은 앱 UI 보완이 필요합니다.",
         "fieldRows": [
           [
             "minimum_value",
@@ -73,205 +73,249 @@
           ]
         ],
         "fieldHelp": {
-          "keywords": "쉼표 또는 줄바꿈으로 여러 지역명을 입력합니다. 실제 화면에서 해당 이름과 일치하는 항목에 이 그룹의 조건을 적용합니다.",
-          "minimum_value": "이 그룹에서 허용할 기본 최소 금액입니다. 거리 증가에 따른 추가 금액이 설정되어 있다면 계산된 기준과 함께 판단합니다.",
-          "increment_per_unit": "거리 1km마다 기본 금액에 더할 금액입니다. 예: 최소 금액 12,000원, 1km당 2,000원이라면 3km 기준은 18,000원입니다. 실제 적용은 연결된 JSON 평가 규칙에 따릅니다.",
-          "minimum_rate": "이 그룹에서 요구하는 시간당 최소 수익입니다. 금액과 소요시간으로 계산된 효율이 기준 미만이면 제외합니다. 0은 해당 제한을 적용하지 않는 설정입니다.",
-          "maximum_measure": "출발지까지 허용할 최대 거리(km)입니다. 거리가 이 값을 초과하는 후보는 제외합니다. 분할 선택 시 입력하는 임시 최대 거리와 함께 제한될 수 있습니다.",
-          "mode": "끄기: 자동 선택하지 않습니다. 반자동: 상세 확인 등 일부 동작에서 수동 확인이 필요합니다. 자동: 모든 안전 조건을 만족하면 자동 실행합니다.",
-          "name": "사용자가 구분하기 쉬운 그룹 이름입니다. 매크로 인식 조건에는 그룹의 키워드와 실행 방식이 사용됩니다.",
-          "color": "일치한 항목에 강조 표시할 색상을 정합니다. 색상 자체가 우선순위나 자동 실행 여부를 바꾸지는 않습니다."
+          "keywords": "선택할 도착지 지역명을 쉼표 또는 줄바꿈으로 입력합니다. 예: ‘덕정, 옥정, 덕계’. 이름이 일치할 때 해당 그룹 설정을 사용합니다.",
+          "minimum_value": "이 그룹이 허용하는 최소 금액입니다. 예: 15,000원이면 14,000원 항목은 제외됩니다. 거리당 추가 금액 설정이 있다면 그 조건도 적용됩니다.",
+          "increment_per_unit": "출발지까지 거리 1km당 기본 금액에 더할 금액입니다. 예: 최소 12,000원, 추가 2,000원, 3km면 기준 18,000원. 실제 거리는 인식 결과를 따릅니다.",
+          "minimum_rate": "최소 시간당 수익입니다. 예: 실수익 20,000원, 이동시간 40분이면 시간당 30,000원입니다. 기준 32,000원일 때 제외됩니다. 0은 제한 미사용입니다.",
+          "maximum_measure": "출발지까지 허용할 최대 거리(km)입니다. 예: 5 입력 시 6km 떨어진 출발지는 제외됩니다. 분할 슬롯의 임시 거리 제한도 별도로 적용될 수 있습니다.",
+          "mode": "끄기: 해당 그룹에서 실행하지 않습니다. 반자동: 필요한 단계에서 확인합니다. 자동: 모든 조건이 맞으면 실행합니다. 예: 파랑=자동, 초록=반자동, 빨강=끄기. 접힌 상태에서도 모드를 바꾸려면 앱 UI 지원이 필요합니다.",
+          "name": "그룹 이름은 설정 화면에서 구분할 때만 사용합니다. 예: ‘가까운 지역’, ‘복귀 지역’처럼 작성합니다.",
+          "color": "목록에 강조할 색입니다. 예: 파랑은 선호 지역, 빨강은 제외 그룹으로 구분할 수 있습니다. 색깔 자체가 실행 우선순위나 자동 여부를 바꾸지는 않습니다.",
+          "excluded_keywords": "입력한 문구가 도착지에 포함되면 제외합니다. 예: ‘신곡아파트’를 입력하면 ‘신곡 아파트’도 제외될 수 있습니다. OFF 그룹의 금지어는 적용하지 않습니다."
         }
       },
       {
         "type": "group",
         "label": "슬롯 동작 설정",
-        "help": "프로필의 부가 동작과 화면 표시를 조절합니다. 목록 선택과 최종 실행은 ELCEON 전체 ON 상태에서 별도 설정 없이 활성화됩니다."
+        "help": "슬롯별 동작과 우선 선택 기준, 자동선택 대기시간을 관리합니다. 예: 1번 슬롯 자동, 2번 슬롯 반자동으로 쓰면서 우선 기준을 시간당 효율로 지정할 수 있습니다.",
+        "uiSection": "slot_actions"
       },
       {
         "type": "switch",
         "id": "slot_mode_override_enabled",
         "label": "분할 화면별 실행 모드 사용 (기본 OFF)",
         "default": false,
-        "help": "분할 슬롯마다 실행 방식을 별도 지정합니다. 그룹이 ‘끄기’인 경우 슬롯을 자동으로 설정해도 해당 그룹을 실행하지 않습니다."
-      },
-      {
-        "type": "switch",
-        "id": "split_show_hourly",
-        "label": "분할 화면 시간당 효율 표시 (기본 ON)",
-        "default": true,
-        "help": "분할 화면에 후보의 시간당 효율 지표를 표시합니다. 끄더라도 기존 판정 기준과 금액 조건은 유지됩니다."
+        "help": "ON: 각 분할 슬롯에서 실행 방식을 별도로 설정할 수 있습니다. OFF: 기존 프로필의 그룹 설정을 따릅니다. 예: 1번 슬롯 자동, 2번 슬롯 반자동. 단, 그룹이 끄기라면 슬롯을 자동으로 바꿔도 실행되지 않습니다."
       },
       {
         "type": "switch",
         "id": "split_restore_on_close",
         "label": "상세 화면 닫기 후 기존 분할로 복귀",
         "default": true,
-        "help": "상세 화면에서 돌아왔을 때 원래 분할 화면으로 복귀하도록 요청합니다. 앱 자체의 화면 제한에 따라 복귀가 불가능할 수 있습니다."
+        "help": "ON: 상세 화면을 닫은 후 이전 분할 구성으로 복귀를 요청합니다. 예: 4분할에서 상세 확인 후 돌아오면 기존 4분할로 돌아갑니다. 대상 앱 정책이나 화면 상태에 따라 복귀에 실패할 수 있습니다."
+      },
+      {
+        "type": "group",
+        "label": "분할 화면 시간당 효율 표시",
+        "collapsedByDefault": true,
+        "help": "시간당 효율과 네 가지 추가 안내의 화면 표시 여부를 설정합니다. 예: 효율 수치만 켜고 예상시간·지역정보 부족 문구는 모두 끌 수 있습니다. 계산과 실행 조건은 변경하지 않습니다.",
+        "uiSection": "hourly_display"
+      },
+      {
+        "type": "switch",
+        "id": "split_show_hourly",
+        "label": "분할 화면 시간당 효율 표시 (기본 ON)",
+        "default": true,
+        "help": "ON: 분할 목록에 계산한 시간당 효율을 표시합니다. 예: 실수익 20,000원, 운행 40분이라면 30,000원/시간. OFF: 표시만 숨기며 실행 조건의 계산값은 유지합니다."
       },
       {
         "type": "group",
         "label": "이동시간 및 우선순위",
-        "help": "시간 계산에 사용할 값과 우선 지역을 설정합니다. 주소 V3는 앱의 이동시간 DB 관리 화면에서 내려받고 별도로 ON으로 켜야 합니다. 기존 JSON에서 주소 변환이 OFF인 대상은 자동으로 활성화하지 않습니다."
+        "help": "전국 이동시간 DB와 우선 지역 조건을 확인합니다. 예: 도착지에 ‘옥정’이 있으면 우선 지역으로 검토. DB 설치·활성화와 정확한 주소 판별은 별도입니다."
       },
       {
         "type": "number",
         "id": "travel_minutes_per_km",
         "label": "1km당 이동시간(분)",
         "default": 0,
-        "help": "이동 경로 계산에 사용하는 1km당 평균 소요시간(분)입니다. 입력한 값이 필요한 정책에만 반영됩니다."
+        "help": "거리 기반의 예비 계산에 사용할 1km당 분 단위 시간을 입력합니다. 예: 1km당 3분이면 5km를 15분으로 환산합니다. 전국 V2 이동시간 DB가 우선 적용되는 경로는 이 값으로 덮어쓰지 않습니다."
       },
       {
         "type": "text",
         "id": "priority_names",
         "label": "최우선 지역명 (단어 40개 이하 추천)",
         "default": "",
-        "help": "상대적으로 우선 확인할 지역명을 쉼표로 구분해 입력합니다. 세부 우선 적용은 매크로의 규칙 JSON에 따릅니다."
+        "help": "금액·시간당 효율보다 먼저 확인할 지역명입니다. 예: ‘덕정, 옥정’을 등록하면 해당 지역을 다른 일반 지역보다 먼저 검토합니다. 실제 적용은 최우선 지역 사용 및 최대 거리 제한에 따릅니다."
       },
       {
         "type": "group",
         "label": "콜마너",
-        "help": "이 섹션은 콜마너 프로필에만 적용됩니다. 다른 앱의 계산에는 영향을 주지 않습니다."
+        "help": "해당 외부 규칙에 정의된 유형별 허용과 수수료·고정비 차감 설정입니다. 예: 예약 OFF, 경유 OFF. 자체 소요시간이 표시되는 앱은 그 시간을 사용하며 다른 앱에 적용하지 않습니다.",
+        "collapsedByDefault": true
       },
       {
         "type": "switch",
         "id": "cm_reservation_allow",
         "label": "예약콜 허용",
-        "default": false
+        "default": false,
+        "help": "예약 유형을 허용할 때 켭니다. 기본 OFF. 예: 다음날 오전 출발 항목을 검토하려면 ON으로 변경합니다. 다른 안전 조건과 지역 필터는 계속 적용됩니다."
       },
       {
         "type": "switch",
         "id": "cm_towing_allow",
         "label": "탁송콜 허용",
         "default": false,
-        "help": "예약콜 허용이 OFF면 이 항목을 켜도 예약 영역의 콜은 선택하지 않습니다."
+        "help": "특수 유형을 허용할 때 켭니다. 기본 OFF. 예: 예약 구역에 포함된 특수 항목은 예약 허용도 ON이어야 선택 대상이 됩니다."
       },
       {
         "type": "switch",
         "id": "cm_via_allow",
         "label": "경유콜 허용",
-        "default": false
+        "default": false,
+        "help": "경유지 포함 항목의 자동·반자동 처리 허용 여부입니다. 기본 OFF. 예: 출발지에 ‘경유’ 또는 별도 표시 ‘경)’가 있으면 OFF에서 제외하고 ON이면 다른 조건을 모두 검사한 뒤 선택할 수 있습니다."
       },
       {
         "type": "switch",
         "id": "cm_kickboard_exclude",
         "label": "킥보드 표시 콜 제외",
-        "default": true
+        "default": true,
+        "help": "출발지에 특정 이동수단 문구가 있는 항목을 제외합니다. 기본 ON. 예: 출발지에 ‘킥보드’가 포함되면 제외합니다."
       },
       {
         "type": "switch",
         "id": "cm_commission_enabled",
         "label": "수수료 차감",
-        "default": true
+        "default": true,
+        "help": "표시 금액에서 수수료를 차감할지 결정합니다. 기본 ON. 예: 요금 30,000원, 수수료 20%라면 6,000원을 차감합니다."
       },
       {
         "type": "number",
         "id": "cm_commission_percent",
         "label": "수수료 비율 (%)",
         "default": 20,
-        "visibleWhen": "cm_commission_enabled"
+        "visibleWhen": "cm_commission_enabled",
+        "help": "수수료 차감 ON일 때 사용할 비율입니다. 예: 20 입력 시 30,000원의 20%인 6,000원을 차감합니다."
       },
       {
         "type": "switch",
         "id": "cm_insurance_enabled",
         "label": "단건보험료 차감",
-        "default": true
+        "default": true,
+        "help": "한 건당 고정 비용을 차감합니다. 기본 ON. 예: 보험료 1,000원이면 계산 금액에서 1,000원을 뺍니다."
       },
       {
         "type": "number",
         "id": "cm_insurance_won",
         "label": "보험료 (원)",
         "default": 1000,
-        "visibleWhen": "cm_insurance_enabled"
+        "visibleWhen": "cm_insurance_enabled",
+        "help": "건당 차감할 고정 비용(원)입니다. 예: 1,000 입력 시 1건마다 1,000원 차감합니다."
       },
       {
         "type": "group",
         "label": "로지",
-        "help": "로지 프로필 전용 설정입니다. 일반·예약·탁송의 선택 허용과 실수익 계산을 개별 프로필에서 관리합니다."
+        "help": "이 그룹의 표시 대상 기능을 설정합니다. 예: 예약 허용 OFF, 수수료 20%, 보험료 1,000원. 시간당 효율 없이 금액 기준 선택 옵션은 지원되는 두 앱 계열에서만 작동합니다.",
+        "collapsedByDefault": true
+      },
+      {
+        "type": "switch",
+        "id": "split_fare_only_enabled",
+        "label": "로지·아이드라이버 시간당 효율 없이 금액 기준 선택 (기본 OFF)",
+        "default": false,
+        "help": "ON: 지원 대상에서는 시간당 효율을 비교하는 대신 요금이 높은 순으로 검토합니다. 예: 25,000원과 30,000원이면 30,000원 우선. 최소 요금·최대 거리·금지어·실행 방식은 그대로 적용합니다."
       },
       {
         "type": "switch",
         "id": "lg_reservation_allow",
         "label": "예약콜 허용",
-        "default": false
+        "default": false,
+        "help": "예약 유형을 허용합니다. 기본 OFF. 예: 내일 오전 예약 항목을 대상으로 삼으려면 ON으로 켭니다."
       },
       {
         "type": "switch",
         "id": "lg_towing_allow",
         "label": "탁송콜 허용",
         "default": false,
-        "help": "예약과 탁송이 함께 표시되면 탁송으로 분류합니다."
+        "help": "특수 유형을 허용합니다. 기본 OFF. 예: 특수 유형을 표시하고 선택하려면 ON으로 켭니다. 다른 필터는 그대로 검사합니다."
       },
       {
         "type": "switch",
         "id": "lg_via_allow",
         "label": "경유콜 허용",
-        "default": false
+        "default": false,
+        "help": "경유지 포함 항목의 자동·반자동 처리 허용 여부입니다. 기본 OFF. 예: 출발지에 ‘경유’ 또는 별도 표시 ‘경)’가 있으면 OFF에서 제외하고 ON이면 다른 조건을 모두 검사한 뒤 선택할 수 있습니다."
       },
       {
         "type": "switch",
         "id": "lg_kickboard_exclude",
         "label": "킥보드 표시 콜 제외",
-        "default": true
+        "default": true,
+        "help": "출발지에 특정 이동수단 표시가 있으면 제외합니다. 기본 ON. 예: ‘킥보드’가 포함된 항목을 선택하지 않습니다."
       },
       {
         "type": "switch",
         "id": "lg_commission_enabled",
         "label": "수수료 차감",
-        "default": true
+        "default": true,
+        "help": "표시 금액에서 수수료를 차감합니다. 기본 ON. 예: 30,000원 × 20% = 6,000원 차감."
       },
       {
         "type": "number",
         "id": "lg_commission_percent",
         "label": "수수료 비율 (%)",
         "default": 20,
-        "visibleWhen": "lg_commission_enabled"
+        "visibleWhen": "lg_commission_enabled",
+        "help": "수수료 비율(%)을 입력합니다. 예: 20이면 총액 30,000원에서 6,000원을 차감합니다."
       },
       {
         "type": "switch",
         "id": "lg_insurance_enabled",
         "label": "단건보험료 차감",
-        "default": true
+        "default": true,
+        "help": "건별 고정 비용을 차감합니다. 기본 ON. 예: 보험료 1,000원이라면 수수료 차감 후 1,000원을 추가 차감합니다."
       },
       {
         "type": "number",
         "id": "lg_insurance_won",
         "label": "보험료 (원)",
         "default": 1000,
-        "visibleWhen": "lg_insurance_enabled"
+        "visibleWhen": "lg_insurance_enabled",
+        "help": "건당 고정 비용(원)입니다. 예: 1,000 입력 시 각 항목에서 1,000원을 차감합니다."
       }
     ],
     "profileUiText": {
       "priorityTitle": "최우선 지역명",
       "priorityToggle": "최우선 지역 사용 (기본 OFF)",
-      "priorityHelp": "ON일 때 이 지역을 일반 지역보다 먼저 선택합니다. 금액·시간당 효율은 선택 순위에 반영하지 않고, 입력한 출발지까지 최대 거리만 확인합니다. 금지어·OFF 지역·수락 안전 검증은 그대로 적용합니다.",
+      "priorityHelp": "ON: 지정한 지역을 일반 지역보다 먼저 검토합니다. 금액·효율보다 출발지까지 최대 거리만 우선 확인하고 기존 금지어·안전검사는 유지합니다. 예: ‘덕정, 옥정’을 입력하고 6km 제한으로 사용합니다.",
       "priorityKeywordsLabel": "최우선 지역명 (단어 40개 이하 추천 · 쉼표/줄바꿈 구분)",
       "priorityDistanceLabel": "최우선 지역 최대 거리 (km)",
       "priorityRequired": "우선순위 지역 사용 시 지역명을 입력하세요.",
       "openRuleTitle": "지역명 없이 조건으로 선택",
       "openRuleToggle": "지역명 없는 콜도 조건으로 선택 (기본 OFF)",
-      "openRuleHelp": "어떤 지역 그룹과도 일치하지 않는 도착지만 대상으로 합니다. 금지어·OFF 그룹은 제외하고 금액·시간당 효율·최대 거리를 모두 검사합니다.",
+      "openRuleHelp": "도착지가 어떤 지역 그룹에도 맞지 않는 경우에만 금액·시간당 효율·최대 거리를 검사합니다. 예: 등록 지역 외 목적지라도 20,000원 이상·시간당 30,000원 이상이면 조건을 확인합니다.",
       "openRuleMinimumValue": "최소 콜 금액 (원)",
       "openRuleMinimumRate": "최소 시간당 효율 (원)",
       "openRuleMaximumDistance": "출발지까지 최대 거리 (km)",
       "excludeLabel": "금지어 (쉼표 또는 줄바꿈)",
-      "excludeHelp": "금지어가 포함된 도착지는 선택하지 않습니다. 신곡아파트와 신곡 아파트를 같은 표현으로 판정합니다. OFF 그룹의 금지어는 적용하지 않습니다.",
-      "fareOnlyToggleLabel": "로지·아이드라이버 시간당 효율 없이 금액 기준 선택",
-      "fareOnlyToggleHelp": "기본 OFF. ON: 지원 앱에서 시간당 효율 계산·최소 효율 조건을 사용하지 않고 금액이 높은 순으로 선택합니다. 지역 금지어·그룹 모드·최소 금액·최대 거리는 그대로 적용됩니다. 해당 매크로의 현재 프로필에만 저장됩니다.",
-      "hideRouteTimeToggleLabel": "예상 도착시간 표시 (기본 ON)",
-      "hideRouteTimeToggleHelp": "OFF: 화면에 표시되는 예상 이동시간 문구를 숨깁니다. 시간 효율을 사용하는 경우 내부 계산과 안전 검증은 그대로 유지됩니다.",
+      "excludeHelp": "도착지에 금지어가 포함되면 제외합니다. 띄어쓰기가 다른 표현도 검사합니다. 예: ‘신곡아파트’는 ‘신곡 아파트’에도 적용됩니다. 꺼진 지역 그룹의 금지어는 사용하지 않습니다.",
+      "fareOnlyToggleLabel": "",
+      "fareOnlyToggleHelp": "",
+      "hideRouteTimeToggleLabel": "예상 도착시간 표시 (기본 OFF)",
+      "hideRouteTimeToggleHelp": "ON: 예측한 이동시간을 표시합니다. 예: 주소와 시간 정보가 충분하면 “예상 35분”, 추정만 가능하면 “추정 35분”. OFF는 화면 안내만 숨기고 내부 계산은 바꾸지 않습니다.",
       "expandOfferToggleLabel": "콜 자동 확대 (기본 ON)",
-      "expandOfferToggleHelp": "자동·반자동 모두 해당 콜을 선택해 상세 화면이 확인되면 자동 확대합니다. OFF로 하면 자동 확대만 중단하고 수동 확대는 사용할 수 있습니다.",
+      "expandOfferToggleHelp": "자동·반자동 진행 시 항목의 상세 화면을 자동으로 확대할지 결정합니다. 예: ON이면 상세 진입 후 확대를 시도합니다. OFF라도 사용자는 수동 확대할 수 있습니다.",
       "roadDongDisplayToggleLabel": "도로명 주소의 변환 동 표시 (기본 OFF)",
-      "roadDongDisplayToggleHelp": "ON: 주소 변환이 허용된 대상에서 도로명주소를 유일한 지역으로 변환할 수 있으면 해당 동을 표시합니다. 주소 V3 DB가 설치되어 있고 앱의 V3 주소 인식이 ON이면 기존 도로명 DB에서 변환하지 못한 주소도 V3에서 재검색합니다. OFF: 변환 동 표기만 숨기며 내부 지역 필터 및 시간 계산은 유지합니다. 중복·미확정 지역을 임의로 결정하지 않습니다."
+      "roadDongDisplayToggleHelp": "ON: 도로명주소가 하나의 지역에 명확하게 연결되면 동 이름을 보여줍니다. 예: 유일하게 확인된 동 이름만 표시하며, 중복·불확실한 후보를 확정 주소처럼 표시하지 않습니다.",
+      "hourlyDisplayGroupTitle": "분할 화면 시간당 효율 표시",
+      "hourlyDisplayGroupHelp": "효율 수치와 예상시간·지역·주소 안내의 화면 표시를 조정합니다. 예: 네 가지 세부 옵션을 모두 OFF로 해도 내부 계산 규칙은 변경되지 않습니다.",
+      "allRegionsHourlyToggleLabel": "모든 지역 시간당 효율 표시 (기본 OFF)",
+      "allRegionsHourlyToggleHelp": "ON: 등록된 지역 그룹에 포함되지 않는 목적지도 계산 가능하면 효율을 표시합니다. 예: 등록 지역 외 목적지라도 시간과 요금이 있으면 금액/시간 표시. 자동 실행 가능 여부는 달라지지 않습니다.",
+      "missingInfoToggleLabel": "지역정보 부족 표시 (기본 OFF)",
+      "missingInfoToggleHelp": "ON: 이동시간 계산에 필요한 지역정보를 확인하지 못하면 안내 문구를 표시합니다. 예: 도착지를 지역으로 판별할 수 없으면 “정보부족”. OFF는 문구만 숨깁니다.",
+      "splitButtonSizeHelp": "기본 26dp, 최대 44dp입니다. 예: 기본 26dp로 쓰다가 버튼이 작으면 32dp로 변경하세요. 기존에 직접 저장한 버튼 크기는 유지됩니다.",
+      "promptExtraHelp": "ON: 프로필 선택 시 최대 거리와 1km당 이동시간을 추가 입력합니다. 예: 출발지까지 최대 5km 설정. OFF: 기존 저장값으로 바로 적용합니다.",
+      "pinchAutoHelp": "ON: 외부 JSON에 사용 가능 대상으로 등록된 경우에만 자동 확대합니다. 예: 상세 화면을 열면 지정된 화면에서만 자동 확대를 시도합니다. OFF: 수동 확대는 그대로 사용할 수 있습니다."
     },
-    "help": "프로필별 조건과 화면 표시를 편집합니다. 주소 V3 DB는 ELCEON 앱의 이동시간 DB 관리 화면에서 별도로 다운로드하고 활성화합니다. 외부 JSON의 기존 주소 변환 허용 여부와 자동·반자동 조건은 그대로 유지됩니다. 세부 동작은 각 항목 옆 정보 버튼에서 확인할 수 있습니다.",
+    "help": "각 항목의 ⓘ를 눌러 설명과 실제 설정 예시를 확인하세요. 기존 지역 그룹·프로필의 자동·반자동 기준과 금액·거리·시간 계산은 변경하지 않습니다.",
     "staticHelp": {
-      "auto_selection_speed": "목록을 선택한 뒤 상세 동작으로 넘어가는 대기시간을 조절합니다. 너무 짧으면 화면 전환 중 중복 입력 위험이 있으므로 안정성을 확인하며 조절하세요.",
-      "show_enabled": "화면에서 자동 강조 표시 기능을 보이게 할지 결정합니다. 전체 자동 실행 ON/OFF와 별개입니다.",
-      "show_issue_log": "분할 화면에서 오류 기록 버튼을 표시합니다. 기록 파일에는 설정된 진단 정보가 포함될 수 있습니다.",
-      "show_capture": "분할 화면에서 화면 수집 버튼을 표시합니다. 앱 화면 수집 시 민감한 화면 정보를 주의하세요.",
-      "show_fps": "분할 화면에 갱신 속도(FPS) 진단 수치를 표시합니다. 필요하지 않으면 끄는 것을 권장합니다."
+      "auto_selection_speed": "ON: 선택과 화면 전환 사이에 추가 대기를 설정합니다. 예: 목록 선택 후 300ms, 상세화면 후 200ms. OFF면 추가 대기 0ms이며 기존 검사와 중복 방지는 그대로입니다.",
+      "show_enabled": "ON: 분할화면에 자동 강조를 표시합니다. 예: 특정 지역의 카드가 지정 색으로 나타납니다. OFF는 시각적 강조만 숨깁니다.",
+      "show_issue_log": "ON: 분할화면에 오류 기록 버튼을 표시합니다. 예: 주소 확인이 실패하면 진단 파일을 저장하여 원인을 확인할 수 있습니다.",
+      "show_capture": "ON: 분할화면에 화면 수집 버튼을 표시합니다. 예: 화면 텍스트·좌표·스크린샷을 기록해 추후 검증합니다. 개인 정보 노출에 주의하세요.",
+      "show_fps": "ON: 분할화면 FPS를 표시합니다. 예: 20FPS는 초당 약 20번 화면을 갱신한다는 뜻입니다. 일반 사용에서는 OFF를 권장합니다.",
+      "split_display_panel": "화면에 표시할 버튼과 진단 정보를 선택합니다. 예: 오류 기록·화면 수집 버튼만 켜고 FPS는 끌 수 있습니다. 자동 실행 조건은 바뀌지 않습니다.",
+      "priority_choice": "선택 우선순위를 한 가지 기준으로 바꿉니다. 예: 시간당 수익, 단순 금액, 출발지까지 거리 중 하나를 선택합니다. 미사용 시 기존 우선 기준을 유지합니다.",
+      "error_profile_include": "ON: 오류 기록에 선택한 매크로와 프로필 정보를 함께 포함합니다. 예: 지역별 설정 오류를 조사할 때 어떤 프로필에서 발생했는지 확인합니다. OFF는 해당 프로필 부가 정보만 제외합니다."
     }
   },
   "windowAdapters": [
@@ -1483,7 +1527,7 @@
               },
               {
                 "field": "firstText",
-                "pattern": "경유",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
                 "settingKey": "lg_via_allow",
                 "default": false,
                 "blockWhen": false
@@ -1676,7 +1720,45 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
-            }
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
+            },
+            "useInferredDurationForRateCheck": true
           },
           "structuralListDetection": {
             "enabled": true,
@@ -1865,7 +1947,7 @@
               },
               {
                 "field": "firstText",
-                "pattern": "경유",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
                 "settingKey": "cm_via_allow",
                 "default": false,
                 "blockWhen": false
@@ -2779,6 +2861,15 @@
               {
                 "kind": "normal"
               }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
+                "settingKey": "lg_via_allow",
+                "default": false,
+                "blockWhen": false
+              }
             ]
           },
           "readOnlyValidation": {
@@ -2967,7 +3058,45 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
-            }
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
+            },
+            "useInferredDurationForRateCheck": true
           },
           "fareOnlySupported": true,
           "roadToDong": {
@@ -3094,6 +3223,15 @@
             "selectableKinds": [
               {
                 "kind": "normal"
+              }
+            ],
+            "conditionalExclusions": [
+              {
+                "field": "firstText",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
+                "settingKey": "cm_via_allow",
+                "default": false,
+                "blockWhen": false
               }
             ]
           },
@@ -3282,7 +3420,45 @@
             "minimumEstimatedMinutes": 10,
             "ambiguousRateSelection": {
               "enabled": false
-            }
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
+            },
+            "useInferredDurationForRateCheck": true
           }
         },
         "com.callmanerdriver2sharp2": {
@@ -3440,7 +3616,7 @@
               },
               {
                 "field": "firstText",
-                "pattern": "경유",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
                 "settingKey": "cm_via_allow",
                 "default": false,
                 "blockWhen": false
@@ -3709,7 +3885,7 @@
               },
               {
                 "field": "firstText",
-                "pattern": "경유",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
                 "settingKey": "cm_via_allow",
                 "default": false,
                 "blockWhen": false
@@ -3971,7 +4147,7 @@
               },
               {
                 "field": "firstText",
-                "pattern": "경유",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
                 "settingKey": "lg_via_allow",
                 "default": false,
                 "blockWhen": false
@@ -4164,7 +4340,45 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
-            }
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
+            },
+            "useInferredDurationForRateCheck": true
           },
           "structuralListDetection": {
             "enabled": true,
@@ -4346,7 +4560,7 @@
               },
               {
                 "field": "firstText",
-                "pattern": "경유",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
                 "settingKey": "lg_via_allow",
                 "default": false,
                 "blockWhen": false
@@ -4539,7 +4753,45 @@
                 }
               ],
               "tieBreaker": "shortestRoadDistance"
-            }
+            },
+            "ambiguousRoadHourlySelection": {
+              "enabled": true,
+              "priorityBands": [
+                {
+                  "minimumRate": 25000,
+                  "maximumRate": 30000
+                },
+                {
+                  "minimumRate": 30000,
+                  "maximumRate": 35000
+                },
+                {
+                  "minimumRate": 20000,
+                  "maximumRate": 25000
+                },
+                {
+                  "minimumRate": 35000,
+                  "maximumRate": 40000
+                },
+                {
+                  "minimumRate": 15000,
+                  "maximumRate": 20000
+                },
+                {
+                  "minimumRate": 40000,
+                  "maximumRate": 50000
+                },
+                {
+                  "minimumRate": 10000,
+                  "maximumRate": 15000
+                },
+                {
+                  "minimumRate": 50000,
+                  "maximumRate": 100000
+                }
+              ]
+            },
+            "useInferredDurationForRateCheck": true
           },
           "structuralListDetection": {
             "enabled": true,
@@ -4728,7 +4980,7 @@
               },
               {
                 "field": "firstText",
-                "pattern": "경유",
+                "pattern": "경유|(?<![가-힣A-Za-z])경\\)",
                 "settingKey": "cm_via_allow",
                 "default": false,
                 "blockWhen": false
@@ -4864,6 +5116,13 @@
     "displayLabels": {
       "ratePrefix": "시간당 ",
       "rateUnavailable": "시간 미확인"
+    },
+    "pinchCompatibility": {
+      "version": 1,
+      "enabled": true,
+      "autoEnabledPackages": [
+        "com.kakao.wheel.driver"
+      ]
     }
   },
   "splitPriority": {
