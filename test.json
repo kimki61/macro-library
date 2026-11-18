@@ -1052,7 +1052,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
                 "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
               }
             },
@@ -1069,7 +1069,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
                 "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행"
               }
             },
@@ -1087,7 +1087,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "도보\\s*(\\d+(?:\\.\\d+)?)\\s*(km|m)",
                 "sourceDistanceSuffixPattern": "\\s+\\d+(?:\\.\\d+)?\\s*(?:km|m)\\s*$",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
                 "distanceAnywhere": true,
                 "maxAboveActionPx": 1000
@@ -1364,7 +1364,7 @@
                 "destinationLabel": "도착",
                 "distancePattern": "(\\d+(?:\\.\\d+)?)\\s*(km|m)\\b",
                 "sourceDistanceSuffixPattern": "",
-                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽|�|원)?",
+                "farePattern": "(\\d{1,3}(?:,\\d{3})+)\\s*(?:P|₽| |원)?",
                 "durationPattern": "약\\s*(\\d+)\\s*분\\s*운행",
                 "distanceAnywhere": true
               },
@@ -1699,28 +1699,6 @@
             "durationDisplaySuffix": "분",
             "estimateFromRegionNames": true,
             "minimumEstimatedMinutes": 10,
-            "ambiguousRateSelection": {
-              "enabled": true,
-              "priorityBands": [
-                {
-                  "minimumRate": 30000,
-                  "maximumRate": 40000
-                },
-                {
-                  "minimumRate": 20000,
-                  "maximumRate": 30000
-                },
-                {
-                  "minimumRate": 10000,
-                  "maximumRate": 20000
-                },
-                {
-                  "minimumRate": 40000,
-                  "maximumRate": 80000
-                }
-              ],
-              "tieBreaker": "shortestRoadDistance"
-            },
             "ambiguousRoadHourlySelection": {
               "enabled": true,
               "priorityBands": [
@@ -1758,7 +1736,15 @@
                 }
               ]
             },
-            "useInferredDurationForRateCheck": true
+            "useInferredDurationForRateCheck": true,
+            "addressCandidateResolution": {
+              "version": 1,
+              "enabled": true,
+              "source": "verifiedV3LocalityNames",
+              "maxCandidates": 16,
+              "allowAmbiguousDongBandRanking": true,
+              "pickupTimeInGeographicRanking": false
+            }
           },
           "structuralListDetection": {
             "enabled": true,
@@ -3037,28 +3023,6 @@
             "durationDisplaySuffix": "분",
             "estimateFromRegionNames": true,
             "minimumEstimatedMinutes": 10,
-            "ambiguousRateSelection": {
-              "enabled": true,
-              "priorityBands": [
-                {
-                  "minimumRate": 30000,
-                  "maximumRate": 40000
-                },
-                {
-                  "minimumRate": 20000,
-                  "maximumRate": 30000
-                },
-                {
-                  "minimumRate": 10000,
-                  "maximumRate": 20000
-                },
-                {
-                  "minimumRate": 40000,
-                  "maximumRate": 80000
-                }
-              ],
-              "tieBreaker": "shortestRoadDistance"
-            },
             "ambiguousRoadHourlySelection": {
               "enabled": true,
               "priorityBands": [
@@ -3096,7 +3060,15 @@
                 }
               ]
             },
-            "useInferredDurationForRateCheck": true
+            "useInferredDurationForRateCheck": true,
+            "addressCandidateResolution": {
+              "version": 1,
+              "enabled": true,
+              "source": "verifiedV3LocalityNames",
+              "maxCandidates": 16,
+              "allowAmbiguousDongBandRanking": true,
+              "pickupTimeInGeographicRanking": false
+            }
           },
           "fareOnlySupported": true,
           "roadToDong": {
@@ -3418,9 +3390,6 @@
             "estimateFromRegionNames": true,
             "showDurationIndependently": true,
             "minimumEstimatedMinutes": 10,
-            "ambiguousRateSelection": {
-              "enabled": false
-            },
             "ambiguousRoadHourlySelection": {
               "enabled": true,
               "priorityBands": [
@@ -3458,7 +3427,15 @@
                 }
               ]
             },
-            "useInferredDurationForRateCheck": true
+            "useInferredDurationForRateCheck": true,
+            "addressCandidateResolution": {
+              "version": 1,
+              "enabled": true,
+              "source": "verifiedV3LocalityNames",
+              "maxCandidates": 16,
+              "allowAmbiguousDongBandRanking": true,
+              "pickupTimeInGeographicRanking": false
+            }
           }
         },
         "com.callmanerdriver2sharp2": {
@@ -4319,28 +4296,6 @@
             "durationDisplaySuffix": "분",
             "estimateFromRegionNames": true,
             "minimumEstimatedMinutes": 10,
-            "ambiguousRateSelection": {
-              "enabled": true,
-              "priorityBands": [
-                {
-                  "minimumRate": 30000,
-                  "maximumRate": 40000
-                },
-                {
-                  "minimumRate": 20000,
-                  "maximumRate": 30000
-                },
-                {
-                  "minimumRate": 10000,
-                  "maximumRate": 20000
-                },
-                {
-                  "minimumRate": 40000,
-                  "maximumRate": 80000
-                }
-              ],
-              "tieBreaker": "shortestRoadDistance"
-            },
             "ambiguousRoadHourlySelection": {
               "enabled": true,
               "priorityBands": [
@@ -4378,7 +4333,15 @@
                 }
               ]
             },
-            "useInferredDurationForRateCheck": true
+            "useInferredDurationForRateCheck": true,
+            "addressCandidateResolution": {
+              "version": 1,
+              "enabled": true,
+              "source": "verifiedV3LocalityNames",
+              "maxCandidates": 16,
+              "allowAmbiguousDongBandRanking": true,
+              "pickupTimeInGeographicRanking": false
+            }
           },
           "structuralListDetection": {
             "enabled": true,
@@ -4732,28 +4695,6 @@
             "durationDisplaySuffix": "분",
             "estimateFromRegionNames": true,
             "minimumEstimatedMinutes": 10,
-            "ambiguousRateSelection": {
-              "enabled": true,
-              "priorityBands": [
-                {
-                  "minimumRate": 30000,
-                  "maximumRate": 40000
-                },
-                {
-                  "minimumRate": 20000,
-                  "maximumRate": 30000
-                },
-                {
-                  "minimumRate": 10000,
-                  "maximumRate": 20000
-                },
-                {
-                  "minimumRate": 40000,
-                  "maximumRate": 80000
-                }
-              ],
-              "tieBreaker": "shortestRoadDistance"
-            },
             "ambiguousRoadHourlySelection": {
               "enabled": true,
               "priorityBands": [
@@ -4791,7 +4732,15 @@
                 }
               ]
             },
-            "useInferredDurationForRateCheck": true
+            "useInferredDurationForRateCheck": true,
+            "addressCandidateResolution": {
+              "version": 1,
+              "enabled": true,
+              "source": "verifiedV3LocalityNames",
+              "maxCandidates": 16,
+              "allowAmbiguousDongBandRanking": true,
+              "pickupTimeInGeographicRanking": false
+            }
           },
           "structuralListDetection": {
             "enabled": true,
