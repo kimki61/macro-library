@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "대리 매크로 (프로필 O)",
+  "name": "test",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
