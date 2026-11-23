@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "test",
+  "name": "대리 매크로 (프로필 O)",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
@@ -3124,6 +3124,17 @@
             "originLabelPrefix": "출 ",
             "destinationLabelPrefix": "도 ",
             "displaySeparator": " · "
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
           }
         },
         "dev.viperlab.ninjamock.callmaner": {
@@ -3343,6 +3354,17 @@
             "originLabelPrefix": "출 ",
             "destinationLabelPrefix": "도 ",
             "displaySeparator": " · "
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "cm_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "cm_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "cm_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "cm_insurance_won",
+            "fixedDefault": 1000
           }
         },
         "dev.viperlab.ninjamock.idriver": {
