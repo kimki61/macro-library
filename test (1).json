@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "지역 테스트",
+  "name": "test2",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
@@ -4905,7 +4905,7 @@
   },
   "profilePresets": [
     {
-      "name": "기본",
+      "name": "수도권 통합",
       "description": "수도권 통합 · 금요일 80점 이상 · 법정동 201개 · 5개 권역",
       "values": {
         "show_matching_rows": true,
@@ -5056,5 +5056,5 @@
     "manualLimit": 10,
     "periodFactor": 60
   },
-  "version": "1.0.188"
+  "version": "1.0.189"
 }
