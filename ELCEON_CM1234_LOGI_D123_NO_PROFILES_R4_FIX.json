@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "name": "대리 매크로 프로필x",
+  "name": "대리매크로 프로필x",
   "targetPackage": "*",
   "priority": 30,
   "variables": [
@@ -93,9 +93,9 @@
       {
         "type": "switch",
         "id": "slot_mode_override_enabled",
-        "label": "분할 화면별 실행 모드 사용 (기본 OFF)",
-        "default": false,
-        "help": "ON: 각 분할 슬롯에서 실행 방식을 별도로 설정할 수 있습니다. OFF: 기존 프로필의 그룹 설정을 따릅니다. 예: 1번 슬롯 자동, 2번 슬롯 반자동. 단, 그룹이 끄기라면 슬롯을 자동으로 바꿔도 실행되지 않습니다."
+        "label": "분할 화면별 실행 모드 사용 (기본 ON)",
+        "default": true,
+        "help": "ON: 각 분할 슬롯에서 실행 방식을 별도로 설정할 수 있습니다. OFF: 기존 프로필의 그룹 설정을 따릅니다. 예: 1번 슬롯 자동, 2번 슬롯 반자동. 단, 그룹이 끄기라면 슬롯을 자동으로 바꿔도 실행되지 않습니다. 이 스위치는 매크로 공통 설정이며 프로필을 바꿔도 유지됩니다."
       },
       {
         "type": "switch",
@@ -308,7 +308,9 @@
       "openRuleMaximumTripHours": "최대 예상 운행시간 (시간)",
       "openRuleMaximumTripHoursHelp": "출발지에서 도착지까지의 예상 운행시간 상한입니다. 픽업시간은 이 상한에서 제외하지만 실제 시간당 효율 계산에는 더합니다. 예: 2시간 설정 시 운행 110분은 허용, 130분은 제외합니다. 기본 999시간은 사실상 전국 제한 없음입니다. 운행시간을 확인할 수 없으면 제한을 검증하지 못합니다.",
       "openRuleExcludedKeywords": "금지어 (쉼표 또는 줄바꿈으로 구분)",
-      "openRuleExcludedKeywordsHelp": "지역명 없이 조건으로 선택할 때 도착지에 이 문구가 하나라도 포함되면 제외합니다. 지역 그룹 금지어와 동일하게 띄어쓰기를 무시합니다. 예: 중앙 시장, 산업단지를 입력하면 중앙시장 또는 산업 단지가 포함된 도착지를 제외합니다. 다른 지역 그룹의 조건은 바꾸지 않습니다."
+      "openRuleExcludedKeywordsHelp": "지역명 없이 조건으로 선택할 때 도착지에 이 문구가 하나라도 포함되면 제외합니다. 지역 그룹 금지어와 동일하게 띄어쓰기를 무시합니다. 예: 중앙 시장, 산업단지를 입력하면 중앙시장 또는 산업 단지가 포함된 도착지를 제외합니다. 다른 지역 그룹의 조건은 바꾸지 않습니다.",
+      "successVibrationLabel": "자동 처리 성공 시 진동",
+      "successVibrationHelp": "프로필1·2 모두 작업 완료가 확인됐을 때 한 번 진동합니다. 기기 정책을 따릅니다."
     },
     "help": "각 항목의 ⓘ를 눌러 설명과 실제 설정 예시를 확인하세요. 기존 지역 그룹·프로필의 자동·반자동 기준과 금액·거리·시간 계산은 변경하지 않습니다.",
     "staticHelp": {
@@ -321,6 +323,9 @@
       "priority_choice": "선택 우선순위를 한 가지 기준으로 바꿉니다. 예: 시간당 수익, 단순 금액, 출발지까지 거리 중 하나를 선택합니다. 미사용 시 기존 우선 기준을 유지합니다.",
       "error_profile_include": "ON: 오류 기록에 선택한 매크로와 프로필 정보를 함께 포함합니다. 예: 지역별 설정 오류를 조사할 때 어떤 프로필에서 발생했는지 확인합니다. OFF는 해당 프로필 부가 정보만 제외합니다.",
       "show_keyboard_button": "기본 OFF. ON으로 설정하면 분할화면 하단 바에 키보드 버튼이 표시됩니다. 먼저 원하는 슬롯의 편집 가능한 입력칸을 터치한 다음, 하단 키보드 버튼을 눌러 글자를 작성하고 [입력]을 누르세요. 예) 두 번째 화면의 검색칸을 터치 → 키보드 → 검색어 작성 → 입력. 입력한 내용은 선택된 슬롯의 해당 입력칸으로 전달되며 기존 글자를 대체합니다. 접근성 서비스가 켜져 있어야 하고, 보안 입력칸 등 일부 앱에서는 입력이 제한될 수 있습니다. 설정은 프로필별이 아닌 분할화면 전체 공통입니다. OFF면 키보드 버튼이 숨겨집니다."
+    },
+    "successFeedback": {
+      "vibrationDefault": true
     }
   },
   "windowAdapters": [
@@ -640,7 +645,7 @@
     "duplicateMs": 1000,
     "reentryStableMs": 200
   },
-  "notes": "V6 원본과 비교하여 카카오 TEST의 콜 카드 최대높이 116→201, 마지막 카드 기준 900→2102, 티맵 TEST의 최대높이 117→222, 마지막 카드 기준 900→2102, 티맵 TEST 예상시간 검색 시작 X비율 0.25→0.20만 수정함. 실사용 카카오/티맵/로지/콜마너 및 로지/콜마너 TEST, 다른 앱, 색상 키워드/시간당 계산식, 자동·반자동 모드, 화면 인식 문구/수락 버튼/2회 클릭 동작 등은 변경하지 않음. 정확한 앱 접근성 노드 좌표와 실기기 동작은 현장 검증 필요.",
+  "notes": "V6 원본과 비교하여 카카오 TEST의 콜 카드 최대높이 116→201, 마지막 카드 기준 900→2102, 티맵 TEST의 최대높이 117→222, 마지막 카드 기준 900→2102, 티맵 TEST 예상시간 검색 시작 X비율 0.25→0.20만 수정함. 실사용 카카오/티맵/로지/콜마너 및 로지/콜마너 TEST, 다른 앱, 프로필 16개, 색상 키워드/시간당 계산식, 자동·반자동 모드, 화면 인식 문구/수락 버튼/2회 클릭 동작 등은 변경하지 않음. 정확한 앱 접근성 노드 좌표와 실기기 동작은 현장 검증 필요. 이번 별도 배포본은 기본 제공 프로필만 제거했으며 나머지 규칙은 유지합니다.",
   "splitAutomation": {
     "acceptButtons": {
       "com.kakao.wheel.driver": "수락",
@@ -1625,88 +1630,6 @@
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
             "splitDestinationField": "secondText",
-            "aliases": [
-              {
-                "contains": "양재동 시민의숲",
-                "regionCode": "11220670"
-              },
-              {
-                "contains": "반포동 센트럴시티",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "압구정동 현대백화점",
-                "regionCode": "11230770"
-              },
-              {
-                "contains": "성수동 서울숲역",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "반포동 서래마을",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "서울 용산구 한남동",
-                "regionCode": "11030740"
-              },
-              {
-                "contains": "용산동 삼각지역",
-                "regionCode": "11030730"
-              },
-              {
-                "contains": "서울 마포구 공덕동",
-                "regionCode": "11140770"
-              },
-              {
-                "contains": "여의도동 IFC몰",
-                "regionCode": "11190540"
-              },
-              {
-                "contains": "서울 영등포구 문래동",
-                "regionCode": "11190760"
-              },
-              {
-                "contains": "상암동 디지털미디어시티",
-                "regionCode": "11140740"
-              },
-              {
-                "contains": "불광동 연신내역",
-                "regionCode": "11120720"
-              },
-              {
-                "contains": "서울 강남구 삼성동 코엑스 동문",
-                "regionCode": "11230580"
-              },
-              {
-                "contains": "신사동 가로수길",
-                "regionCode": "11230510"
-              },
-              {
-                "contains": "서울 강남구 역삼동 강남역 11번 출구",
-                "regionCode": "11230640"
-              },
-              {
-                "contains": "구의동 강변역",
-                "regionCode": "11050620"
-              },
-              {
-                "contains": "서울 중구 을지로동 동대문디자인플라자",
-                "regionCode": "11020600"
-              },
-              {
-                "contains": "성수동 서울숲",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "서울 중구 명동 명동성당 정문",
-                "regionCode": "11020550"
-              },
-              {
-                "contains": "서울 광진구 광장동 워커힐호텔 정문",
-                "regionCode": "11050630"
-              }
-            ],
             "showDurationIndependently": true,
             "durationDisplayPrefix": "예상 ",
             "durationDisplaySuffix": "분",
@@ -2976,88 +2899,6 @@
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
             "splitDestinationField": "secondText",
-            "aliases": [
-              {
-                "contains": "양재동 시민의숲",
-                "regionCode": "11220670"
-              },
-              {
-                "contains": "반포동 센트럴시티",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "압구정동 현대백화점",
-                "regionCode": "11230770"
-              },
-              {
-                "contains": "성수동 서울숲역",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "반포동 서래마을",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "서울 용산구 한남동",
-                "regionCode": "11030740"
-              },
-              {
-                "contains": "용산동 삼각지역",
-                "regionCode": "11030730"
-              },
-              {
-                "contains": "서울 마포구 공덕동",
-                "regionCode": "11140770"
-              },
-              {
-                "contains": "여의도동 IFC몰",
-                "regionCode": "11190540"
-              },
-              {
-                "contains": "서울 영등포구 문래동",
-                "regionCode": "11190760"
-              },
-              {
-                "contains": "상암동 디지털미디어시티",
-                "regionCode": "11140740"
-              },
-              {
-                "contains": "불광동 연신내역",
-                "regionCode": "11120720"
-              },
-              {
-                "contains": "서울 강남구 삼성동 코엑스 동문",
-                "regionCode": "11230580"
-              },
-              {
-                "contains": "신사동 가로수길",
-                "regionCode": "11230510"
-              },
-              {
-                "contains": "서울 강남구 역삼동 강남역 11번 출구",
-                "regionCode": "11230640"
-              },
-              {
-                "contains": "구의동 강변역",
-                "regionCode": "11050620"
-              },
-              {
-                "contains": "서울 중구 을지로동 동대문디자인플라자",
-                "regionCode": "11020600"
-              },
-              {
-                "contains": "성수동 서울숲",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "서울 중구 명동 명동성당 정문",
-                "regionCode": "11020550"
-              },
-              {
-                "contains": "서울 광진구 광장동 워커힐호텔 정문",
-                "regionCode": "11050630"
-              }
-            ],
             "showDurationIndependently": true,
             "durationDisplayPrefix": "예상 ",
             "durationDisplaySuffix": "분",
@@ -3124,6 +2965,17 @@
             "originLabelPrefix": "출 ",
             "destinationLabelPrefix": "도 ",
             "displaySeparator": " · "
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "lg_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "lg_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "lg_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "lg_insurance_won",
+            "fixedDefault": 1000
           }
         },
         "dev.viperlab.ninjamock.callmaner": {
@@ -3343,6 +3195,17 @@
             "originLabelPrefix": "출 ",
             "destinationLabelPrefix": "도 ",
             "displaySeparator": " · "
+          },
+          "valueAdjustment": {
+            "version": 1,
+            "percentEnabledKey": "cm_commission_enabled",
+            "percentEnabledDefault": true,
+            "percentKey": "cm_commission_percent",
+            "percentDefault": 20,
+            "fixedEnabledKey": "cm_insurance_enabled",
+            "fixedEnabledDefault": true,
+            "fixedKey": "cm_insurance_won",
+            "fixedDefault": 1000
           }
         },
         "dev.viperlab.ninjamock.idriver": {
@@ -4295,88 +4158,6 @@
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
             "splitDestinationField": "secondText",
-            "aliases": [
-              {
-                "contains": "양재동 시민의숲",
-                "regionCode": "11220670"
-              },
-              {
-                "contains": "반포동 센트럴시티",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "압구정동 현대백화점",
-                "regionCode": "11230770"
-              },
-              {
-                "contains": "성수동 서울숲역",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "반포동 서래마을",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "서울 용산구 한남동",
-                "regionCode": "11030740"
-              },
-              {
-                "contains": "용산동 삼각지역",
-                "regionCode": "11030730"
-              },
-              {
-                "contains": "서울 마포구 공덕동",
-                "regionCode": "11140770"
-              },
-              {
-                "contains": "여의도동 IFC몰",
-                "regionCode": "11190540"
-              },
-              {
-                "contains": "서울 영등포구 문래동",
-                "regionCode": "11190760"
-              },
-              {
-                "contains": "상암동 디지털미디어시티",
-                "regionCode": "11140740"
-              },
-              {
-                "contains": "불광동 연신내역",
-                "regionCode": "11120720"
-              },
-              {
-                "contains": "서울 강남구 삼성동 코엑스 동문",
-                "regionCode": "11230580"
-              },
-              {
-                "contains": "신사동 가로수길",
-                "regionCode": "11230510"
-              },
-              {
-                "contains": "서울 강남구 역삼동 강남역 11번 출구",
-                "regionCode": "11230640"
-              },
-              {
-                "contains": "구의동 강변역",
-                "regionCode": "11050620"
-              },
-              {
-                "contains": "서울 중구 을지로동 동대문디자인플라자",
-                "regionCode": "11020600"
-              },
-              {
-                "contains": "성수동 서울숲",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "서울 중구 명동 명동성당 정문",
-                "regionCode": "11020550"
-              },
-              {
-                "contains": "서울 광진구 광장동 워커힐호텔 정문",
-                "regionCode": "11050630"
-              }
-            ],
             "showDurationIndependently": true,
             "durationDisplayPrefix": "예상 ",
             "durationDisplaySuffix": "분",
@@ -4707,88 +4488,6 @@
             "useAsDurationFallback": true,
             "splitOriginField": "firstText",
             "splitDestinationField": "secondText",
-            "aliases": [
-              {
-                "contains": "양재동 시민의숲",
-                "regionCode": "11220670"
-              },
-              {
-                "contains": "반포동 센트럴시티",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "압구정동 현대백화점",
-                "regionCode": "11230770"
-              },
-              {
-                "contains": "성수동 서울숲역",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "반포동 서래마을",
-                "regionCode": "11220600"
-              },
-              {
-                "contains": "서울 용산구 한남동",
-                "regionCode": "11030740"
-              },
-              {
-                "contains": "용산동 삼각지역",
-                "regionCode": "11030730"
-              },
-              {
-                "contains": "서울 마포구 공덕동",
-                "regionCode": "11140770"
-              },
-              {
-                "contains": "여의도동 IFC몰",
-                "regionCode": "11190540"
-              },
-              {
-                "contains": "서울 영등포구 문래동",
-                "regionCode": "11190760"
-              },
-              {
-                "contains": "상암동 디지털미디어시티",
-                "regionCode": "11140740"
-              },
-              {
-                "contains": "불광동 연신내역",
-                "regionCode": "11120720"
-              },
-              {
-                "contains": "서울 강남구 삼성동 코엑스 동문",
-                "regionCode": "11230580"
-              },
-              {
-                "contains": "신사동 가로수길",
-                "regionCode": "11230510"
-              },
-              {
-                "contains": "서울 강남구 역삼동 강남역 11번 출구",
-                "regionCode": "11230640"
-              },
-              {
-                "contains": "구의동 강변역",
-                "regionCode": "11050620"
-              },
-              {
-                "contains": "서울 중구 을지로동 동대문디자인플라자",
-                "regionCode": "11020600"
-              },
-              {
-                "contains": "성수동 서울숲",
-                "regionCode": "11040650"
-              },
-              {
-                "contains": "서울 중구 명동 명동성당 정문",
-                "regionCode": "11020550"
-              },
-              {
-                "contains": "서울 광진구 광장동 워커힐호텔 정문",
-                "regionCode": "11050630"
-              }
-            ],
             "showDurationIndependently": true,
             "durationDisplayPrefix": "예상 ",
             "durationDisplaySuffix": "분",
@@ -5279,5 +4978,6 @@
     "manualStep": 1,
     "manualLimit": 10,
     "periodFactor": 60
-  }
+  },
+  "version": "1.0.189"
 }
