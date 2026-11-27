@@ -3,7 +3,7 @@
   "moduleVersion": 1,
   "name": "ELCEON 프로필2 전용",
   "description": "전국 지역 마킹 · 지역 점수 · 보조 선택 조건",
-  "version": "1.0.189",
+  "version": "1.0.190",
   "regionProfileUi": {
     "version": 1,
     "labels": {
