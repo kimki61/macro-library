@@ -5,7 +5,7 @@
   "priority": 30,
   "variables": [
     {
-      "name": "지역 테스트",
+      "name": "test_text",
       "source": "screen.text"
     }
   ],
